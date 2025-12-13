@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(brew install:*)",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:danielmiessler.com)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git -C /Users/mistergrinvalds/Repos/personal/claude-code.nvim init)",
+      "Bash(git -C /Users/mistergrinvalds/Repos/personal/claude-code.nvim status)",
+      "Bash(git -C /Users/mistergrinvalds/Repos/personal/kickstart.nvim status)",
+      "Bash(git -C /Users/mistergrinvalds/Repos/personal/claude-code.nvim add lua/claude-code/init.lua plugin/claude-code.lua)",
+      "Bash(git -C /Users/mistergrinvalds/Repos/personal/claude-code.nvim commit -m \"$(cat <<''EOF''\nfeat: initial plugin core\n\n- Toggle-able split window for Claude Code CLI\n- Context injection (file, selection, diagnostics)\n- Telescope command palette integration\n- Terminal keymaps (Esc passes through, Esc-Esc exits)\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git -C /Users/mistergrinvalds/Repos/personal/kickstart.nvim add .claude/)",
+      "Bash(git -C /Users/mistergrinvalds/Repos/personal/kickstart.nvim commit -m \"$(cat <<''EOF''\nfeat: add Claude agents for nvim config and research\n\n- /nvim-config: interactive configuration assistant\n- /nvim-research: plugin research and recommendations\n- docs: ghostty workflow, claude-code plugin guide\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")"
+    ]
+  }
+}
