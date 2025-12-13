@@ -12,20 +12,31 @@ return {
     { '<leader>br', '<Cmd>BufferLineCloseRight<CR>', desc = 'Delete Buffers to the [R]ight' },
     { '<leader>bl', '<Cmd>BufferLineCloseLeft<CR>', desc = 'Delete Buffers to the [L]eft' },
     { '<leader>bd', '<Cmd>bdelete<CR>', desc = '[D]elete Buffer' },
+    { '<leader>bj', '<Cmd>BufferLinePick<CR>', desc = '[J]ump to Buffer' },
     { '<S-h>', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev Buffer' },
     { '<S-l>', '<cmd>BufferLineCycleNext<cr>', desc = 'Next Buffer' },
     { '[b', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev Buffer' },
     { ']b', '<cmd>BufferLineCycleNext<cr>', desc = 'Next Buffer' },
     { '[B', '<cmd>BufferLineMovePrev<cr>', desc = 'Move Buffer Left' },
     { ']B', '<cmd>BufferLineMoveNext<cr>', desc = 'Move Buffer Right' },
+    -- Tab management (note: <leader>1-4 reserved for Harpoon)
+    { '<leader>tn', '<Cmd>tabnew<CR>', desc = '[T]ab [N]ew' },
+    { '<leader>tc', '<Cmd>tabclose<CR>', desc = '[T]ab [C]lose' },
+    { '<leader>to', '<Cmd>tabonly<CR>', desc = '[T]ab [O]nly (close others)' },
+    { ']t', '<Cmd>tabnext<CR>', desc = 'Next Tab' },
+    { '[t', '<Cmd>tabprev<CR>', desc = 'Prev Tab' },
   },
   opts = {
     options = {
+      mode = 'buffers', -- 'buffers' or 'tabs'
+      numbers = 'ordinal', -- Show buffer numbers
       close_command = 'bdelete! %d',
       right_mouse_command = 'bdelete! %d',
       diagnostics = 'nvim_lsp',
-      always_show_bufferline = false, -- Only show when multiple buffers
+      always_show_bufferline = true,
       separator_style = 'slant', -- 'slant' | 'slope' | 'thick' | 'thin'
+      show_buffer_close_icons = true,
+      show_close_icon = false,
       offsets = {
         {
           filetype = 'neo-tree',

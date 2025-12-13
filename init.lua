@@ -157,6 +157,9 @@ vim.o.inccommand = 'split'
 -- Show which line your cursor is on
 vim.o.cursorline = true
 
+-- Show file path at top of each window (winbar)
+vim.o.winbar = '%=%m %f'
+
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.o.scrolloff = 10
 
