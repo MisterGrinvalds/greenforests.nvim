@@ -6,6 +6,15 @@ return {
   },
   config = function()
     require('command-palette').setup({
+      -- Providers to enable
+      providers = {
+        'nvim', -- Vim ex commands
+        'keymaps', -- Registered keybindings
+        'lsp', -- LSP actions
+        'shell', -- Shell commands
+        'terminal', -- Terminal manager integration
+      },
+
       -- Use dropdown theme for clean look
       telescope_opts = {
         theme = 'dropdown',
