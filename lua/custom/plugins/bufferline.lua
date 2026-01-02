@@ -21,8 +21,8 @@ return {
       function()
         vim.ui.input({ prompt = 'Tab name: ' }, function(name)
           if name and name ~= '' then
-            -- Open new tab with file (creates the tab)
-            vim.cmd('tabedit ' .. vim.fn.fnameescape(name))
+            -- Create new empty tab
+            vim.cmd('tabnew')
             -- Set BufferLine tab name
             vim.cmd('BufferLineTabRename ' .. name)
           else
