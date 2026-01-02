@@ -16,7 +16,23 @@ return {
     { '<leader>bp', '<cmd>lua require("custom.buffer-picker").show()<cr>', desc = 'Buffer [P]icker' },
     -- Tab navigation (with picker)
     { '<leader>xp', '<cmd>lua require("custom.tab-picker").show()<cr>', desc = 'Tab [P]icker' },
-    { '<leader>xn', '<Cmd>tabnew<CR>', desc = 'Tab [N]ew' },
+    {
+      '<leader>xn',
+      function()
+        vim.ui.input({ prompt = 'Tab name: ' }, function(name)
+          if name and name ~= '' then
+            vim.cmd('tabnew')
+            -- Set BufferLine tab name
+            vim.t.bufferline_tab_name = name
+            vim.notify('Created tab: ' .. name, vim.log.levels.INFO)
+          else
+            -- No name provided, just create tab
+            vim.cmd('tabnew')
+          end
+        end)
+      end,
+      desc = 'Tab [N]ew (with name)',
+    },
     { '<leader>xc', '<Cmd>tabclose<CR>', desc = 'Tab [C]lose' },
     { '<leader>xo', '<Cmd>tabonly<CR>', desc = 'Tab [O]nly (close others)' },
     { ']t', '<Cmd>tabnext<CR>', desc = 'Next Tab' },
