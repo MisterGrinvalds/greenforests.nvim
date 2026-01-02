@@ -38,6 +38,11 @@ return {
       require('claude-code').new_session()
     end, { desc = '[C]laude [N]ew session' })
 
+    -- Delete session
+    vim.keymap.set('n', '<leader>cx', function()
+      require('claude-code').delete_session()
+    end, { desc = '[C]laude delete/e[X]it session' })
+
     -- Context injection
     vim.keymap.set('n', '<leader>cf', function()
       require('claude-code').send_file()
@@ -60,5 +65,10 @@ return {
     vim.keymap.set({ 'n', 'v' }, '<leader>cr', function()
       require('claude-code').pick_and_replace()
     end, { desc = '[C]laude: [R]eplace with code' })
+
+    -- Manual buffer refresh (force reload all buffers)
+    vim.keymap.set('n', '<leader>cb', function()
+      require('claude-code').sync.force_refresh() -- shows notification
+    end, { desc = '[C]laude: Refresh [B]uffers' })
   end,
 }

@@ -14,15 +14,27 @@ return {
       lualine_b = { 'branch', 'diff', 'diagnostics' },
       lualine_c = { 'filename' },
       lualine_x = {
-        -- Claude Code status indicator
-        function()
-          local ok, claude_status = pcall(require, 'claude-code.statusline')
-          if ok then
-            return claude_status.get_status_string()
-          end
-          return ''
-        end,
-        -- Encoding, fileformat, filetype
+        -- Claude Code status (model, tokens, lines changed)
+        {
+          function()
+            local ok, statusline = pcall(require, 'claude-code.statusline')
+            if ok then
+              return statusline.get_status()
+            end
+            return ''
+          end,
+          color = function()
+            local ok, statusline = pcall(require, 'claude-code.statusline')
+            if ok then
+              return { fg = statusline.get_color() }
+            end
+            return {}
+          end,
+          cond = function()
+            local ok, statusline = pcall(require, 'claude-code.statusline')
+            return ok and statusline.get_cached_status() ~= nil
+          end,
+        },
         'encoding',
         'fileformat',
         'filetype',
