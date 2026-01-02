@@ -55,5 +55,10 @@ return {
     vim.keymap.set('n', '<leader>ca', function()
       require('claude-code').ask()
     end, { desc = '[C]laude: [A]sk' })
+
+    -- Replace selection with Claude's code
+    vim.keymap.set({ 'n', 'v' }, '<leader>cr', function()
+      require('claude-code').pick_and_replace()
+    end, { desc = '[C]laude: [R]eplace with code' })
   end,
 }
