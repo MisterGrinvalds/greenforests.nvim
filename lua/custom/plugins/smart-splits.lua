@@ -17,17 +17,11 @@ return {
       at_edge = 'stop',
     })
 
-    -- Navigation (move between splits) - hjkl and arrow keys
+    -- Navigation (move between splits) - hjkl only (Ctrl+arrows conflict with macOS)
     vim.keymap.set('n', '<C-h>', require('smart-splits').move_cursor_left, { desc = 'Move to left split' })
     vim.keymap.set('n', '<C-j>', require('smart-splits').move_cursor_down, { desc = 'Move to below split' })
     vim.keymap.set('n', '<C-k>', require('smart-splits').move_cursor_up, { desc = 'Move to above split' })
     vim.keymap.set('n', '<C-l>', require('smart-splits').move_cursor_right, { desc = 'Move to right split' })
-
-    -- Arrow key alternatives for split navigation
-    vim.keymap.set('n', '<C-Left>', require('smart-splits').move_cursor_left, { desc = 'Move to left split' })
-    vim.keymap.set('n', '<C-Down>', require('smart-splits').move_cursor_down, { desc = 'Move to below split' })
-    vim.keymap.set('n', '<C-Up>', require('smart-splits').move_cursor_up, { desc = 'Move to above split' })
-    vim.keymap.set('n', '<C-Right>', require('smart-splits').move_cursor_right, { desc = 'Move to right split' })
 
     -- Resizing (Alt + hjkl and arrows)
     vim.keymap.set('n', '<A-h>', require('smart-splits').resize_left, { desc = 'Resize split left' })
@@ -41,16 +35,10 @@ return {
     vim.keymap.set('n', '<A-Up>', require('smart-splits').resize_up, { desc = 'Resize split up' })
     vim.keymap.set('n', '<A-Right>', require('smart-splits').resize_right, { desc = 'Resize split right' })
 
-    -- Swapping buffers between windows
+    -- Swapping buffers between windows (hjkl only to keep it simple)
     vim.keymap.set('n', '<leader>wh', require('smart-splits').swap_buf_left, { desc = 'Swap buffer left' })
     vim.keymap.set('n', '<leader>wj', require('smart-splits').swap_buf_down, { desc = 'Swap buffer down' })
     vim.keymap.set('n', '<leader>wk', require('smart-splits').swap_buf_up, { desc = 'Swap buffer up' })
     vim.keymap.set('n', '<leader>wl', require('smart-splits').swap_buf_right, { desc = 'Swap buffer right' })
-
-    -- Arrow key alternatives for swapping
-    vim.keymap.set('n', '<leader>w<Left>', require('smart-splits').swap_buf_left, { desc = 'Swap buffer left' })
-    vim.keymap.set('n', '<leader>w<Down>', require('smart-splits').swap_buf_down, { desc = 'Swap buffer down' })
-    vim.keymap.set('n', '<leader>w<Up>', require('smart-splits').swap_buf_up, { desc = 'Swap buffer up' })
-    vim.keymap.set('n', '<leader>w<Right>', require('smart-splits').swap_buf_right, { desc = 'Swap buffer right' })
   end,
 }
