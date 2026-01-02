@@ -27,5 +27,8 @@ return {
       close_on_exit = true,
       start_insert = false, -- Stay in normal mode, press 'i' to type
     })
+
+    -- Add quick toggle with just <leader>c
+    vim.keymap.set('n', '<leader>c', '<cmd>ClaudeToggle<cr>', { desc = '[C]laude Code Toggle' })
   end,
 }

@@ -133,8 +133,8 @@ vim.o.signcolumn = 'yes'
 -- Decrease update time
 vim.o.updatetime = 250
 
--- Decrease mapped sequence wait time
-vim.o.timeoutlen = 300
+-- Decrease mapped sequence wait time (fast for <leader> combos)
+vim.o.timeoutlen = 200  -- Match which-key delay
 
 -- Configure how new splits should be opened
 vim.o.splitright = true
@@ -317,7 +317,8 @@ require('lazy').setup({
     opts = {
       -- delay between pressing a key and opening which-key (milliseconds)
       -- this setting is independent of vim.o.timeoutlen
-      delay = 0,
+      -- Set higher than timeoutlen so key combos execute before popup shows
+      delay = 300,  -- Wait 300ms before showing which-key popup
       icons = {
         -- set icon mappings to true if you have a Nerd Font
         mappings = vim.g.have_nerd_font,
@@ -362,7 +363,7 @@ require('lazy').setup({
         { '<leader>g', group = '[G]it' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
         { '<leader>s', group = '[S]earch' },
-        { '<leader>t', group = '[T]oggle' },
+        { '<leader>t', group = '[T]erminal' },
         { '<leader>w', group = '[W]indow' },
         { '<leader>x', group = 'Diagnostics' },
       },
@@ -768,12 +769,12 @@ require('lazy').setup({
     cmd = { 'ConformInfo' },
     keys = {
       {
-        '<leader>f',
+        '<leader>lf',
         function()
           require('conform').format { async = true, lsp_format = 'fallback' }
         end,
         mode = '',
-        desc = '[F]ormat buffer',
+        desc = '[L]SP [F]ormat buffer',
       },
     },
     opts = {

@@ -43,8 +43,10 @@ return {
 
     -- Set up keybindings
     vim.keymap.set('n', '<leader>t', '<cmd>TerminalPicker<cr>', { desc = '[T]erminal Picker' })
-    vim.keymap.set('n', '<leader>tt', '<cmd>TerminalToggle<cr>', { desc = '[T]erminal [T]oggle Last' })
+    vim.keymap.set('n', '<leader>tt', '<cmd>TerminalTogglePane<cr>', { desc = '[T]erminal [T]oggle Pane' })
     vim.keymap.set('n', '<leader>tn', '<cmd>TerminalNew<cr>', { desc = '[T]erminal [N]ew' })
+    vim.keymap.set('n', '<leader>tm', '<cmd>TerminalToggleMaximize<cr>', { desc = '[T]erminal [M]aximize Toggle' })
+    vim.keymap.set('n', '<leader>th', '<cmd>TerminalHidePane<cr>', { desc = '[T]erminal [H]ide Pane' })
 
     -- Quick access to common terminals
     vim.keymap.set('n', '<leader>tg', function()
