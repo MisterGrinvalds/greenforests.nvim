@@ -2,11 +2,22 @@
 local M = {}
 
 --- Execute tmux command and return output
----@param args table List of command arguments
+---@param args table List of command arguments (will be shell-escaped)
 ---@return string|nil result Command output
 ---@return string|nil error Error message if failed
 function M.exec(args)
-  local cmd = 'tmux ' .. table.concat(args, ' ')
+  -- Properly escape each argument
+  local escaped_args = {}
+  for _, arg in ipairs(args) do
+    -- If arg contains special chars, quote it
+    if arg:match('[%s#{}$]') then
+      table.insert(escaped_args, "'" .. arg:gsub("'", "'\\''") .. "'")
+    else
+      table.insert(escaped_args, arg)
+    end
+  end
+
+  local cmd = 'tmux ' .. table.concat(escaped_args, ' ')
   local handle = io.popen(cmd .. ' 2>&1')
   if not handle then
     return nil, 'Failed to execute tmux command'
