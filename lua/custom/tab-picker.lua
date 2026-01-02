@@ -10,12 +10,12 @@ function M.show()
   local action_state = require('telescope.actions.state')
   local entry_display = require('telescope.pickers.entry_display')
 
-  -- Get all tabs
+  -- Get all tabs using tabpage handles (compatible with all Neovim versions)
   local tabs = {}
-  local tab_count = vim.fn.tabpagenr('$')
-  local current_tab = vim.fn.tabpagenr()
+  local tabpages = vim.api.nvim_list_tabpages()
+  local current_tabpage = vim.api.nvim_get_current_tabpage()
 
-  for i = 1, tab_count do
+  for i, tabpage in ipairs(tabpages) do
     -- Get tab info
     local tabnr = i
     local buflist = vim.fn.tabpagebuflist(tabnr)
@@ -25,15 +25,15 @@ function M.show()
 
     -- Get BufferLine tab name if set, otherwise use filename
     -- This syncs with BufferLineTabRename command
-    local tabpage_id = vim.fn.tabpagenr2id(tabnr)
-    local ok, bufferline_name = pcall(vim.api.nvim_tabpage_get_var, tabpage_id, 'bufferline_tab_name')
+    local ok, bufferline_name = pcall(vim.api.nvim_tabpage_get_var, tabpage, 'bufferline_tab_name')
     local name = ok and bufferline_name or (bufname ~= '' and vim.fn.fnamemodify(bufname, ':t') or '[No Name]')
 
     table.insert(tabs, {
       tabnr = tabnr,
+      tabpage = tabpage,
       name = name,
       bufname = bufname,
-      active = tabnr == current_tab,
+      active = tabpage == current_tabpage,
       has_custom_name = ok,
     })
   end
@@ -118,7 +118,7 @@ function M.show()
               if name and name ~= '' then
                 -- Use BufferLine's tab naming system for consistency
                 -- This syncs with :BufferLineTabRename command
-                vim.api.nvim_tabpage_set_var(vim.fn.tabpagenr2id(selection.value.tabnr), 'bufferline_tab_name', name)
+                vim.api.nvim_tabpage_set_var(selection.value.tabpage, 'bufferline_tab_name', name)
                 vim.notify('Tab renamed to: ' .. name, vim.log.levels.INFO)
               end
             end)
