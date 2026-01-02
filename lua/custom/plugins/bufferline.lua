@@ -13,7 +13,7 @@ return {
     { '<leader>bl', '<Cmd>BufferLineCloseLeft<CR>', desc = 'Delete buffers to [L]eft' },
     { '<leader>bd', '<Cmd>bdelete<CR>', desc = '[D]elete buffer' },
     { '<leader>bj', '<Cmd>BufferLinePick<CR>', desc = '[J]ump to buffer (visual)' },
-    { '<leader>bp', '<cmd>Telescope buffers<cr>', desc = 'Buffer [P]icker (Telescope)' },
+    { '<leader>bp', '<cmd>lua require("custom.buffer-picker").show()<cr>', desc = 'Buffer [P]icker' },
     -- Tab navigation (with picker)
     { '<leader>xp', '<cmd>lua require("custom.tab-picker").show()<cr>', desc = 'Tab [P]icker' },
     { '<leader>xn', '<Cmd>tabnew<CR>', desc = 'Tab [N]ew' },
