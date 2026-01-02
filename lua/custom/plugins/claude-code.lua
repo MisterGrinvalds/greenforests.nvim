@@ -1,34 +1,59 @@
 -- Claude Code integration for Neovim
--- Local development version - points to standalone plugin
+-- Multi-instance with lazygit-style floating window
 return {
   dir = '/Users/mistergrinvalds/Repos/personal/claude-code.nvim',
   name = 'claude-code',
   event = 'VeryLazy',
   dependencies = {
-    'nvim-telescope/telescope.nvim', -- Optional: for command palette
+    'nvim-telescope/telescope.nvim', -- For session picker
   },
   config = function()
     require('claude-code').setup({
       window = {
-        position = 'right', -- 'right', 'left', 'bottom', 'float'
-        width = 0.4, -- 40% of screen width
-        height = 0.3, -- 30% of screen height (for bottom)
+        width = 0.9, -- 90% of screen (lazygit-style)
+        height = 0.9,
+        border = 'rounded',
       },
-      keymaps = {
-        toggle = '<leader>cc', -- Toggle Claude Code window
-        send_file = '<leader>cf', -- Send current file
-        send_selection = '<leader>cs', -- Send visual selection
-        send_diagnostics = '<leader>cd', -- Send LSP diagnostics
-        send_buffer = '<leader>cb', -- Send buffer with full context
-        command_palette = '<leader>cp', -- Open command palette
-        ask = '<leader>ca', -- Ask Claude
-      },
-      auto_scroll = true,
-      close_on_exit = true,
-      start_insert = false, -- Stay in normal mode, press 'i' to type
+      command = 'claude',
+      default_session = 'main', -- Auto-created on first <leader>cc
     })
 
-    -- Add quick toggle with just <leader>c
-    vim.keymap.set('n', '<leader>c', '<cmd>ClaudeToggle<cr>', { desc = '[C]laude Code Toggle' })
+    -- Main toggle (auto-creates "main" or uses last session)
+    vim.keymap.set('n', '<leader>cc', function()
+      require('claude-code').toggle()
+    end, { desc = '[C]laude [C]ode toggle' })
+
+    -- Quick toggle alias
+    vim.keymap.set('n', '<leader>c', function()
+      require('claude-code').toggle()
+    end, { desc = '[C]laude Code' })
+
+    -- Session picker
+    vim.keymap.set('n', '<leader>cp', function()
+      require('claude-code').picker()
+    end, { desc = '[C]laude [P]icker' })
+
+    -- New session
+    vim.keymap.set('n', '<leader>cn', function()
+      require('claude-code').new_session()
+    end, { desc = '[C]laude [N]ew session' })
+
+    -- Context injection
+    vim.keymap.set('n', '<leader>cf', function()
+      require('claude-code').send_file()
+    end, { desc = '[C]laude: Send [F]ile' })
+
+    vim.keymap.set('v', '<leader>cs', function()
+      require('claude-code').send_selection()
+    end, { desc = '[C]laude: Send [S]election' })
+
+    vim.keymap.set('n', '<leader>cd', function()
+      require('claude-code').send_diagnostics()
+    end, { desc = '[C]laude: Send [D]iagnostics' })
+
+    -- Ask with custom prompt
+    vim.keymap.set('n', '<leader>ca', function()
+      require('claude-code').ask()
+    end, { desc = '[C]laude: [A]sk' })
   end,
 }
