@@ -46,23 +46,29 @@ function M.show()
   local displayer = entry_display.create({
     separator = ' ',
     items = {
-      { width = 4 },
-      { remaining = true },
-      { width = 3 },
+      { width = 25 },  -- Tab name
+      { width = 10 },  -- Status
+      { width = 15 },  -- Tab number
+      { remaining = true },  -- Buffer path
     },
   })
 
   local make_display = function(entry)
+    local status = entry.active and 'active' or 'background'
+    local tab_info = 'tab ' .. entry.tabnr
+    local path = entry.bufname ~= '' and vim.fn.fnamemodify(entry.bufname, ':~:.') or ''
+
     return displayer({
-      { '[' .. entry.tabnr .. ']', 'TelescopeResultsNumber' },
       { entry.name, 'TelescopeResultsIdentifier' },
-      { entry.active and '●' or ' ', entry.active and 'TelescopeResultsFunction' or 'TelescopeResultsComment' },
+      { status, entry.active and 'TelescopeResultsFunction' or 'TelescopeResultsComment' },
+      { tab_info, 'TelescopeResultsSpecialComment' },
+      { path, 'TelescopeResultsLineNr' },
     })
   end
 
   pickers
     .new({
-      prompt_title = ' Tabs',
+      prompt_title = '󰓩 Tabs',
       finder = finders.new_table({
         results = tabs,
         entry_maker = function(entry)

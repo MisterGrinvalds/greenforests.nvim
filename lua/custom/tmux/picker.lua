@@ -28,17 +28,23 @@ function M.show()
   local displayer = entry_display.create({
     separator = ' ',
     items = {
-      { width = 4 },
-      { width = 20 },
-      { width = 3 },
+      { width = 25 },  -- Window name
+      { width = 10 },  -- Status
+      { width = 15 },  -- Window index
+      { remaining = true },  -- Description
     },
   })
 
   local make_display = function(entry)
+    local status = entry.active and 'active' or 'background'
+    local win_info = 'window ' .. entry.index
+    local description = 'tmux window'
+
     return displayer({
-      { '[' .. entry.index .. ']', 'TelescopeResultsNumber' },
       { entry.name, 'TelescopeResultsIdentifier' },
-      { entry.active and '●' or ' ', entry.active and 'TelescopeResultsFunction' or 'TelescopeResultsComment' },
+      { status, entry.active and 'TelescopeResultsFunction' or 'TelescopeResultsComment' },
+      { win_info, 'TelescopeResultsSpecialComment' },
+      { description, 'TelescopeResultsLineNr' },
     })
   end
 

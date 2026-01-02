@@ -44,24 +44,29 @@ function M.show()
   local displayer = entry_display.create({
     separator = ' ',
     items = {
-      { width = 4 },
-      { remaining = true },
-      { width = 3 },
+      { width = 25 },  -- Buffer name
+      { width = 10 },  -- Type/Status
+      { width = 15 },  -- Modified indicator
+      { remaining = true },  -- Path
     },
   })
 
   local make_display = function(entry)
-    local modified_indicator = entry.modified and '+' or ' '
+    local status = entry.active and 'active' or 'loaded'
+    local modified = entry.modified and '[modified]' or ''
+    local path = entry.bufname ~= '' and vim.fn.fnamemodify(entry.bufname, ':~:.') or ''
+
     return displayer({
-      { '[' .. entry.bufnr .. ']', 'TelescopeResultsNumber' },
-      { entry.name .. modified_indicator, 'TelescopeResultsIdentifier' },
-      { entry.active and '●' or ' ', entry.active and 'TelescopeResultsFunction' or 'TelescopeResultsComment' },
+      { entry.name, 'TelescopeResultsIdentifier' },
+      { status, entry.active and 'TelescopeResultsFunction' or 'TelescopeResultsComment' },
+      { modified, 'TelescopeResultsSpecialComment' },
+      { path, 'TelescopeResultsLineNr' },
     })
   end
 
   pickers
     .new({
-      prompt_title = ' Buffers',
+      prompt_title = '󰈔 Buffers',
       finder = finders.new_table({
         results = buffers,
         entry_maker = function(entry)
