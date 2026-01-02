@@ -19,10 +19,10 @@ return {
     { ']b', '<cmd>BufferLineCycleNext<cr>', desc = 'Next Buffer' },
     { '[B', '<cmd>BufferLineMovePrev<cr>', desc = 'Move Buffer Left' },
     { ']B', '<cmd>BufferLineMoveNext<cr>', desc = 'Move Buffer Right' },
-    -- Tab management (note: <leader>1-4 reserved for Harpoon)
-    { '<leader>tn', '<Cmd>tabnew<CR>', desc = '[T]ab [N]ew' },
-    { '<leader>tc', '<Cmd>tabclose<CR>', desc = '[T]ab [C]lose' },
-    { '<leader>to', '<Cmd>tabonly<CR>', desc = '[T]ab [O]nly (close others)' },
+    -- Tab management (moved to <leader>x prefix to avoid tmux <leader>t conflicts)
+    { '<leader>xn', '<Cmd>tabnew<CR>', desc = 'Tab [N]ew' },
+    { '<leader>xc', '<Cmd>tabclose<CR>', desc = 'Tab [C]lose' },
+    { '<leader>xo', '<Cmd>tabonly<CR>', desc = 'Tab [O]nly (close others)' },
     { ']t', '<Cmd>tabnext<CR>', desc = 'Next Tab' },
     { '[t', '<Cmd>tabprev<CR>', desc = 'Prev Tab' },
   },
