@@ -40,7 +40,7 @@ return {
   },
   opts = {
     options = {
-      mode = 'tabs', -- Show Vim tabs instead of buffers (syncs with tab picker!)
+      mode = 'buffers', -- Show open files (buffers) at top
       numbers = 'ordinal', -- Show buffer numbers
       close_command = 'bdelete! %d',
       right_mouse_command = 'bdelete! %d',
