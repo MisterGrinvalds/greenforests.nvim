@@ -14,9 +14,9 @@ return {
     end
 
     -- Window picker
-    vim.keymap.set('n', '<leader>tw', function()
+    vim.keymap.set('n', '<leader>tp', function()
       require('custom.tmux.picker').show()
-    end, { desc = '[T]mux [W]indow picker' })
+    end, { desc = '[T]mux [P]icker' })
 
     -- Create new window
     vim.keymap.set('n', '<leader>tn', function()
