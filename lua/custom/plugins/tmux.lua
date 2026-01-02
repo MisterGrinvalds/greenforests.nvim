@@ -66,18 +66,25 @@ return {
       desc = '[T]mux split horizontal',
     })
 
-    -- Quick access to common windows (creates if doesn't exist)
-    vim.keymap.set('n', '<leader>tg', function()
-      tmux.goto('git')
-    end, { desc = '[T]mux [G]it window' })
+    -- Create window with command
+    vim.keymap.set('n', '<leader>tc', function()
+      vim.ui.input({ prompt = 'Window name: ' }, function(name)
+        if not name or name == '' then
+          return
+        end
 
-    vim.keymap.set('n', '<leader>td', function()
-      tmux.goto('dev')
-    end, { desc = '[T]mux [D]ev window' })
+        vim.ui.input({ prompt = 'Command to run (or Enter for shell): ' }, function(command)
+          -- Create window
+          tmux.window.create(name)
+          tmux.window.goto(name)
 
-    vim.keymap.set('n', '<leader>tt', function()
-      tmux.goto('test')
-    end, { desc = '[T]mux [T]est window' })
+          -- Send command if provided
+          if command and command ~= '' then
+            tmux.window.send_command(name, command, true)
+          end
+        end)
+      end)
+    end, { desc = '[T]mux [C]reate window with command' })
 
     -- Send visual selection to current window
     vim.keymap.set('v', '<leader>ts', function()
