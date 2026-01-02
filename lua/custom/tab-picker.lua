@@ -22,13 +22,17 @@ function M.show()
     local winnr = vim.fn.tabpagewinnr(tabnr)
     local bufnr = buflist[winnr]
     local bufname = vim.fn.bufname(bufnr)
-    local filename = bufname ~= '' and vim.fn.fnamemodify(bufname, ':t') or '[No Name]'
+
+    -- Get custom tab name if set, otherwise use filename
+    local ok, custom_name = pcall(vim.api.nvim_tabpage_get_var, vim.fn.tabpagenr2id(tabnr), 'tab_name')
+    local name = ok and custom_name or (bufname ~= '' and vim.fn.fnamemodify(bufname, ':t') or '[No Name]')
 
     table.insert(tabs, {
       tabnr = tabnr,
-      name = filename,
+      name = name,
       bufname = bufname,
       active = tabnr == current_tab,
+      has_custom_name = ok,
     })
   end
 
@@ -99,6 +103,23 @@ function M.show()
         map('i', '<c-n>', function()
           actions.close(prompt_bufnr)
           vim.cmd('tabnew')
+        end)
+
+        -- Ctrl-r: rename tab
+        map('i', '<c-r>', function()
+          local selection = action_state.get_selected_entry()
+          actions.close(prompt_bufnr)
+
+          if selection then
+            local current_name = selection.value.name
+            vim.ui.input({ prompt = 'Tab name: ', default = current_name }, function(name)
+              if name and name ~= '' then
+                -- Set custom tab name
+                vim.api.nvim_tabpage_set_var(vim.fn.tabpagenr2id(selection.value.tabnr), 'tab_name', name)
+                vim.notify('Tab renamed to: ' .. name, vim.log.levels.INFO)
+              end
+            end)
+          end
         end)
 
         return true
