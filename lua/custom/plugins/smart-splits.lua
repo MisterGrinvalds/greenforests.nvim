@@ -17,11 +17,17 @@ return {
       at_edge = 'stop',
     })
 
-    -- Navigation (move between splits) - hjkl only (Ctrl+arrows conflict with macOS)
-    vim.keymap.set('n', '<C-h>', require('smart-splits').move_cursor_left, { desc = 'Move to left split' })
-    vim.keymap.set('n', '<C-j>', require('smart-splits').move_cursor_down, { desc = 'Move to below split' })
-    vim.keymap.set('n', '<C-k>', require('smart-splits').move_cursor_up, { desc = 'Move to above split' })
-    vim.keymap.set('n', '<C-l>', require('smart-splits').move_cursor_right, { desc = 'Move to right split' })
+    -- Navigation (move between splits) - Shift+hjkl for clear split navigation
+    vim.keymap.set('n', '<S-h>', require('smart-splits').move_cursor_left, { desc = 'Move to left split' })
+    vim.keymap.set('n', '<S-j>', require('smart-splits').move_cursor_down, { desc = 'Move to below split' })
+    vim.keymap.set('n', '<S-k>', require('smart-splits').move_cursor_up, { desc = 'Move to above split' })
+    vim.keymap.set('n', '<S-l>', require('smart-splits').move_cursor_right, { desc = 'Move to right split' })
+
+    -- Arrow alternatives for split navigation
+    vim.keymap.set('n', '<S-Left>', require('smart-splits').move_cursor_left, { desc = 'Move to left split' })
+    vim.keymap.set('n', '<S-Down>', require('smart-splits').move_cursor_down, { desc = 'Move to below split' })
+    vim.keymap.set('n', '<S-Up>', require('smart-splits').move_cursor_up, { desc = 'Move to above split' })
+    vim.keymap.set('n', '<S-Right>', require('smart-splits').move_cursor_right, { desc = 'Move to right split' })
 
     -- Resizing (Alt + hjkl and arrows)
     vim.keymap.set('n', '<A-h>', require('smart-splits').resize_left, { desc = 'Resize split left' })

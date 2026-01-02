@@ -13,15 +13,14 @@ return {
     { '<leader>bl', '<Cmd>BufferLineCloseLeft<CR>', desc = 'Delete Buffers to the [L]eft' },
     { '<leader>bd', '<Cmd>bdelete<CR>', desc = '[D]elete Buffer' },
     { '<leader>bj', '<Cmd>BufferLinePick<CR>', desc = '[J]ump to Buffer' },
-    { '<S-h>', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev Buffer (Left)' },
-    { '<S-l>', '<cmd>BufferLineCycleNext<cr>', desc = 'Next Buffer (Right)' },
-    { '<S-Left>', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev Buffer (Left)' },
-    { '<S-Right>', '<cmd>BufferLineCycleNext<cr>', desc = 'Next Buffer (Right)' },
-    { '[b', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev Buffer' },
-    { ']b', '<cmd>BufferLineCycleNext<cr>', desc = 'Next Buffer' },
-    { '[B', '<cmd>BufferLineMovePrev<cr>', desc = 'Move Buffer Left' },
-    { ']B', '<cmd>BufferLineMoveNext<cr>', desc = 'Move Buffer Right' },
-    -- Vim tabs eliminated from workflow (use buffers + Harpoon instead)
+    -- Buffer cycling removed - use <leader><leader> (Telescope) or <leader>bj (visual picker)
+    -- Tab navigation (with picker)
+    { '<leader>xt', '<cmd>lua require("custom.tab-picker").show()<cr>', desc = 'Tab picker' },
+    { '<leader>xn', '<Cmd>tabnew<CR>', desc = 'Tab [N]ew' },
+    { '<leader>xc', '<Cmd>tabclose<CR>', desc = 'Tab [C]lose' },
+    { '<leader>xo', '<Cmd>tabonly<CR>', desc = 'Tab [O]nly (close others)' },
+    { ']t', '<Cmd>tabnext<CR>', desc = 'Next Tab' },
+    { '[t', '<Cmd>tabprev<CR>', desc = 'Prev Tab' },
   },
   opts = {
     options = {
