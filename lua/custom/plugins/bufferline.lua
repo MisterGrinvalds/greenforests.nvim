@@ -15,6 +15,8 @@ return {
     { '<leader>bj', '<Cmd>BufferLinePick<CR>', desc = '[J]ump to Buffer' },
     { '<S-h>', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev Buffer (Left)' },
     { '<S-l>', '<cmd>BufferLineCycleNext<cr>', desc = 'Next Buffer (Right)' },
+    { '<S-Left>', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev Buffer (Left)' },
+    { '<S-Right>', '<cmd>BufferLineCycleNext<cr>', desc = 'Next Buffer (Right)' },
     { '[b', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev Buffer' },
     { ']b', '<cmd>BufferLineCycleNext<cr>', desc = 'Next Buffer' },
     { '[B', '<cmd>BufferLineMovePrev<cr>', desc = 'Move Buffer Left' },
