@@ -21,8 +21,8 @@ return {
       function()
         vim.ui.input({ prompt = 'Tab name: ' }, function(name)
           if name and name ~= '' then
-            -- Create new empty tab
-            vim.cmd('tabnew')
+            -- Create tab with file name (your discovered workflow)
+            vim.cmd('tabedit ' .. vim.fn.fnameescape(name))
             -- Set BufferLine tab name
             vim.cmd('BufferLineTabRename ' .. name)
           else
@@ -40,7 +40,7 @@ return {
   },
   opts = {
     options = {
-      mode = 'tabs', -- Show Vim tabs at top (to display tab names)
+      mode = 'buffers', -- Show open files (buffers) at top
       numbers = 'ordinal', -- Show buffer numbers
       close_command = 'bdelete! %d',
       right_mouse_command = 'bdelete! %d',
