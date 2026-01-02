@@ -2,7 +2,7 @@
 -- Works seamlessly with tmux, wezterm, kitty panes
 return {
   'mrjones2014/smart-splits.nvim',
-  event = 'VeryLazy',
+  lazy = false,  -- Load immediately for tmux integration
   config = function()
     require('smart-splits').setup({
       -- Ignore these filetypes when resizing

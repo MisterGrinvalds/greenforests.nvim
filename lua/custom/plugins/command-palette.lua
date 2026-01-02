@@ -12,7 +12,7 @@ return {
         'keymaps', -- Registered keybindings
         'lsp', -- LSP actions
         'shell', -- Shell commands
-        'terminal', -- Terminal manager integration
+        'tmux', -- tmux integration (replaces terminal)
       },
 
       -- Use dropdown theme for clean look

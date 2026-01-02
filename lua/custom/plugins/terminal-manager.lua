@@ -1,5 +1,7 @@
--- Terminal Manager - Multiple persistent terminal sessions
-return {
+-- Terminal Manager - DEPRECATED: Replaced by tmux integration
+-- Kept as reference during transition, will be removed later
+return {} --[[ Commented out - using tmux now
+{
   dir = '/Users/mistergrinvalds/Repos/personal/terminal-manager.nvim',
   dependencies = {
     'nvim-telescope/telescope.nvim',
@@ -58,3 +60,4 @@ return {
     end, { desc = '[T]erminal [D]ev' })
   end,
 }
+--]]

@@ -363,7 +363,7 @@ require('lazy').setup({
         { '<leader>g', group = '[G]it' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
         { '<leader>s', group = '[S]earch' },
-        { '<leader>t', group = '[T]erminal' },
+        { '<leader>t', group = '[T]mux' },
         { '<leader>w', group = '[W]indow' },
         { '<leader>x', group = 'Diagnostics' },
       },
