@@ -97,153 +97,177 @@ require('command-palette').setup({
 
 ---
 
-### Terminal Manager
+### tmux Integration
 
-**Repository:** `terminal-manager.nvim`
-**Category:** Workflow, Terminals
-**Keymaps:** `<leader>t`, `<leader>tt`, `<leader>tn`
+**Category:** Workflow, Terminals, Multiplexing
+**Keymaps:** `<leader>tw`, `<leader>tn`, `<leader>tg/td/tt`
+**Requires:** tmux, TPM (Tmux Plugin Manager)
 
 #### What It Does
 
-Manages multiple persistent terminal sessions with quick access. Think of it as terminal tabs that survive hide/show operations.
+Integrates tmux terminal multiplexer with Neovim, providing persistent terminal sessions that survive restarts, multiple panes visible simultaneously, and keyboard-first control from within Neovim.
 
 #### Features
 
-- **Multiple Named Sessions**
-  - Create terminals like "dev", "git", "test"
-  - Each has its own persistent buffer
-  - Sessions survive hide/show
+- **True Persistence**
+  - Sessions survive Neovim restarts
+  - Sessions survive terminal disconnects
+  - Sessions survive system reboots (with tmux-resurrect)
+  - Auto-save every 15 minutes (tmux-continuum)
 
-- **Quick Toggle**
-  - Instant show/hide
-  - Remember last used terminal
-  - Telescope picker for all sessions
+- **Multiple Panes**
+  - See dev server + git + logs simultaneously
+  - Split panes horizontally/vertically
+  - Maximize/restore any pane
 
-- **Session Management**
-  - Rename terminals
-  - Delete sessions
-  - Send commands to terminals
+- **Neovim Control**
+  - Telescope picker for tmux windows
+  - Create/switch/delete windows from Neovim
+  - Command palette integration
+  - Keyboard-first, no tmux commands needed
+
+- **Seamless Navigation**
+  - Ctrl+hjkl moves between Neovim splits AND tmux panes
+  - Alt+H/L switches tmux windows (in terminal)
+  - smart-splits provides seamless integration
 
 #### How to Use
 
-**Create Terminals:**
+**First time setup:**
+1. Install tmux: `brew install tmux` (if not installed)
+2. Start tmux: `tmux new -s dev`
+3. Install tmux plugins: Press `Ctrl-b I` (capital I)
+4. Open Neovim inside tmux
+
+**Create Windows:**
 ```vim
-:TerminalNew dev           " Create 'dev' terminal
-:TerminalNew git           " Create 'git' terminal
-:TerminalNew test          " Create 'test' terminal
+<leader>tn                 " Create new tmux window (prompts for name)
+<leader>tg                 " Go to 'git' window (creates if needed)
+<leader>td                 " Go to 'dev' window
+<leader>tt                 " Go to 'test' window
 ```
 
-**Navigate Terminals:**
+**Navigate Windows:**
 ```vim
-<leader>t                  " Picker - select any terminal
-<leader>tt                 " Toggle last used
-<leader>tg                 " Quick toggle 'git' terminal
-<leader>td                 " Quick toggle 'dev' terminal
+<leader>tw                 " Window picker (fuzzy search)
+<leader>tl                 " Next window
+<leader>th                 " Previous window
+Alt+H/L                    " Prev/Next window (in terminal, no Neovim)
 ```
 
-**In Terminal Buffer:**
+**Window Management:**
 ```vim
-<Esc><Esc>                 " Exit to normal mode
-<C-\><C-h>                 " Hide terminal (keeps running!)
-<C-\><C-t>                 " Open terminal picker
+<leader>tr                 " Rename current window
+<leader>tx                 " Delete current window
 ```
 
-**In Terminal Picker:**
-- `<Enter>` - Toggle selected terminal
-- `<C-n>` - Create new terminal
-- `<C-d>` - Delete terminal
-- `<C-r>` - Rename terminal
+**Pane Management:**
+```vim
+<leader>tm                 " Toggle maximize current pane
+<leader>t|                 " Split vertical
+<leader>t-                 " Split horizontal
+Ctrl+hjkl                  " Navigate panes (seamless with Neovim!)
+```
+
+**In Terminal:**
+```vim
+<Esc><Esc>                 " Exit to normal mode (use Neovim commands)
+```
+
+**In Window Picker:**
+- `<Enter>` - Go to selected window
+- `<C-x>` - Delete window
+- `<C-r>` - Rename window
 
 #### Common Workflows
 
 **Development Server:**
 ```vim
-:TerminalNew dev
-npm run dev
-<C-\><C-h>                 " Hide, server keeps running
-" ... code for an hour ...
-<leader>tt                 " Pop it back up
+<leader>tn                 " Create 'dev' window
+npm run dev                " Start server
+<Esc><Esc>                 " Exit to normal mode
+" ... code for hours ...
+" Server keeps running even if you close Neovim!
 ```
 
 **Git Workflow:**
 ```vim
-<leader>tg                 " Open git terminal
+<leader>tg                 " Go to 'git' window (creates if needed)
 git status
 git add .
 git commit -m "feat: awesome"
-<C-\><C-h>                 " Hide
-" ... more work ...
-<leader>tg                 " Back to git
+<leader>tw                 " Pick different window
+" ... later ...
+<leader>tg                 " Back to git window - everything persists!
 git push
 ```
 
-**Multi-Project:**
+**Multi-Pane Development:**
 ```vim
-:TerminalNew project-a
-:TerminalNew project-b
-<leader>t                  " Picker - quick switch
+<leader>tg                 " Git window
+<leader>t|                 " Split vertical - new pane
+<leader>td                 " Switch to 'dev' window
+npm run dev                " Start server
+<leader>t|                 " Split again
+<leader>tt                 " Switch to 'test' window
+npm test -- --watch        " Watch tests
+Ctrl+h/j/k/l               " Navigate between all panes
 ```
 
 #### Configuration
 
-Location: `lua/custom/plugins/terminal-manager.lua`
+Location: `lua/custom/plugins/tmux.lua`
 
-```lua
-require('terminal-manager').setup({
-  window = {
-    position = 'bottom',   -- 'float', 'right', 'left', 'bottom'
-    border = 'rounded',
+**tmux config:** `~/.tmux.conf`
+- TPM (Tmux Plugin Manager)
+- tmux-resurrect (session persistence)
+- tmux-continuum (auto-save every 15min)
+- Catppuccin Mocha theme
+- Vi copy mode keybindings
 
-    float = {
-      width = 0.8,
-      height = 0.8,
-    },
+#### tmux Commands (via Neovim)
 
-    split = {
-      width = 0.4,
-      height = 0.3,
-    },
-  },
-
-  -- Auto-create on startup
-  default_sessions = {
-    -- { name = 'dev' },
-    -- { name = 'git' },
-  },
-})
-```
+All accessible from command palette (`<leader>p` → type "tmux"):
+- Switch to window
+- Create/delete/rename windows
+- Split panes
+- Toggle maximize
+- Navigate windows
 
 #### Advanced Usage
 
-**Send Commands:**
+**Send Commands from Neovim:**
 ```vim
-:TerminalSend dev npm run build
-" Sends command to 'dev' terminal
+" In visual mode, select code
+<leader>ts                 " Send selection to current tmux window
 ```
 
 **From Lua:**
 ```lua
-require('terminal-manager').send('test', 'pytest -v', true)
+local tmux = require('custom.tmux')
+tmux.goto('dev')                          -- Switch to window
+tmux.window.send_command('dev', 'npm run build', true)  -- Send command
 ```
 
-**Project-Specific Auto-Create:**
+**Project-Specific Windows:**
 ```lua
--- In .nvim.lua or ftplugin
+-- In .nvim.lua
 vim.api.nvim_create_autocmd('VimEnter', {
   once = true,
   callback = function()
-    require('terminal-manager').new('dev')
-    require('terminal-manager').send('dev', 'npm run dev', true)
+    require('custom.tmux').goto('server')
+    require('custom.tmux').goto('git')
   end,
 })
 ```
 
 #### Tips
 
-1. **Consistent Naming:** Use same names across projects (dev, git, test)
-2. **Quick Access:** Set up dedicated keymaps for your most-used terminals
-3. **Long-Running Processes:** Perfect for dev servers, watchers, logs
-4. **Integration:** Works with command palette - type "terminal" to see all operations
+1. **Start in tmux:** Always launch Neovim from inside tmux session
+2. **Named Windows:** Use consistent names across projects (git, dev, test, logs)
+3. **Persistence:** Your work survives everything - even power loss!
+4. **Multi-Pane:** Use splits for monitoring (logs, server, tests)
+5. **Command Palette:** Type "tmux" to discover all features
 
 ---
 

@@ -67,46 +67,65 @@ A concise cheat sheet for all keybindings and commands in this Neovim setup.
 
 ---
 
-## Terminal Manager
+## tmux Integration
 
 ### Main Actions
 
 | Keymap | Action |
 |--------|--------|
-| `<leader>t` | Terminal picker |
-| `<leader>tt` | Toggle last terminal |
-| `<leader>tn` | New named terminal |
-| `<leader>tg` | Quick toggle git terminal |
-| `<leader>td` | Quick toggle dev terminal |
+| `<leader>tw` | tmux window picker |
+| `<leader>tn` | New tmux window |
+| `<leader>tr` | Rename window |
+| `<leader>tx` | Delete window |
+| `<leader>tg` | Go to 'git' window |
+| `<leader>td` | Go to 'dev' window |
+| `<leader>tt` | Go to 'test' window |
 
-### In Terminal Buffer
+### Navigation
 
 | Keymap | Action |
 |--------|--------|
-| `<Esc><Esc>` | Exit terminal mode |
+| `<leader>tl` | Next window |
+| `<leader>th` | Previous window |
+| `Alt+H` | Previous window (in terminal) |
+| `Alt+L` | Next window (in terminal) |
+| `Ctrl+h/j/k/l` | Navigate panes (seamless!) |
+
+### Pane Management
+
+| Keymap | Action |
+|--------|--------|
+| `<leader>tm` | Toggle maximize pane |
+| `<leader>t\|` | Split vertical |
+| `<leader>t-` | Split horizontal |
+
+### In Terminal
+
+| Keymap | Action |
+|--------|--------|
+| `<Esc><Esc>` | Exit to normal mode |
 | `<C-]>` | Alternative exit |
-| `<C-\><C-h>` | Hide terminal |
-| `<C-\><C-t>` | Terminal picker |
 
-### In Terminal Picker
+### In tmux Window Picker
 
 | Keymap | Action |
 |--------|--------|
-| `<Enter>` | Toggle selected terminal |
-| `<C-n>` | Create new terminal |
-| `<C-d>` | Delete terminal |
-| `<C-r>` | Rename terminal |
+| `<Enter>` | Go to selected window |
+| `<C-x>` | Delete window |
+| `<C-r>` | Rename window |
 
-### Commands
+### tmux Commands (Native)
 
-```vim
-:TerminalNew <name>        " Create named terminal
-:TerminalToggle [name]     " Toggle terminal
-:TerminalShow <name>       " Show terminal
-:TerminalHide <name>       " Hide terminal
-:TerminalDelete <name>     " Delete terminal
-:TerminalPicker            " Open picker
-:TerminalSend <name> <cmd> " Send command to terminal
+```bash
+# Prefix is Ctrl-b
+Ctrl-b c               " Create new window
+Ctrl-b ,               " Rename window
+Ctrl-b |               " Split vertical
+Ctrl-b -               " Split horizontal
+Ctrl-b m               " Maximize pane
+Ctrl-b d               " Detach session
+Ctrl-b s               " List sessions
+Ctrl-b I               " Install tmux plugins (TPM)
 ```
 
 ---
@@ -503,10 +522,10 @@ Ctrl+i                     " Jump to next location
 | Find a file | `<leader>ff` |
 | Search for text | `<leader>fg` |
 | See recent files | `<leader>s.` |
-| Open terminal | `<leader>t` |
-| Get help | `<leader>cc` |
+| Open terminal | `<leader>tw` (tmux window picker) |
+| Get help | `<leader>c` (Claude Code) |
 | Find a command | `<leader>p` |
-| Format code | `<leader>f` |
+| Format code | `<leader>lf` |
 | Rename variable | `<leader>rn` |
 | Commit code | `<leader>gg` |
 | See errors | `<leader>xx` |
