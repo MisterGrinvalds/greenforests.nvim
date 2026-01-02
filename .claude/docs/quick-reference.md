@@ -15,8 +15,8 @@ A concise cheat sheet for all keybindings and commands in this Neovim setup.
 | Keymap | Action | Plugin |
 |--------|--------|--------|
 | `<leader>p` | **Command Palette** (find anything!) | command-palette |
-| `<leader>t` | **Terminal Picker** | terminal-manager |
-| `<leader>cc` | **Claude Code** (AI help) | claude-code |
+| `<leader>tw` | **tmux Window Picker** | tmux |
+| `<leader>c` | **Claude Code** (AI help) | claude-code |
 | `<leader>ff` | **Find Files** | telescope |
 
 :::tip Remember These Three
@@ -245,7 +245,7 @@ Ctrl-b I               " Install tmux plugins (TPM)
 | Keymap | Action |
 |--------|--------|
 | `<leader>a` | Add file to harpoon |
-| `<leader>e` | Harpoon menu |
+| `<leader>m` | Harpoon marks menu |
 | `<leader>1` | Jump to file 1 |
 | `<leader>2` | Jump to file 2 |
 | `<leader>3` | Jump to file 3 |
@@ -312,18 +312,6 @@ Ctrl-b I               " Install tmux plugins (TPM)
 | `<Tab>` | Select multiple |
 | `<C-q>` | Send to quickfix |
 | `<Esc>` | Close |
-
----
-
-## Tabs
-
-| Keymap | Action |
-|--------|--------|
-| `<leader>tn` | New tab |
-| `<leader>tc` | Close tab |
-| `<leader>to` | Close other tabs |
-| `]t` | Next tab |
-| `[t` | Previous tab |
 
 ---
 

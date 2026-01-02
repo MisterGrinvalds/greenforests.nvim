@@ -19,12 +19,7 @@ return {
     { ']b', '<cmd>BufferLineCycleNext<cr>', desc = 'Next Buffer' },
     { '[B', '<cmd>BufferLineMovePrev<cr>', desc = 'Move Buffer Left' },
     { ']B', '<cmd>BufferLineMoveNext<cr>', desc = 'Move Buffer Right' },
-    -- Tab management (moved to <leader>x prefix to avoid tmux <leader>t conflicts)
-    { '<leader>xn', '<Cmd>tabnew<CR>', desc = 'Tab [N]ew' },
-    { '<leader>xc', '<Cmd>tabclose<CR>', desc = 'Tab [C]lose' },
-    { '<leader>xo', '<Cmd>tabonly<CR>', desc = 'Tab [O]nly (close others)' },
-    { ']t', '<Cmd>tabnext<CR>', desc = 'Next Tab' },
-    { '[t', '<Cmd>tabprev<CR>', desc = 'Prev Tab' },
+    -- Vim tabs eliminated from workflow (use buffers + Harpoon instead)
   },
   opts = {
     options = {

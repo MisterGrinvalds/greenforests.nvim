@@ -22,6 +22,17 @@ Complete guide to understanding and using this Neovim configuration:
 
 **Perfect for:** Learning the system, understanding the "why" behind decisions
 
+### [Navigation Guide](./navigation-guide)
+**Master movement and navigation**
+
+Complete navigation reference for Neovim + tmux:
+- Domain separation (editing vs terminals)
+- Navigation decision tree
+- Semantic direction principles
+- Common workflows
+
+**Perfect for:** Understanding how to move efficiently, learning navigation patterns
+
 ### [Plugin Guide](./plugin-guide)
 **Deep dive into each plugin**
 

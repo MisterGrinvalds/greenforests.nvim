@@ -14,9 +14,9 @@ return {
       harpoon:list():add()
     end, { desc = 'Harpoon: [A]dd file' })
 
-    vim.keymap.set('n', '<leader>e', function()
+    vim.keymap.set('n', '<leader>m', function()
       harpoon.ui:toggle_quick_menu(harpoon:list())
-    end, { desc = 'Harpoon: Toggle m[E]nu' })
+    end, { desc = 'Harpoon: [M]arks menu' })
 
     -- Quick jump to files 1-4
     vim.keymap.set('n', '<leader>1', function()
