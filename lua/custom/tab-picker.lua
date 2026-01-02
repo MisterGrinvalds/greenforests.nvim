@@ -23,9 +23,11 @@ function M.show()
     local bufnr = buflist[winnr]
     local bufname = vim.fn.bufname(bufnr)
 
-    -- Get custom tab name if set, otherwise use filename
-    local ok, custom_name = pcall(vim.api.nvim_tabpage_get_var, vim.fn.tabpagenr2id(tabnr), 'tab_name')
-    local name = ok and custom_name or (bufname ~= '' and vim.fn.fnamemodify(bufname, ':t') or '[No Name]')
+    -- Get BufferLine tab name if set, otherwise use filename
+    -- This syncs with BufferLineTabRename command
+    local tabpage_id = vim.fn.tabpagenr2id(tabnr)
+    local ok, bufferline_name = pcall(vim.api.nvim_tabpage_get_var, tabpage_id, 'bufferline_tab_name')
+    local name = ok and bufferline_name or (bufname ~= '' and vim.fn.fnamemodify(bufname, ':t') or '[No Name]')
 
     table.insert(tabs, {
       tabnr = tabnr,
@@ -114,8 +116,9 @@ function M.show()
             local current_name = selection.value.name
             vim.ui.input({ prompt = 'Tab name: ', default = current_name }, function(name)
               if name and name ~= '' then
-                -- Set custom tab name
-                vim.api.nvim_tabpage_set_var(vim.fn.tabpagenr2id(selection.value.tabnr), 'tab_name', name)
+                -- Use BufferLine's tab naming system for consistency
+                -- This syncs with :BufferLineTabRename command
+                vim.api.nvim_tabpage_set_var(vim.fn.tabpagenr2id(selection.value.tabnr), 'bufferline_tab_name', name)
                 vim.notify('Tab renamed to: ' .. name, vim.log.levels.INFO)
               end
             end)
