@@ -1,5 +1,36 @@
--- Telescope picker for Vim tabs (similar to tmux window picker)
+-- Telescope picker for Vim tabs
 local M = {}
+
+--- Create a previewer that shows the tab's active buffer content
+local function tab_previewer()
+  local previewers = require('telescope.previewers')
+  local putils = require('telescope.previewers.utils')
+
+  return previewers.new_buffer_previewer({
+    title = 'Buffer Preview',
+    define_preview = function(self, entry, status)
+      local tabnr = entry.value.tabnr
+      local buflist = vim.fn.tabpagebuflist(tabnr)
+      local winnr = vim.fn.tabpagewinnr(tabnr)
+      local bufnr = buflist[winnr]
+
+      -- Get buffer content
+      local lines = vim.api.nvim_buf_get_lines(bufnr, 0, 100, false)
+
+      if #lines == 0 then
+        lines = { '[Empty buffer]' }
+      end
+
+      vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, lines)
+
+      -- Try to apply syntax highlighting based on the buffer's filetype
+      local ft = vim.bo[bufnr].filetype
+      if ft and ft ~= '' then
+        putils.highlighter(self.state.bufnr, ft)
+      end
+    end,
+  })
+end
 
 --- Show tab picker
 function M.show()
@@ -10,13 +41,12 @@ function M.show()
   local action_state = require('telescope.actions.state')
   local entry_display = require('telescope.pickers.entry_display')
 
-  -- Get all tabs using tabpage handles (compatible with all Neovim versions)
+  -- Get all tabs
   local tabs = {}
   local tabpages = vim.api.nvim_list_tabpages()
   local current_tabpage = vim.api.nvim_get_current_tabpage()
 
   for i, tabpage in ipairs(tabpages) do
-    -- Get tab info
     local tabnr = i
     local buflist = vim.fn.tabpagebuflist(tabnr)
     local winnr = vim.fn.tabpagewinnr(tabnr)
@@ -24,17 +54,16 @@ function M.show()
     local bufname = vim.fn.bufname(bufnr)
 
     -- Get BufferLine tab name if set, otherwise use filename
-    -- This syncs with BufferLineTabRename command
     local ok, bufferline_name = pcall(vim.api.nvim_tabpage_get_var, tabpage, 'bufferline_tab_name')
     local name = ok and bufferline_name or (bufname ~= '' and vim.fn.fnamemodify(bufname, ':t') or '[No Name]')
 
     table.insert(tabs, {
       tabnr = tabnr,
       tabpage = tabpage,
+      bufnr = bufnr,
       name = name,
       bufname = bufname,
       active = tabpage == current_tabpage,
-      has_custom_name = ok,
     })
   end
 
@@ -46,22 +75,22 @@ function M.show()
   local displayer = entry_display.create({
     separator = ' ',
     items = {
-      { width = 25 },  -- Tab name
-      { width = 10 },  -- Status
-      { width = 15 },  -- Tab number
-      { remaining = true },  -- Buffer path
+      { width = 3 },   -- Tab number
+      { width = 20 },  -- Tab name
+      { width = 8 },   -- Status
+      { remaining = true },  -- Path
     },
   })
 
   local make_display = function(entry)
-    local status = entry.active and 'active' or 'background'
-    local tab_info = 'tab ' .. entry.tabnr
+    local status = entry.active and '' or ''
+    local idx = tostring(entry.tabnr)
     local path = entry.bufname ~= '' and vim.fn.fnamemodify(entry.bufname, ':~:.') or ''
 
     return displayer({
+      { idx, 'TelescopeResultsNumber' },
       { entry.name, 'TelescopeResultsIdentifier' },
       { status, entry.active and 'TelescopeResultsFunction' or 'TelescopeResultsComment' },
-      { tab_info, 'TelescopeResultsSpecialComment' },
       { path, 'TelescopeResultsLineNr' },
     })
   end
@@ -69,13 +98,15 @@ function M.show()
   pickers
     .new({
       prompt_title = '󰓩 Tabs',
+      results_title = 'Tabs',
+      preview_title = 'Buffer Content',
       finder = finders.new_table({
         results = tabs,
         entry_maker = function(entry)
           return {
             value = entry,
             display = make_display,
-            ordinal = entry.name .. ' ' .. entry.tabnr,
+            ordinal = entry.name .. ' ' .. entry.tabnr .. ' ' .. entry.bufname,
             tabnr = entry.tabnr,
             name = entry.name,
             active = entry.active,
@@ -83,6 +114,15 @@ function M.show()
         end,
       }),
       sorter = conf.generic_sorter({}),
+      previewer = tab_previewer(),
+      layout_strategy = 'horizontal',
+      layout_config = {
+        horizontal = {
+          preview_width = 0.6,
+          width = 0.8,
+          height = 0.8,
+        },
+      },
       attach_mappings = function(prompt_bufnr, map)
         -- Default: goto tab
         actions.select_default:replace(function()
@@ -99,7 +139,6 @@ function M.show()
           local selection = action_state.get_selected_entry()
           if selection and #tabs > 1 then
             vim.cmd('tabclose ' .. selection.value.tabnr)
-            -- Refresh picker
             actions.close(prompt_bufnr)
             M.show()
           else
@@ -110,7 +149,15 @@ function M.show()
         -- Ctrl-n: new tab
         map('i', '<c-n>', function()
           actions.close(prompt_bufnr)
-          vim.cmd('tabnew')
+          vim.ui.input({ prompt = 'Tab name: ' }, function(name)
+            if name and name ~= '' then
+              vim.cmd('tabnew')
+              local tabpage = vim.api.nvim_get_current_tabpage()
+              vim.api.nvim_tabpage_set_var(tabpage, 'bufferline_tab_name', name)
+            else
+              vim.cmd('tabnew')
+            end
+          end)
         end)
 
         -- Ctrl-r: rename tab
@@ -119,11 +166,8 @@ function M.show()
           actions.close(prompt_bufnr)
 
           if selection then
-            local current_name = selection.value.name
-            vim.ui.input({ prompt = 'Tab name: ', default = current_name }, function(name)
+            vim.ui.input({ prompt = 'Tab name: ', default = selection.value.name }, function(name)
               if name and name ~= '' then
-                -- Use BufferLine's tab naming system for consistency
-                -- This syncs with :BufferLineTabRename command
                 vim.api.nvim_tabpage_set_var(selection.value.tabpage, 'bufferline_tab_name', name)
                 vim.notify('Tab renamed to: ' .. name, vim.log.levels.INFO)
               end
@@ -133,13 +177,7 @@ function M.show()
 
         return true
       end,
-    }, require('telescope.themes').get_dropdown({
-      previewer = false,
-      layout_config = {
-        width = 0.6,
-        height = 0.5,
-      },
-    }))
+    })
     :find()
 end
 

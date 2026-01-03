@@ -1,7 +1,10 @@
 -- diffview.nvim - Advanced git diff viewer
 -- Single tabpage interface for cycling through diffs
+local fork = require('lib.forks').fork
+
 return {
-  'sindrets/diffview.nvim',
+  fork('sindrets/diffview.nvim'),
+  name = 'diffview.nvim',
   cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
   opts = {},
   keys = {

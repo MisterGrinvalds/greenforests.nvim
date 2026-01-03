@@ -1,8 +1,10 @@
 -- autopairs
 -- https://github.com/windwp/nvim-autopairs
+local fork = require('lib.forks').fork
 
 return {
-  'windwp/nvim-autopairs',
+  fork('windwp/nvim-autopairs'),
+  name = 'nvim-autopairs',
   event = 'InsertEnter',
   opts = {},
 }

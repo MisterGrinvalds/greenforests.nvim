@@ -1,6 +1,9 @@
 -- lualine.nvim - Status line with Claude Code integration
+local fork = require('lib.forks').fork
+
 return {
-  'nvim-lualine/lualine.nvim',
+  fork('nvim-lualine/lualine.nvim'),
+  name = 'lualine.nvim',
   dependencies = { 'nvim-tree/nvim-web-devicons' },
   opts = {
     options = {

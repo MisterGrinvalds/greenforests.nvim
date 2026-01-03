@@ -1,7 +1,10 @@
 -- nvim-treesitter-context - Show current code context
 -- Displays the current function/class/method at the top of the window
+local fork = require('lib.forks').fork
+
 return {
-  'nvim-treesitter/nvim-treesitter-context',
+  fork('nvim-treesitter/nvim-treesitter-context'),
+  name = 'nvim-treesitter-context',
   event = 'VeryLazy',
   opts = {
     max_lines = 3, -- How many lines the context can show

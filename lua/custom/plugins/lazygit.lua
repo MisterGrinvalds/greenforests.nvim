@@ -1,7 +1,9 @@
 -- lazygit.nvim - Open lazygit in a floating terminal
 -- Requires: lazygit to be installed (brew install lazygit)
+local fork = require('lib.forks').fork
+
 return {
-  'kdheepak/lazygit.nvim',
+  fork('kdheepak/lazygit.nvim'),
   cmd = { 'LazyGit', 'LazyGitConfig', 'LazyGitCurrentFile', 'LazyGitFilter', 'LazyGitFilterCurrentFile' },
   dependencies = {
     'nvim-lua/plenary.nvim',

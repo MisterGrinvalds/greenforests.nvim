@@ -1,7 +1,9 @@
 -- Harpoon - Quick file navigation
 -- Mark files and jump to them instantly
+local fork = require('lib.forks').fork
+
 return {
-  'ThePrimeagen/harpoon',
+  fork('ThePrimeagen/harpoon'),
   branch = 'harpoon2',
   dependencies = { 'nvim-lua/plenary.nvim' },
   lazy = false,  -- Load immediately so keymaps work

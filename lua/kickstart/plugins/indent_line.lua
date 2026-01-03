@@ -1,6 +1,9 @@
+local fork = require('lib.forks').fork
+
 return {
   { -- Add indentation guides even on blank lines
-    'lukas-reineke/indent-blankline.nvim',
+    fork('lukas-reineke/indent-blankline.nvim'),
+    name = 'indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help ibl`
     main = 'ibl',

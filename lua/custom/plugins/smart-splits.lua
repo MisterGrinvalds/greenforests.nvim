@@ -1,7 +1,9 @@
 -- smart-splits.nvim - Better split navigation and resizing
 -- Works seamlessly with tmux, wezterm, kitty panes
+local fork = require('lib.forks').fork
+
 return {
-  'mrjones2014/smart-splits.nvim',
+  fork('mrjones2014/smart-splits.nvim'),
   lazy = false,  -- Load immediately for tmux integration
   config = function()
     require('smart-splits').setup({

@@ -1,7 +1,10 @@
 -- trouble.nvim - Better diagnostics list
 -- Beautiful list for diagnostics, references, quickfix, and location lists
+local fork = require('lib.forks').fork
+
 return {
-  'folke/trouble.nvim',
+  fork('folke/trouble.nvim'),
+  name = 'trouble.nvim',
   cmd = 'Trouble',
   opts = {},
   keys = {

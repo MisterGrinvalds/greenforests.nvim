@@ -260,9 +260,11 @@ rtp:prepend(lazypath)
 --    :Lazy update
 --
 -- NOTE: Here is where you install your plugins.
+local fork = require('lib.forks').fork
+
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
+  fork('NMAC427/guess-indent.nvim'), -- Detect tabstop and shiftwidth automatically
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
   -- keys can be used to configure plugin behavior/loading/etc.
@@ -285,11 +287,12 @@ require('lazy').setup({
   -- options to `gitsigns.nvim`.
   --
 
-  'petertriho/nvim-scrollbar',
+  fork('petertriho/nvim-scrollbar'),
 
   -- See `:help gitsigns` to understand what the configuration keys do
   { -- Adds git related signs to the gutter, as well as utilities for managing changes
-    'lewis6991/gitsigns.nvim',
+    fork('lewis6991/gitsigns.nvim'),
+    name = 'gitsigns.nvim',
     opts = {
       signs = {
         add = { text = '+' },
@@ -316,7 +319,8 @@ require('lazy').setup({
   -- after the plugin has been loaded as `require(MODULE).setup(opts)`.
 
   { -- Useful plugin to show you pending keybinds.
-    'folke/which-key.nvim',
+    fork('folke/which-key.nvim'),
+    name = 'which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
       -- delay between pressing a key and opening which-key (milliseconds)
@@ -364,6 +368,7 @@ require('lazy').setup({
       spec = {
         { '<leader>b', group = '[B]uffer' },
         { '<leader>c', group = '[C]laude Code' },
+        { '<leader>f', group = '[F]ind (Telescope)' },
         { '<leader>g', group = '[G]it' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
         { '<leader>s', group = '[S]earch' },
@@ -381,12 +386,12 @@ require('lazy').setup({
   --
   -- Use the `dependencies` key to specify the dependencies of a particular plugin
   { -- Fuzzy Finder (files, lsp, etc)
-    'nvim-telescope/telescope.nvim',
+    fork('nvim-telescope/telescope.nvim'),
     event = 'VimEnter',
     dependencies = {
-      'nvim-lua/plenary.nvim',
+      fork('nvim-lua/plenary.nvim'),
       { -- If encountering errors, see telescope-fzf-native README for installation instructions
-        'nvim-telescope/telescope-fzf-native.nvim',
+        fork('nvim-telescope/telescope-fzf-native.nvim'),
 
         -- `build` is used to run some command when the plugin is installed/updated.
         -- This is only run then, not every time Neovim starts up.
@@ -398,10 +403,10 @@ require('lazy').setup({
           return vim.fn.executable 'make' == 1
         end,
       },
-      { 'nvim-telescope/telescope-ui-select.nvim' },
+      { fork('nvim-telescope/telescope-ui-select.nvim') },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+      { fork('nvim-tree/nvim-web-devicons'), enabled = vim.g.have_nerd_font },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -447,6 +452,29 @@ require('lazy').setup({
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
+
+      -- <leader>f prefix (Find)
+      vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]ind [F]iles' })
+      vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = '[F]ind by [G]rep' })
+      vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = '[F]ind [W]ord under cursor' })
+      vim.keymap.set('n', '<leader>fb', function()
+        builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+          winblend = 10,
+          previewer = false,
+        })
+      end, { desc = '[F]ind in [B]uffer' })
+      vim.keymap.set('n', '<leader>fr', builtin.oldfiles, { desc = '[F]ind [R]ecent files' })
+      vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elp' })
+
+      -- Buffer picker (Telescope buffers)
+      vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[S]earch [B]uffers' })
+
+      -- Tab picker (custom Telescope picker)
+      vim.keymap.set('n', '<leader>st', function()
+        require('custom.tab-picker').show()
+      end, { desc = '[S]earch [T]abs' })
+
+      -- <leader>s prefix (Search) - legacy/alternative
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
@@ -456,9 +484,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<leader><leader>', function()
-        require('custom.buffer-picker').show()
-      end, { desc = '[ ] Find existing buffers' })
+      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
       -- Command palette (like VS Code Cmd+Shift+P)
       vim.keymap.set('n', '<leader>sc', builtin.commands, { desc = '[S]earch [C]ommands' })
@@ -493,7 +519,8 @@ require('lazy').setup({
   {
     -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
     -- used for completion, annotations and signatures of Neovim apis
-    'folke/lazydev.nvim',
+    fork('folke/lazydev.nvim'),
+    name = 'lazydev.nvim',
     ft = 'lua',
     opts = {
       library = {
@@ -504,20 +531,20 @@ require('lazy').setup({
   },
   {
     -- Main LSP Configuration
-    'neovim/nvim-lspconfig',
+    fork('neovim/nvim-lspconfig'),
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
       -- Mason must be loaded before its dependents so we need to set it up here.
       -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
-      { 'mason-org/mason.nvim', opts = {} },
-      'mason-org/mason-lspconfig.nvim',
-      'WhoIsSethDaniel/mason-tool-installer.nvim',
+      { fork('mason-org/mason.nvim'), name = 'mason.nvim', opts = {} },
+      fork('mason-org/mason-lspconfig.nvim'),
+      fork('WhoIsSethDaniel/mason-tool-installer.nvim'),
 
       -- Useful status updates for LSP.
-      { 'j-hui/fidget.nvim', opts = {} },
+      { fork('j-hui/fidget.nvim'), name = 'fidget.nvim', opts = {} },
 
       -- Allows extra capabilities provided by blink.cmp
-      'saghen/blink.cmp',
+      fork('saghen/blink.cmp'),
     },
     config = function()
       -- Brief aside: **What is LSP?**
@@ -770,7 +797,7 @@ require('lazy').setup({
   },
 
   { -- Autoformat
-    'stevearc/conform.nvim',
+    fork('stevearc/conform.nvim'),
     event = { 'BufWritePre' },
     cmd = { 'ConformInfo' },
     keys = {
@@ -815,13 +842,15 @@ require('lazy').setup({
   },
 
   { -- Autocompletion
-    'saghen/blink.cmp',
+    fork('saghen/blink.cmp'),
+    name = 'blink.cmp',
     event = 'VimEnter',
     version = '1.*',
     dependencies = {
       -- Snippet Engine
       {
-        'L3MON4D3/LuaSnip',
+        fork('L3MON4D3/LuaSnip'),
+        name = 'LuaSnip',
         version = '2.*',
         build = (function()
           -- Build Step is needed for regex support in snippets.
@@ -836,7 +865,7 @@ require('lazy').setup({
           -- `friendly-snippets` contains a variety of premade snippets
           -- for many languages including Python, JavaScript, Go, etc.
           {
-            'rafamadriz/friendly-snippets',
+            fork('rafamadriz/friendly-snippets'),
             config = function()
               require('luasnip.loaders.from_vscode').lazy_load()
             end,
@@ -844,7 +873,7 @@ require('lazy').setup({
         },
         opts = {},
       },
-      'folke/lazydev.nvim',
+      fork('folke/lazydev.nvim'),
     },
     --- @module 'blink.cmp'
     --- @type blink.cmp.Config
@@ -912,7 +941,7 @@ require('lazy').setup({
   },
 
   { -- Catppuccin colorscheme - warm dark theme with pastel colors
-    'catppuccin/nvim',
+    fork('catppuccin/nvim'),
     name = 'catppuccin',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     config = function()
@@ -942,10 +971,10 @@ require('lazy').setup({
   },
 
   -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+  { fork('folke/todo-comments.nvim'), name = 'todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
   { -- Collection of various small independent plugins/modules
-    'echasnovski/mini.nvim',
+    fork('echasnovski/mini.nvim'),
     config = function()
       -- Better Around/Inside textobjects
       --
@@ -982,7 +1011,7 @@ require('lazy').setup({
     end,
   },
   { -- Highlight, edit, and navigate code
-    'nvim-treesitter/nvim-treesitter',
+    fork('nvim-treesitter/nvim-treesitter'),
     build = ':TSUpdate',
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     -- NOTE: nvim-treesitter main branch (2024+) completely rewrote the API

@@ -1,13 +1,15 @@
 -- Neo-tree is a Neovim plugin to browse the file system
 -- https://github.com/nvim-neo-tree/neo-tree.nvim
+local fork = require('lib.forks').fork
 
 return {
-  'nvim-neo-tree/neo-tree.nvim',
+  fork('nvim-neo-tree/neo-tree.nvim'),
+  name = 'neo-tree.nvim',
   version = '*',
   dependencies = {
-    'nvim-lua/plenary.nvim',
-    'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
-    'MunifTanjim/nui.nvim',
+    fork('nvim-lua/plenary.nvim'),
+    fork('nvim-tree/nvim-web-devicons'), -- not strictly required, but recommended
+    fork('MunifTanjim/nui.nvim'),
   },
   lazy = false,
   keys = {
