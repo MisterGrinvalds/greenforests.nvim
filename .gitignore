@@ -5,3 +5,12 @@ nvim
 
 spell/
 lazy-lock.json
+
+# Claude Code state files
+.claude-status.json
+.claude/state*.json
+.claude/status.json
+.claude/refresh-*
+
+# Temporary files
+tmp.md

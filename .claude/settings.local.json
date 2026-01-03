@@ -68,7 +68,11 @@
       "Bash(tmux list-keys:*)",
       "Bash(tmux display-message:*)",
       "Bash(tmux run-shell:*)",
-      "Bash(bash ~/.tmux/plugins/tmux-fzf/main.sh:*)"
+      "Bash(bash ~/.tmux/plugins/tmux-fzf/main.sh:*)",
+      "Bash(chmod:*)",
+      "WebFetch(domain:docs.anthropic.com)",
+      "WebFetch(domain:docs.claude.com)",
+      "Bash(md5:*)"
     ]
   }
 }

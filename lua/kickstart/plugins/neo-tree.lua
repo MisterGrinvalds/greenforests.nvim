@@ -16,9 +16,19 @@ return {
   },
   opts = {
     filesystem = {
+      filtered_items = {
+        visible = true,  -- Show hidden files by default
+        hide_dotfiles = false,
+        hide_gitignored = false,
+        hide_by_name = {
+          '.DS_Store',
+          'thumbs.db',
+        },
+      },
       window = {
         mappings = {
           ['\\'] = 'close_window',
+          ['H'] = 'toggle_hidden',  -- Toggle hidden files with H
         },
       },
     },

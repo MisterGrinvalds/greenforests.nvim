@@ -168,6 +168,10 @@ vim.o.scrolloff = 10
 -- See `:help 'confirm'`
 vim.o.confirm = true
 
+-- Auto-reload files when changed externally (e.g., by Claude Code)
+-- Works with :checktime to detect external modifications
+vim.o.autoread = true
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -980,10 +984,12 @@ require('lazy').setup({
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-    opts = {
-      ensure_installed = {
+    -- NOTE: nvim-treesitter main branch (2024+) completely rewrote the API
+    -- Highlighting/indentation is now handled by Neovim core, not the plugin
+    config = function()
+      -- Install parsers (new API)
+      local parsers = {
         'bash',
         'c',
         'diff',
@@ -1004,28 +1010,28 @@ require('lazy').setup({
         'query',
         'vim',
         'vimdoc',
-      },
-      -- Autoinstall languages that are not installed
-      auto_install = true,
-      highlight = {
-        enable = true,
-        -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-        --  If you are experiencing weird indenting issues, add the language to
-        --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby' },
-      },
-      indent = { enable = true, disable = { 'ruby' } },
-      -- Incremental selection based on treesitter nodes
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = '<C-space>',
-          node_incremental = '<C-space>',
-          scope_incremental = false,
-          node_decremental = '<bs>',
-        },
-      },
-    },
+      }
+
+      -- Auto-install parsers
+      local ts = require('nvim-treesitter')
+      vim.schedule(function()
+        ts.install(parsers)
+      end)
+
+      -- Enable treesitter-based highlighting for all filetypes
+      vim.api.nvim_create_autocmd('FileType', {
+        callback = function()
+          pcall(vim.treesitter.start)
+        end,
+      })
+
+      -- Enable treesitter-based indentation
+      vim.api.nvim_create_autocmd('FileType', {
+        callback = function()
+          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end,
+      })
+    end,
     -- There are additional nvim-treesitter modules that you can use to interact
     -- with nvim-treesitter. You should go explore a few and see what interests you:
     --
