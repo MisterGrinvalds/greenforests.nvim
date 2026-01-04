@@ -39,6 +39,9 @@ return {
       html = { 'prettier' },
       css = { 'prettier' },
       go = { 'goimports' },
+      sh = { 'shfmt' },
+      bash = { 'shfmt' },
+      yaml = { 'prettier' },
     },
   },
 }

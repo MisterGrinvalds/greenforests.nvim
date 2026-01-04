@@ -4,16 +4,9 @@ local fork = require('lib.forks').fork
 
 return {
   fork('Piotr1215/docusaurus.nvim'),
+  branch = 'build-tools',
   dependencies = { 'nvim-telescope/telescope.nvim' },
-  ft = { 'markdown', 'mdx' },
-  cmd = {
-    'DocusaurusInsertComponent',
-    'DocusaurusInsertPartial',
-    'DocusaurusInsertCodeBlock',
-    'DocusaurusInsertURL',
-    'DocusaurusCreatePlugin',
-    'DocusaurusBrowseAPI',
-  },
+  lazy = false,
   config = function()
     require('docusaurus').setup {}
 

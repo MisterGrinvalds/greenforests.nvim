@@ -3,7 +3,7 @@
 return {
   dir = '/Users/mistergrinvalds/Repos/personal/claude-code.nvim',
   name = 'claude-code',
-  event = 'VeryLazy',
+  lazy = false,
   dependencies = {
     'nvim-telescope/telescope.nvim',
   },

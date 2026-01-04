@@ -13,6 +13,7 @@ return {
         'lua', 'luadoc', 'markdown', 'markdown_inline',
         'python', 'go', 'gomod', 'gosum',
         'query', 'vim', 'vimdoc',
+        'yaml',
       }
 
       local ts = require('nvim-treesitter')

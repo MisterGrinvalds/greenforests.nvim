@@ -38,7 +38,7 @@ The setup adapts to what you're doing:
 ### Architecture
 
 ```
-kickstart.nvim/
+greenforests.nvim/
 ├── init.lua                    # Main configuration
 ├── lua/
 │   └── custom/

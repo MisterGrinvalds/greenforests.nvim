@@ -67,6 +67,7 @@ return {
   -- Image rendering in Neovim (for kitty/ghostty/iTerm2)
   {
     fork('3rd/image.nvim'),
+    main = 'image',
     build = false, -- use magick_cli, no luarocks needed
     opts = {
       backend = 'kitty', -- works with Ghostty and iTerm2 too

@@ -1,37 +1,82 @@
 -- Plugin specifications
--- Each module returns a table (or table of tables) for lazy.nvim
+-- Flattens all plugin modules into a single table for lazy.nvim
 
-return {
-  -- Core functionality
-  require('plugins.telescope'),
-  require('plugins.lsp'),
-  require('plugins.treesitter'),
-  require('plugins.completion'),
-  require('plugins.formatting'),
+local specs = {}
 
-  -- UI
-  require('plugins.colorscheme'),
-  require('plugins.ui'),
-  require('plugins.bufferline'),
-  require('plugins.statusline'),
+local function is_single_spec(t)
+  -- Single spec using 'dir' instead of [1]
+  if t.dir then
+    return true
+  end
 
-  -- Git
-  require('plugins.git'),
+  -- A single spec has [1] as a string (plugin name) and possibly config keys
+  -- A list of specs has [1] as a table or string that's a complete spec
+  if type(t[1]) == 'string' then
+    -- Check if it has lazy.nvim spec keys (indicating single spec)
+    local has_spec_keys = t.config or t.opts or t.event or t.cmd or t.ft
+      or t.keys or t.dependencies or t.lazy ~= nil or t.name or t.branch
+    if has_spec_keys then
+      return true
+    end
+    -- If [2] exists and is a table, it's a list of specs
+    if t[2] and type(t[2]) == 'table' then
+      return false
+    end
+    -- Single string with no other keys is a shorthand spec
+    return not t[2]
+  end
+  -- If [1] is a table, it's a list of specs
+  return false
+end
 
-  -- Navigation
-  require('plugins.navigation'),
+local function add(module)
+  local ok, result = pcall(require, module)
+  if not ok then
+    vim.notify('Failed to load ' .. module .. ': ' .. result, vim.log.levels.ERROR)
+    return
+  end
 
-  -- Editing
-  require('plugins.editing'),
+  if is_single_spec(result) then
+    table.insert(specs, result)
+  else
+    -- List of specs - flatten
+    for _, spec in ipairs(result) do
+      table.insert(specs, spec)
+    end
+  end
+end
 
-  -- Diagnostics
-  require('plugins.diagnostics'),
+-- Core functionality
+add('plugins.telescope')
+add('plugins.lsp')
+add('plugins.treesitter')
+add('plugins.completion')
+add('plugins.formatting')
 
-  -- Terminal
-  require('plugins.terminal'),
+-- UI
+add('plugins.colorscheme')
+add('plugins.ui')
+add('plugins.bufferline')
+add('plugins.statusline')
 
-  -- Tools
-  require('plugins.claude-code'),
-  require('plugins.docusaurus'),
-  require('plugins.plugin-help'),
-}
+-- Git
+add('plugins.git')
+
+-- Navigation
+add('plugins.navigation')
+
+-- Editing
+add('plugins.editing')
+
+-- Diagnostics
+add('plugins.diagnostics')
+
+-- Terminal
+add('plugins.terminal')
+
+-- Tools
+add('plugins.claude-code')
+add('plugins.docusaurus')
+add('plugins.plugin-help')
+
+return specs

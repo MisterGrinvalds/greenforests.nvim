@@ -135,7 +135,7 @@ Everything else is discoverable through these three!
 ### File Structure
 
 ```
-kickstart.nvim/
+greenforests.nvim/
 ├── init.lua                      # Main configuration
 ├── lua/
 │   └── custom/

@@ -1,4 +1,4 @@
-# kickstart.nvim Makefile
+# greenforests.nvim Makefile
 # Sets up Neovim configuration with symlinks
 
 NVIM_CONFIG := $(HOME)/.config/nvim

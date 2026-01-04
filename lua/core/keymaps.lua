@@ -24,3 +24,8 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- NOTE: Split navigation handled by smart-splits plugin (Ctrl+hjkl)
+
+-- Mouse back/forward buttons for jump list navigation
+-- Works with mice that have side buttons (typically buttons 4/5)
+vim.keymap.set('n', '<X1Mouse>', '<C-o>', { desc = 'Jump back (mouse)' })
+vim.keymap.set('n', '<X2Mouse>', '<C-i>', { desc = 'Jump forward (mouse)' })

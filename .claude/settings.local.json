@@ -72,7 +72,15 @@
       "Bash(chmod:*)",
       "WebFetch(domain:docs.anthropic.com)",
       "WebFetch(domain:docs.claude.com)",
-      "Bash(md5:*)"
+      "Bash(md5:*)",
+      "Skill(review-plugins)",
+      "Bash(gh repo view:*)",
+      "Bash(gh repo fork:*)",
+      "Bash(gh repo rename:*)",
+      "Skill(fork-plugin)",
+      "Skill(claude-aggregate)",
+      "Bash(echo:*)",
+      "Bash(/opt/homebrew/bin/pnpm create:*)"
     ]
   }
 }

@@ -23,11 +23,12 @@ return {
       fork('WhoIsSethDaniel/mason-tool-installer.nvim'),
       { fork('j-hui/fidget.nvim'), name = 'fidget.nvim', opts = {} },
       fork('saghen/blink.cmp'),
+      fork('b0o/schemastore.nvim'),
     },
     config = function()
       -- LSP attach autocommand
       vim.api.nvim_create_autocmd('LspAttach', {
-        group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
+        group = vim.api.nvim_create_augroup('greenforests-lsp-attach', { clear = true }),
         callback = function(event)
           local map = function(keys, func, desc, mode)
             mode = mode or 'n'
@@ -60,7 +61,7 @@ return {
           -- Document highlight on cursor hold
           local client = vim.lsp.get_client_by_id(event.data.client_id)
           if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
-            local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
+            local highlight_augroup = vim.api.nvim_create_augroup('greenforests-lsp-highlight', { clear = false })
             vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
               buffer = event.buf,
               group = highlight_augroup,
@@ -72,10 +73,10 @@ return {
               callback = vim.lsp.buf.clear_references,
             })
             vim.api.nvim_create_autocmd('LspDetach', {
-              group = vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true }),
+              group = vim.api.nvim_create_augroup('greenforests-lsp-detach', { clear = true }),
               callback = function(event2)
                 vim.lsp.buf.clear_references()
-                vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event2.buf }
+                vim.api.nvim_clear_autocmds { group = 'greenforests-lsp-highlight', buffer = event2.buf }
               end,
             })
           end
@@ -134,6 +135,37 @@ return {
             },
           },
         },
+
+        -- Bash
+        bashls = {
+          settings = {
+            bashIde = {
+              globPattern = '*@(.sh|.inc|.bash|.command)',
+            },
+          },
+        },
+
+        -- YAML with SchemaStore
+        yamlls = {
+          settings = {
+            yaml = {
+              schemaStore = { enable = false, url = '' },
+              schemas = require('schemastore').yaml.schemas(),
+              validate = true,
+              format = { enable = true },
+            },
+          },
+        },
+
+        -- JSON with SchemaStore
+        jsonls = {
+          settings = {
+            json = {
+              schemas = require('schemastore').json.schemas(),
+              validate = { enable = true },
+            },
+          },
+        },
       }
 
       -- Install servers and tools
@@ -144,6 +176,7 @@ return {
         'isort',
         'prettier',
         'goimports',
+        'shfmt',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
