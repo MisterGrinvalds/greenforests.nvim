@@ -1,4 +1,4 @@
--- lualine.nvim - Status line with Claude Code integration
+-- Statusline - lualine with Claude Code integration
 local fork = require('lib.forks').fork
 
 return {
@@ -10,14 +10,14 @@ return {
       theme = 'catppuccin',
       component_separators = { left = '', right = '' },
       section_separators = { left = '', right = '' },
-      globalstatus = true, -- Single status line for all windows
+      globalstatus = true,
     },
     sections = {
       lualine_a = { 'mode' },
       lualine_b = { 'branch', 'diff', 'diagnostics' },
       lualine_c = { 'filename' },
       lualine_x = {
-        -- Claude Code status (model, tokens, lines changed)
+        -- Claude Code status
         {
           function()
             local ok, statusline = pcall(require, 'claude-code.statusline')

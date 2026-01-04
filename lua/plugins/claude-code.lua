@@ -5,40 +5,37 @@ return {
   name = 'claude-code',
   event = 'VeryLazy',
   dependencies = {
-    'nvim-telescope/telescope.nvim', -- For session picker
+    'nvim-telescope/telescope.nvim',
   },
   config = function()
-    require('claude-code').setup({
+    require('claude-code').setup {
       window = {
-        width = 0.9, -- 90% of screen (lazygit-style)
+        width = 0.9,
         height = 0.9,
         border = 'rounded',
       },
       command = 'claude',
-      default_session = 'main', -- Auto-created on first <leader>cc
-    })
+      default_session = 'main',
+    }
 
-    -- Main toggle (auto-creates "main" or uses last session)
+    -- Main toggle
     vim.keymap.set('n', '<leader>cc', function()
       require('claude-code').toggle()
     end, { desc = '[C]laude [C]ode toggle' })
 
-    -- Quick toggle alias
     vim.keymap.set('n', '<leader>c', function()
       require('claude-code').toggle()
     end, { desc = '[C]laude Code' })
 
-    -- Session picker
+    -- Session management
     vim.keymap.set('n', '<leader>cp', function()
       require('claude-code').picker()
     end, { desc = '[C]laude [P]icker' })
 
-    -- New session
     vim.keymap.set('n', '<leader>cn', function()
       require('claude-code').new_session()
     end, { desc = '[C]laude [N]ew session' })
 
-    -- Delete session
     vim.keymap.set('n', '<leader>cx', function()
       require('claude-code').delete_session()
     end, { desc = '[C]laude delete/e[X]it session' })
@@ -56,19 +53,16 @@ return {
       require('claude-code').send_diagnostics()
     end, { desc = '[C]laude: Send [D]iagnostics' })
 
-    -- Ask with custom prompt
     vim.keymap.set('n', '<leader>ca', function()
       require('claude-code').ask()
     end, { desc = '[C]laude: [A]sk' })
 
-    -- Replace selection with Claude's code
     vim.keymap.set({ 'n', 'v' }, '<leader>cr', function()
       require('claude-code').pick_and_replace()
     end, { desc = '[C]laude: [R]eplace with code' })
 
-    -- Manual buffer refresh (force reload all buffers)
     vim.keymap.set('n', '<leader>cb', function()
-      require('claude-code').sync.force_refresh() -- shows notification
+      require('claude-code').sync.force_refresh()
     end, { desc = '[C]laude: Refresh [B]uffers' })
   end,
 }

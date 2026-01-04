@@ -1,5 +1,4 @@
--- trouble.nvim - Better diagnostics list
--- Beautiful list for diagnostics, references, quickfix, and location lists
+-- Diagnostics - trouble.nvim
 local fork = require('lib.forks').fork
 
 return {

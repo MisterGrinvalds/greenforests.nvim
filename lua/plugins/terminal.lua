@@ -1,15 +1,12 @@
--- tmux integration for Neovim
--- Provides keyboard-first control of tmux from within Neovim
+-- Terminal - tmux integration
 return {
-  dir = '/Users/mistergrinvalds/Repos/personal/kickstart.nvim/lua/custom/tmux',
+  dir = vim.fn.stdpath 'config' .. '/lua/custom/tmux',
   name = 'tmux-wrapper',
   lazy = false,
   config = function()
     local tmux = require('custom.tmux')
 
-    -- Only set up keybindings if inside tmux
     if not tmux.is_tmux() then
-      vim.notify('tmux integration available but not inside tmux session', vim.log.levels.INFO)
       return
     end
 
@@ -44,7 +41,7 @@ return {
       tmux.window.delete(current)
     end, { desc = '[T]mux window [X] delete' })
 
-    -- Window navigation (Neovim shortcuts for tmux commands)
+    -- Window navigation
     vim.keymap.set('n', '<leader>tl', function()
       tmux.window.next()
     end, { desc = '[T]mux window next ([L])' })
@@ -57,11 +54,9 @@ return {
     vim.keymap.set('n', '<leader>tm', '<cmd>silent !tmux resize-pane -Z<cr>', {
       desc = '[T]mux pane [M]aximize toggle',
     })
-
     vim.keymap.set('n', '<leader>t|', '<cmd>silent !tmux split-window -h<cr>', {
       desc = '[T]mux split vertical',
     })
-
     vim.keymap.set('n', '<leader>t-', '<cmd>silent !tmux split-window -v<cr>', {
       desc = '[T]mux split horizontal',
     })
@@ -72,13 +67,9 @@ return {
         if not name or name == '' then
           return
         end
-
         vim.ui.input({ prompt = 'Command to run (or Enter for shell): ' }, function(command)
-          -- Create window
           tmux.window.create(name)
           tmux.window.goto(name)
-
-          -- Send command if provided
           if command and command ~= '' then
             tmux.window.send_command(name, command, true)
           end
@@ -86,13 +77,13 @@ return {
       end)
     end, { desc = '[T]mux [C]reate window with command' })
 
-    -- Send visual selection to current window
+    -- Send visual selection
     vim.keymap.set('v', '<leader>ts', function()
       local start_pos = vim.fn.getpos("'<")
       local end_pos = vim.fn.getpos("'>")
       local lines = vim.fn.getline(start_pos[2], end_pos[2])
       local command = table.concat(lines, '\n')
-      tmux.send(nil, command, true) -- nil = current window
+      tmux.send(nil, command, true)
     end, { desc = '[T]mux [S]end selection' })
   end,
 }
