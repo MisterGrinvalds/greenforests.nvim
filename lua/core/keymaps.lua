@@ -23,6 +23,9 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- Terminal mode exit
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
+-- Quick terminal
+vim.keymap.set('n', '<leader>tt', '<cmd>terminal<CR>', { desc = '[T]erminal [T]oggle' })
+
 -- NOTE: Split navigation handled by smart-splits plugin (Ctrl+hjkl)
 
 -- Mouse back/forward buttons for jump list navigation
