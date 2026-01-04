@@ -51,6 +51,16 @@ return {
       { '<leader>e', ':Neotree toggle<CR>', desc = 'File [E]xplorer', silent = true },
     },
     opts = {
+      window = {
+        mappings = {
+          ['P'] = { 'toggle_preview', config = { use_float = true, use_image_nvim = true } },
+        },
+        preview = {
+          enabled = true,
+          use_float = true,
+        },
+      },
+      use_popups_for_input = false,
       filesystem = {
         filtered_items = {
           visible = true,
