@@ -48,16 +48,16 @@ return {
     lazy = false,
     keys = {
       { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
-      { '<leader>e', ':Neotree toggle<CR>', desc = 'File [E]xplorer', silent = true },
+      { '<leader>ee', ':Neotree toggle<CR>', desc = '[E]xplorer toggle', silent = true },
+      { '<leader>ef', ':Neotree focus<CR>', desc = '[E]xplorer [F]ocus', silent = true },
     },
     opts = {
       window = {
         mappings = {
           ['P'] = { 'toggle_preview', config = { use_float = true, use_image_nvim = true } },
-        },
-        preview = {
-          enabled = true,
-          use_float = true,
+          ['l'] = 'focus_preview',
+          ['<C-f>'] = { 'scroll_preview', config = { direction = -10 } },
+          ['<C-b>'] = { 'scroll_preview', config = { direction = 10 } },
         },
       },
       use_popups_for_input = false,

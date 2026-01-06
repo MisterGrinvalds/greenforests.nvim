@@ -40,14 +40,19 @@ return {
       require('claude-code').delete_session()
     end, { desc = '[C]laude delete/e[X]it session' })
 
-    -- Context injection
+    -- Focus Claude window
     vim.keymap.set('n', '<leader>cf', function()
+      require('claude-code').focus()
+    end, { desc = '[C]laude [F]ocus' })
+
+    -- Context injection (send file in normal, selection in visual)
+    vim.keymap.set('n', '<leader>cs', function()
       require('claude-code').send_file()
-    end, { desc = '[C]laude: Send [F]ile' })
+    end, { desc = '[C]laude [S]end file' })
 
     vim.keymap.set('v', '<leader>cs', function()
       require('claude-code').send_selection()
-    end, { desc = '[C]laude: Send [S]election' })
+    end, { desc = '[C]laude [S]end selection' })
 
     vim.keymap.set('n', '<leader>cd', function()
       require('claude-code').send_diagnostics()

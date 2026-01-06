@@ -80,7 +80,8 @@
       "Skill(fork-plugin)",
       "Skill(claude-aggregate)",
       "Bash(echo:*)",
-      "Bash(/opt/homebrew/bin/pnpm create:*)"
+      "Bash(/opt/homebrew/bin/pnpm create:*)",
+      "WebFetch(domain:www.lazyvim.org)"
     ]
   }
 }
