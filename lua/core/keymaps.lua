@@ -23,8 +23,47 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- Terminal mode exit
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
--- Quick terminal
-vim.keymap.set('n', '<leader>tt', '<cmd>terminal<CR>', { desc = '[T]erminal [T]oggle' })
+-- Terminal management with toggle/open/close
+local term_buf = nil
+
+local function terminal_open()
+  if term_buf and vim.api.nvim_buf_is_valid(term_buf) then
+    -- Reuse existing terminal buffer
+    vim.cmd('botright split')
+    vim.api.nvim_win_set_buf(0, term_buf)
+  else
+    -- Create new terminal
+    vim.cmd('botright split | terminal')
+    term_buf = vim.api.nvim_get_current_buf()
+  end
+  vim.cmd('startinsert')
+end
+
+local function terminal_close()
+  if term_buf then
+    local wins = vim.fn.win_findbuf(term_buf)
+    for _, win in ipairs(wins) do
+      vim.api.nvim_win_close(win, true)
+    end
+  end
+end
+
+local function terminal_toggle()
+  if term_buf and vim.api.nvim_buf_is_valid(term_buf) then
+    local wins = vim.fn.win_findbuf(term_buf)
+    if #wins > 0 then
+      -- Terminal visible, close it
+      terminal_close()
+      return
+    end
+  end
+  -- Terminal not visible, open it
+  terminal_open()
+end
+
+vim.keymap.set('n', '<leader>tt', terminal_toggle, { desc = '[T]erminal [T]oggle' })
+vim.keymap.set('n', '<leader>to', terminal_open, { desc = '[T]erminal [O]pen' })
+vim.keymap.set('n', '<leader>tc', terminal_close, { desc = '[T]erminal [C]lose' })
 
 -- NOTE: Split navigation handled by smart-splits plugin (Ctrl+hjkl)
 

@@ -18,14 +18,21 @@ return {
       default_session = 'main',
     }
 
-    -- Main toggle
-    vim.keymap.set('n', '<leader>cc', function()
+    -- UI controls: toggle/open/close/focus
+    vim.keymap.set('n', '<leader>ct', function()
       require('claude-code').toggle()
-    end, { desc = '[C]laude [C]ode toggle' })
+    end, { desc = '[C]laude [T]oggle' })
 
-    vim.keymap.set('n', '<leader>c', function()
-      require('claude-code').toggle()
-    end, { desc = '[C]laude Code' })
+    vim.keymap.set('n', '<leader>co', function()
+      require('claude-code').show()
+    end, { desc = '[C]laude [O]pen' })
+
+    vim.keymap.set('n', '<leader>cc', function()
+      require('claude-code').hide()
+    end, { desc = '[C]laude [C]lose' })
+
+    -- Shift+Enter for newline in terminal mode (Enter sends to Claude CLI)
+    vim.keymap.set('t', '<S-CR>', '<C-v><CR>', { desc = 'Insert newline' })
 
     -- Session management
     vim.keymap.set('n', '<leader>cp', function()

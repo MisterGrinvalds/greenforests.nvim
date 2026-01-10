@@ -61,8 +61,8 @@ return {
       desc = '[T]mux split horizontal',
     })
 
-    -- Create window with command
-    vim.keymap.set('n', '<leader>tc', function()
+    -- Create window with command (moved from tc to tw to free tc for terminal close)
+    vim.keymap.set('n', '<leader>tw', function()
       vim.ui.input({ prompt = 'Window name: ' }, function(name)
         if not name or name == '' then
           return
@@ -75,7 +75,7 @@ return {
           end
         end)
       end)
-    end, { desc = '[T]mux [C]reate window with command' })
+    end, { desc = '[T]mux [W]indow with command' })
 
     -- Send visual selection
     vim.keymap.set('v', '<leader>ts', function()

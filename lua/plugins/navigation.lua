@@ -48,12 +48,24 @@ return {
     lazy = false,
     keys = {
       { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
-      { '<leader>ee', ':Neotree toggle<CR>', desc = '[E]xplorer toggle', silent = true },
+      { '<leader>et', ':Neotree toggle<CR>', desc = '[E]xplorer [T]oggle', silent = true },
+      { '<leader>eo', ':Neotree show<CR>', desc = '[E]xplorer [O]pen', silent = true },
+      { '<leader>ec', ':Neotree close<CR>', desc = '[E]xplorer [C]lose', silent = true },
       { '<leader>ef', ':Neotree focus<CR>', desc = '[E]xplorer [F]ocus', silent = true },
     },
     opts = {
       window = {
         mappings = {
+          ['<Space>'] = {
+            function()
+              -- Pass through to leader menu (e.g., command palette)
+              vim.cmd('wincmd p') -- Go to previous window
+              vim.defer_fn(function()
+                vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Space>', true, false, true), 'n', false)
+              end, 10)
+            end,
+            desc = 'Leader menu',
+          },
           ['P'] = { 'toggle_preview', config = { use_float = true, use_image_nvim = true } },
           ['l'] = 'focus_preview',
           ['<C-f>'] = { 'scroll_preview', config = { direction = -10 } },
