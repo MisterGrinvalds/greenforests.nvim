@@ -31,7 +31,39 @@ return {
       { '<leader>bl', '<Cmd>BufferLineCloseLeft<CR>', desc = 'Delete buffers to [L]eft' },
       { '<leader>bd', '<Cmd>bdelete<CR>', desc = '[D]elete buffer' },
       { '<leader>bj', '<Cmd>BufferLinePick<CR>', desc = '[J]ump to buffer (visual)' },
-      { '<leader>bp', '<cmd>Telescope buffers<cr>', desc = 'Buffer [P]icker' },
+      {
+        '<leader>bp',
+        function()
+          require('telescope.builtin').buffers {
+            attach_mappings = function(_, map)
+              local actions = require 'telescope.actions'
+              local action_state = require 'telescope.actions.state'
+
+              -- Override default select to jump to existing window
+              local jump_or_switch = function(prompt_bufnr)
+                local selection = action_state.get_selected_entry()
+                actions.close(prompt_bufnr)
+
+                local bufnr = selection.bufnr
+                -- Check if buffer is visible in any window
+                for _, win in ipairs(vim.api.nvim_list_wins()) do
+                  if vim.api.nvim_win_get_buf(win) == bufnr then
+                    vim.api.nvim_set_current_win(win)
+                    return
+                  end
+                end
+                -- Not visible, switch current window to buffer
+                vim.api.nvim_set_current_buf(bufnr)
+              end
+
+              map('i', '<CR>', jump_or_switch)
+              map('n', '<CR>', jump_or_switch)
+              return true
+            end,
+          }
+        end,
+        desc = 'Buffer [P]icker (jump to window)',
+      },
       {
         '<leader>xn',
         function()
