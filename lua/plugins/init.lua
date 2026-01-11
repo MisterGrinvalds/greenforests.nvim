@@ -78,6 +78,5 @@ add('plugins.terminal')
 add('plugins.claude-code')
 add('plugins.docusaurus')
 add('plugins.plugin-help')
-add('plugins.qol')
 
 return specs

@@ -1,0 +1,95 @@
+*qol-nvim.txt*  Quality of Life improvements for Neovim
+
+Author:   Your Name
+License:  MIT
+
+==============================================================================
+CONTENTS                                                    *qol-nvim-contents*
+
+  1. Introduction .......................... |qol-nvim-introduction|
+  2. Requirements .......................... |qol-nvim-requirements|
+  3. Setup ................................. |qol-nvim-setup|
+  4. Commands .............................. |qol-nvim-commands|
+  5. API ................................... |qol-nvim-api|
+  6. Configuration ......................... |qol-nvim-configuration|
+
+==============================================================================
+1. INTRODUCTION                                         *qol-nvim-introduction*
+
+qol-nvim is a collection of Quality of Life improvements for Neovim.
+
+Features:
+- Toggle Maximize: VS Code-style window maximize toggle
+
+==============================================================================
+2. REQUIREMENTS                                         *qol-nvim-requirements*
+
+- Neovim 0.9+
+
+==============================================================================
+3. SETUP                                                       *qol-nvim-setup*
+
+Using lazy.nvim: >lua
+  {
+    'username/qol.nvim',
+    config = function()
+      require('qol-nvim').setup({
+        maximize = {
+          enabled = true,
+          keymap = '<leader>z',
+        },
+      })
+    end,
+  }
+<
+
+==============================================================================
+4. COMMANDS                                                 *qol-nvim-commands*
+
+                                                               *:QolMaximize*
+:QolMaximize
+  Toggle window maximize. When maximized, the current window takes up the
+  full screen. When toggled again, restores the previous window layout.
+
+==============================================================================
+5. API                                                           *qol-nvim-api*
+
+                                                   *qol-nvim.maximize.toggle()*
+toggle()
+  Toggle between maximized and normal window state.
+
+                                                 *qol-nvim.maximize.maximize()*
+maximize()
+  Maximize the current window. Does nothing if already maximized.
+
+                                                  *qol-nvim.maximize.restore()*
+restore()
+  Restore the previous window layout. Does nothing if not maximized.
+
+                                             *qol-nvim.maximize.is_maximized()*
+is_maximized()
+  Returns `true` if currently maximized, `false` otherwise.
+
+==============================================================================
+6. CONFIGURATION                                       *qol-nvim-configuration*
+
+Default configuration: >lua
+  require('qol-nvim').setup({
+    maximize = {
+      enabled = true,  -- Enable the maximize feature
+      keymap = nil,    -- Auto-register keymap (e.g., '<leader>z')
+    },
+  })
+<
+
+                                                       *qol-nvim-maximize-opts*
+maximize.enabled ~
+  Type: boolean, Default: `true`
+  Enable or disable the maximize feature.
+
+maximize.keymap ~
+  Type: string | nil, Default: `nil`
+  If set, automatically registers a keymap for toggle maximize.
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:
