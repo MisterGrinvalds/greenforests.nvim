@@ -4,7 +4,7 @@ local fork = require('lib.forks').fork
 return {
   -- Harpoon - Quick file marks
   {
-    fork('ThePrimeagen/harpoon'),
+    fork 'ThePrimeagen/harpoon',
     branch = 'harpoon2',
     dependencies = { 'nvim-lua/plenary.nvim' },
     lazy = false,
@@ -37,13 +37,13 @@ return {
 
   -- Neo-tree - File explorer
   {
-    fork('nvim-neo-tree/neo-tree.nvim'),
+    fork 'nvim-neo-tree/neo-tree.nvim',
     name = 'neo-tree.nvim',
     version = '*',
     dependencies = {
-      fork('nvim-lua/plenary.nvim'),
-      fork('nvim-tree/nvim-web-devicons'),
-      fork('MunifTanjim/nui.nvim'),
+      fork 'nvim-lua/plenary.nvim',
+      fork 'nvim-tree/nvim-web-devicons',
+      fork 'MunifTanjim/nui.nvim',
     },
     lazy = false,
     keys = {
@@ -57,7 +57,10 @@ return {
       window = {
         mappings = {
           -- Disable Space so global <leader> keymaps work in NeoTree
-          ['<Space>'] = 'none',
+          ['<Space>'] = {
+            'toggle_node',
+            nowait = false,
+          },
           ['P'] = { 'toggle_preview', config = { use_float = true, use_image_nvim = true } },
           ['l'] = 'focus_preview',
           ['<C-f>'] = { 'scroll_preview', config = { direction = -10 } },
@@ -84,7 +87,7 @@ return {
 
   -- Smart-splits - Seamless split/tmux navigation
   {
-    fork('mrjones2014/smart-splits.nvim'),
+    fork 'mrjones2014/smart-splits.nvim',
     lazy = false,
     config = function()
       require('smart-splits').setup {
