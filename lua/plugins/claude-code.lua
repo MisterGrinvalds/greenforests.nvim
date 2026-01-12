@@ -76,5 +76,7 @@ return {
     vim.keymap.set('n', '<leader>cb', function()
       require('claude-code').sync.force_refresh()
     end, { desc = '[C]laude: Refresh [B]uffers' })
+
+    vim.keymap.set('n', '<leader>cl', '<cmd>Claude float<cr>', { desc = '[C]laude f[L]oat' })
   end,
 }
