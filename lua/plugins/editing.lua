@@ -49,9 +49,13 @@ return {
     branch = 'master',
     event = 'VeryLazy',
     init = function()
+      -- Theme for cursor visibility (dark themes: iceblue, ocean, neon, nord, codedark)
+      vim.g.VM_theme = 'ocean'
+      vim.g.VM_highlight_matches = 'underline'
+
       vim.g.VM_maps = {
-        ['Find Under'] = '<C-n>',         -- Select word under cursor, repeat for next
-        ['Find Subword Under'] = '<C-n>', -- Also works on partial words
+        ['Find Under'] = '<C-S-d>',       -- Select word under cursor, repeat for next
+        ['Find Subword Under'] = '<C-S-d>', -- Also works on partial words
         ['Select All'] = '<C-S-l>',       -- Select all occurrences
         ['Add Cursor Down'] = '<C-Down>', -- Add cursor below
         ['Add Cursor Up'] = '<C-Up>',     -- Add cursor above
