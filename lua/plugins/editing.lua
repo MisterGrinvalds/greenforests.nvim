@@ -41,4 +41,21 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim' },
     opts = { signs = false },
   },
+
+  -- Multi-cursor editing (like VS Code Cmd+D)
+  -- https://github.com/mg979/vim-visual-multi
+  {
+    fork('mg979/vim-visual-multi'),
+    branch = 'master',
+    event = 'VeryLazy',
+    init = function()
+      vim.g.VM_maps = {
+        ['Find Under'] = '<C-n>',         -- Select word under cursor, repeat for next
+        ['Find Subword Under'] = '<C-n>', -- Also works on partial words
+        ['Select All'] = '<C-S-l>',       -- Select all occurrences
+        ['Add Cursor Down'] = '<C-Down>', -- Add cursor below
+        ['Add Cursor Up'] = '<C-Up>',     -- Add cursor above
+      }
+    end,
+  },
 }
