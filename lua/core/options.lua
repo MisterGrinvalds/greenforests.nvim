@@ -23,8 +23,13 @@ vim.schedule(function()
   vim.o.clipboard = 'unnamedplus'
 end)
 
--- Indentation
-vim.o.breakindent = true
+-- Indentation defaults (filetypes override via autocmd)
+vim.o.expandtab = true    -- Use spaces instead of tabs
+vim.o.shiftwidth = 2      -- Default indent size
+vim.o.tabstop = 2         -- Tab display width
+vim.o.softtabstop = 2     -- Backspace deletes indent
+vim.o.smartindent = true  -- Smart auto-indenting
+vim.o.breakindent = true  -- Preserve indent on wrapped lines
 
 -- Undo persistence
 vim.o.undofile = true
