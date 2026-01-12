@@ -166,6 +166,15 @@ return {
             },
           },
         },
+
+        -- HTML
+        html = {},
+
+        -- CSS
+        cssls = {},
+
+        -- Markdown
+        marksman = {},
       }
 
       -- Install tools (formatters, linters)

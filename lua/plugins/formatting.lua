@@ -42,6 +42,7 @@ return {
       sh = { 'shfmt' },
       bash = { 'shfmt' },
       yaml = { 'prettier' },
+      markdown = { 'prettier' },
     },
   },
 }
