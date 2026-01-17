@@ -77,15 +77,15 @@ vim.keymap.set('n', '<leader>tt', terminal_toggle, { desc = '[T]erminal [T]oggle
 vim.keymap.set('n', '<leader>to', terminal_open, { desc = '[T]erminal [O]pen' })
 vim.keymap.set('n', '<leader>tc', terminal_close, { desc = '[T]erminal [C]lose' })
 
--- NOTE: Split navigation handled by smart-splits plugin (Shift+hjkl)
--- NOTE: Buffer navigation handled by bufferline plugin (Shift+yuio)
+-- NOTE: Split navigation handled by smart-splits plugin (Shift+Alt+hjkl)
+-- NOTE: Buffer navigation handled by bufferline plugin (Shift+Alt+yuio)
 
--- Tmux window navigation (Shift+nm,.)
+-- Tmux window navigation (Shift+Alt+nm,.)
 -- Keyboard geography: nm,. is row BELOW hjkl = tmux (external)
-vim.keymap.set('n', '<S-n>', '<Cmd>silent !tmux select-window -t :-1<CR>', { desc = 'Tmux prev window' })
-vim.keymap.set('n', '<S-m>', '<Cmd>silent !tmux select-window -t :+1<CR>', { desc = 'Tmux next window' })
-vim.keymap.set('n', '<S-,>', '<Cmd>silent !tmux choose-window<CR>', { desc = 'Tmux window picker' })
-vim.keymap.set('n', '<S-.>', function()
+vim.keymap.set('n', '<S-A-n>', '<Cmd>silent !tmux select-window -t :-1<CR>', { desc = 'Tmux prev window' })
+vim.keymap.set('n', '<S-A-m>', '<Cmd>silent !tmux select-window -t :+1<CR>', { desc = 'Tmux next window' })
+vim.keymap.set('n', '<S-A-,>', '<Cmd>silent !tmux choose-window<CR>', { desc = 'Tmux window picker' })
+vim.keymap.set('n', '<S-A-.>', function()
   vim.ui.input({ prompt = 'New tmux window name: ' }, function(name)
     if name and name ~= '' then
       vim.cmd('silent !tmux new-window -n ' .. vim.fn.shellescape(name))

@@ -111,11 +111,11 @@ return {
         at_edge = 'stop',
       }
 
-      -- Navigation (Shift+hjkl)
-      vim.keymap.set('n', '<S-h>', require('smart-splits').move_cursor_left, { desc = 'Move to left split' })
-      vim.keymap.set('n', '<S-j>', require('smart-splits').move_cursor_down, { desc = 'Move to below split' })
-      vim.keymap.set('n', '<S-k>', require('smart-splits').move_cursor_up, { desc = 'Move to above split' })
-      vim.keymap.set('n', '<S-l>', require('smart-splits').move_cursor_right, { desc = 'Move to right split' })
+      -- Navigation (Shift+Alt+hjkl)
+      vim.keymap.set('n', '<S-A-h>', require('smart-splits').move_cursor_left, { desc = 'Move to left split' })
+      vim.keymap.set('n', '<S-A-j>', require('smart-splits').move_cursor_down, { desc = 'Move to below split' })
+      vim.keymap.set('n', '<S-A-k>', require('smart-splits').move_cursor_up, { desc = 'Move to above split' })
+      vim.keymap.set('n', '<S-A-l>', require('smart-splits').move_cursor_right, { desc = 'Move to right split' })
 
       -- Arrow alternatives
       vim.keymap.set('n', '<S-Left>', require('smart-splits').move_cursor_left, { desc = 'Move to left split' })
@@ -123,17 +123,17 @@ return {
       vim.keymap.set('n', '<S-Up>', require('smart-splits').move_cursor_up, { desc = 'Move to above split' })
       vim.keymap.set('n', '<S-Right>', require('smart-splits').move_cursor_right, { desc = 'Move to right split' })
 
-      -- Resizing (Shift+Alt+hjkl)
-      vim.keymap.set('n', '<S-A-h>', require('smart-splits').resize_left, { desc = 'Resize split left' })
-      vim.keymap.set('n', '<S-A-j>', require('smart-splits').resize_down, { desc = 'Resize split down' })
-      vim.keymap.set('n', '<S-A-k>', require('smart-splits').resize_up, { desc = 'Resize split up' })
-      vim.keymap.set('n', '<S-A-l>', require('smart-splits').resize_right, { desc = 'Resize split right' })
+      -- Resizing (Ctrl+Alt+hjkl)
+      vim.keymap.set('n', '<C-A-h>', require('smart-splits').resize_left, { desc = 'Resize split left' })
+      vim.keymap.set('n', '<C-A-j>', require('smart-splits').resize_down, { desc = 'Resize split down' })
+      vim.keymap.set('n', '<C-A-k>', require('smart-splits').resize_up, { desc = 'Resize split up' })
+      vim.keymap.set('n', '<C-A-l>', require('smart-splits').resize_right, { desc = 'Resize split right' })
 
       -- Arrow alternatives for resizing
-      vim.keymap.set('n', '<S-A-Left>', require('smart-splits').resize_left, { desc = 'Resize split left' })
-      vim.keymap.set('n', '<S-A-Down>', require('smart-splits').resize_down, { desc = 'Resize split down' })
-      vim.keymap.set('n', '<S-A-Up>', require('smart-splits').resize_up, { desc = 'Resize split up' })
-      vim.keymap.set('n', '<S-A-Right>', require('smart-splits').resize_right, { desc = 'Resize split right' })
+      vim.keymap.set('n', '<C-A-Left>', require('smart-splits').resize_left, { desc = 'Resize split left' })
+      vim.keymap.set('n', '<C-A-Down>', require('smart-splits').resize_down, { desc = 'Resize split down' })
+      vim.keymap.set('n', '<C-A-Up>', require('smart-splits').resize_up, { desc = 'Resize split up' })
+      vim.keymap.set('n', '<C-A-Right>', require('smart-splits').resize_right, { desc = 'Resize split right' })
 
       -- Swapping buffers
       vim.keymap.set('n', '<leader>wh', require('smart-splits').swap_buf_left, { desc = 'Swap buffer left' })
