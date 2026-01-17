@@ -89,3 +89,7 @@ vim.keymap.set('n', '<C-Right>', '<Cmd>silent !tmux select-window -t :+1<CR>', {
 -- Works with mice that have side buttons (typically buttons 4/5)
 vim.keymap.set('n', '<X1Mouse>', '<C-o>', { desc = 'Jump back (mouse)' })
 vim.keymap.set('n', '<X2Mouse>', '<C-i>', { desc = 'Jump forward (mouse)' })
+
+-- Scroll wheel moves cursor (not just viewport)
+vim.keymap.set('n', '<ScrollWheelUp>', 'k', { desc = 'Move cursor up' })
+vim.keymap.set('n', '<ScrollWheelDown>', 'j', { desc = 'Move cursor down' })
