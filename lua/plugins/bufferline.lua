@@ -10,6 +10,12 @@ return {
     dependencies = 'nvim-tree/nvim-web-devicons',
     event = 'VeryLazy',
     keys = {
+      -- Buffer navigation (Shift+uiop)
+      -- Keyboard geography: uiop is row ABOVE hjkl = bufferline (top of screen)
+      { '<S-u>', '<Cmd>BufferLineCyclePrev<CR>', desc = 'Previous buffer' },
+      { '<S-o>', '<Cmd>BufferLineCycleNext<CR>', desc = 'Next buffer' },
+      { '<S-i>', '<Cmd>BufferLinePick<CR>', desc = 'Buffer picker' },
+      { '<S-p>', '<Cmd>BufferLineTogglePin<CR>', desc = 'Pin buffer' },
       -- Direct buffer access with Ctrl+number
       { '<C-1>', '<Cmd>BufferLineGoToBuffer 1<CR>', desc = 'Go to buffer 1' },
       { '<C-2>', '<Cmd>BufferLineGoToBuffer 2<CR>', desc = 'Go to buffer 2' },

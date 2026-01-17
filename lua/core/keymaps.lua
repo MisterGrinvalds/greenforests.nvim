@@ -78,18 +78,22 @@ vim.keymap.set('n', '<leader>to', terminal_open, { desc = '[T]erminal [O]pen' })
 vim.keymap.set('n', '<leader>tc', terminal_close, { desc = '[T]erminal [C]lose' })
 
 -- NOTE: Split navigation handled by smart-splits plugin (Shift+hjkl)
+-- NOTE: Buffer navigation handled by bufferline plugin (Shift+uiop)
 
--- Buffer navigation (Ctrl+h/l)
-vim.keymap.set('n', '<C-h>', '<Cmd>BufferLineCyclePrev<CR>', { desc = 'Previous buffer' })
-vim.keymap.set('n', '<C-l>', '<Cmd>BufferLineCycleNext<CR>', { desc = 'Next buffer' })
-vim.keymap.set('n', '<C-Left>', '<Cmd>BufferLineCyclePrev<CR>', { desc = 'Previous buffer' })
-vim.keymap.set('n', '<C-Right>', '<Cmd>BufferLineCycleNext<CR>', { desc = 'Next buffer' })
-
--- Tmux window (tab) navigation (Ctrl+Alt+h/l)
-vim.keymap.set('n', '<C-A-h>', '<Cmd>silent !tmux select-window -t :-1<CR>', { desc = 'Tmux prev window' })
-vim.keymap.set('n', '<C-A-l>', '<Cmd>silent !tmux select-window -t :+1<CR>', { desc = 'Tmux next window' })
-vim.keymap.set('n', '<C-A-Left>', '<Cmd>silent !tmux select-window -t :-1<CR>', { desc = 'Tmux prev window' })
-vim.keymap.set('n', '<C-A-Right>', '<Cmd>silent !tmux select-window -t :+1<CR>', { desc = 'Tmux next window' })
+-- Tmux window navigation (Shift+m,./)
+-- Keyboard geography: m,./ is row BELOW hjkl = tmux (external)
+vim.keymap.set('n', '<S-m>', '<Cmd>silent !tmux select-window -t :-1<CR>', { desc = 'Tmux prev window' })
+vim.keymap.set('n', '<S-.>', '<Cmd>silent !tmux select-window -t :+1<CR>', { desc = 'Tmux next window' })
+vim.keymap.set('n', '<S-,>', '<Cmd>silent !tmux choose-window<CR>', { desc = 'Tmux window picker' })
+vim.keymap.set('n', '<S-/>', function()
+  vim.ui.input({ prompt = 'New tmux window name: ' }, function(name)
+    if name and name ~= '' then
+      vim.cmd('silent !tmux new-window -n ' .. vim.fn.shellescape(name))
+    else
+      vim.cmd('silent !tmux new-window')
+    end
+  end)
+end, { desc = 'Tmux new window' })
 
 -- Mouse back/forward buttons for jump list navigation
 -- Works with mice that have side buttons (typically buttons 4/5)
