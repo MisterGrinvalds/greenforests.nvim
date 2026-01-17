@@ -79,11 +79,15 @@ vim.keymap.set('n', '<leader>tc', terminal_close, { desc = '[T]erminal [C]lose' 
 
 -- NOTE: Split navigation handled by smart-splits plugin (Shift+hjkl)
 
--- Tmux window (tab) navigation
-vim.keymap.set('n', '<C-h>', '<Cmd>silent !tmux select-window -t :-1<CR>', { desc = 'Tmux prev window' })
-vim.keymap.set('n', '<C-l>', '<Cmd>silent !tmux select-window -t :+1<CR>', { desc = 'Tmux next window' })
-vim.keymap.set('n', '<C-Left>', '<Cmd>silent !tmux select-window -t :-1<CR>', { desc = 'Tmux prev window' })
-vim.keymap.set('n', '<C-Right>', '<Cmd>silent !tmux select-window -t :+1<CR>', { desc = 'Tmux next window' })
+-- Buffer navigation (Ctrl+h/l)
+vim.keymap.set('n', '<C-h>', '<Cmd>BufferLineCyclePrev<CR>', { desc = 'Previous buffer' })
+vim.keymap.set('n', '<C-l>', '<Cmd>BufferLineCycleNext<CR>', { desc = 'Next buffer' })
+vim.keymap.set('n', '<C-Left>', '<Cmd>BufferLineCyclePrev<CR>', { desc = 'Previous buffer' })
+vim.keymap.set('n', '<C-Right>', '<Cmd>BufferLineCycleNext<CR>', { desc = 'Next buffer' })
+
+-- Tmux window (tab) navigation (Shift+Ctrl+h/l)
+vim.keymap.set('n', '<S-C-h>', '<Cmd>silent !tmux select-window -t :-1<CR>', { desc = 'Tmux prev window' })
+vim.keymap.set('n', '<S-C-l>', '<Cmd>silent !tmux select-window -t :+1<CR>', { desc = 'Tmux next window' })
 
 -- Mouse back/forward buttons for jump list navigation
 -- Works with mice that have side buttons (typically buttons 4/5)
