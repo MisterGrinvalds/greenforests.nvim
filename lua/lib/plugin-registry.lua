@@ -183,7 +183,7 @@ help.register {
     { cmd = 'BufferLinePickClose', desc = 'Pick buffer to close' },
   },
   tips = {
-    'Use Shift+H/L to quickly switch buffers',
+    'Use Shift+Y/U to quickly switch buffers',
     'Pin important buffers with <leader>bp',
     'Use <leader>bj to visually pick a buffer',
   },

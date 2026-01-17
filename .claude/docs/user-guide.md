@@ -152,8 +152,8 @@ LSP works across languages (TypeScript, Python, Go, Rust, etc.)
 
 | Keymap | Action |
 |--------|--------|
-| `Shift+H` | Previous buffer (like browser back) |
-| `Shift+L` | Next buffer (like browser forward) |
+| `Shift+Y` | Previous buffer (like browser back) |
+| `Shift+U` | Next buffer (like browser forward) |
 | `<leader>bd` | Delete buffer (close file) |
 | `<leader><Space>` | Fuzzy find open buffers |
 

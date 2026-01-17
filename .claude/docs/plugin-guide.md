@@ -766,7 +766,7 @@ View git diffs and file history in beautiful UI.
 
 **Plugin:** `bufferline.nvim`
 **Category:** UI, Navigation
-**Keymaps:** `Shift+H/L`, `<leader>bj`
+**Keymaps:** `Shift+Y/U`, `<leader>bj`
 
 #### What It Does
 
@@ -775,8 +775,8 @@ Visual buffer tabs at the top with buffer management.
 #### How to Use
 
 ```vim
-Shift+H                    " Previous buffer
-Shift+L                    " Next buffer
+Shift+Y                    " Previous buffer
+Shift+U                    " Next buffer
 <leader>bj                 " Buffer jump (visual picker)
 <leader>bd                 " Delete buffer
 <leader>bp                 " Pin buffer

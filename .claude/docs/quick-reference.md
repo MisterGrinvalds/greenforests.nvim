@@ -45,18 +45,18 @@ A concise cheat sheet for all keybindings and commands in this Neovim setup.
 Uses keyboard rows to map to screen position:
 
 ```
-  u i o p    Shift+ = Bufferline (top of screen)
+  y u i o    Shift+ = Bufferline (top of screen)
   h j k l    Shift+ = Splits (current window)
-  m , . /    Shift+ = Tmux (external)
+  n m , .    Shift+ = Tmux (external)
 ```
 
 | Context | Keys | Actions |
 |---------|------|---------|
 | Within file | `Alt+hjkl` | h/l=Home/End, j/k=Move line |
-| Bufferline | `Shift+uiop` | u=prev, i=picker, o=next, p=pin |
+| Bufferline | `Shift+yuio` | y=prev, u=next, i=picker, o=pin |
 | Splits | `Shift+hjkl` | Navigate between splits |
 | Splits resize | `Shift+Alt+hjkl` | Resize splits |
-| Tmux | `Shift+m,./` | m=prev, ,=picker, .=next, /=new |
+| Tmux | `Shift+nm,.` | n=prev, m=next, ,=picker, .=new |
 
 ---
 
@@ -64,10 +64,10 @@ Uses keyboard rows to map to screen position:
 
 | Keymap | Action | Plugin |
 |--------|--------|--------|
-| `Shift+u` | Previous buffer | bufferline |
-| `Shift+o` | Next buffer | bufferline |
+| `Shift+y` | Previous buffer | bufferline |
+| `Shift+u` | Next buffer | bufferline |
 | `Shift+i` | Buffer picker | bufferline |
-| `Shift+p` | Pin buffer | bufferline |
+| `Shift+o` | Pin buffer | bufferline |
 | `Ctrl+1-9` | Jump to buffer by position | bufferline |
 | `<leader>bj` | Buffer jump (visual) | bufferline |
 | `<leader>bd` | Delete buffer | bufferline |
@@ -107,10 +107,10 @@ Uses keyboard rows to map to screen position:
 
 | Keymap | Action |
 |--------|--------|
-| `Shift+m` | Previous tmux window |
-| `Shift+.` | Next tmux window |
+| `Shift+n` | Previous tmux window |
+| `Shift+m` | Next tmux window |
 | `Shift+,` | Tmux window picker |
-| `Shift+/` | New tmux window |
+| `Shift+.` | New tmux window |
 | `Shift+hjkl` | Navigate panes (seamless!) |
 
 ### Pane Management
