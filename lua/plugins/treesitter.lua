@@ -11,7 +11,7 @@ return {
         'bash', 'c', 'diff', 'html', 'css',
         'javascript', 'typescript', 'tsx', 'json',
         'lua', 'luadoc', 'markdown', 'markdown_inline',
-        'python', 'go', 'gomod', 'gosum',
+        'python', 'go', 'gomod', 'gosum', 'gowork',
         'query', 'vim', 'vimdoc',
         'yaml',
       }

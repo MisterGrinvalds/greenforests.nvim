@@ -61,7 +61,14 @@ return {
     fork('lukas-reineke/indent-blankline.nvim'),
     name = 'indent-blankline.nvim',
     main = 'ibl',
-    opts = {},
+    opts = {
+      indent = { char = '│' },
+      scope = {
+        enabled = true,
+        show_start = true,
+        show_end = false,
+      },
+    },
   },
 
   -- Image rendering in Neovim (for kitty/ghostty/iTerm2)

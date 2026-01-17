@@ -52,7 +52,13 @@ vim.o.splitbelow = true
 
 -- Whitespace display
 vim.o.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.listchars = {
+  tab = '→ ',
+  trail = '·',
+  nbsp = '␣',
+  extends = '⟩',
+  precedes = '⟨',
+}
 
 -- Live substitution preview
 vim.o.inccommand = 'split'
@@ -62,3 +68,9 @@ vim.o.confirm = true
 
 -- Auto-reload files changed externally
 vim.o.autoread = true
+
+-- Treesitter-based folding
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.o.foldenable = false -- Don't fold by default
+vim.o.foldlevel = 99
