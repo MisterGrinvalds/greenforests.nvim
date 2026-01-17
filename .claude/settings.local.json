@@ -81,7 +81,8 @@
       "Skill(claude-aggregate)",
       "Bash(echo:*)",
       "Bash(/opt/homebrew/bin/pnpm create:*)",
-      "WebFetch(domain:www.lazyvim.org)"
+      "WebFetch(domain:www.lazyvim.org)",
+      "WebFetch(domain:raw.githubusercontent.com)"
     ]
   }
 }

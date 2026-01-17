@@ -22,22 +22,11 @@ Complete guide to understanding and using this Neovim configuration:
 
 **Perfect for:** Learning the system, understanding the "why" behind decisions
 
-### [Navigation Guide](./navigation-guide)
-**Master movement and navigation**
-
-Complete navigation reference for Neovim + tmux:
-- Domain separation (editing vs terminals)
-- Navigation decision tree
-- Semantic direction principles
-- Common workflows
-
-**Perfect for:** Understanding how to move efficiently, learning navigation patterns
-
 ### [Plugin Guide](./plugin-guide)
 **Deep dive into each plugin**
 
 Detailed documentation for every plugin in this setup:
-- Custom plugins (command-palette, terminal-manager, claude-code)
+- Custom plugins (command-palette, tmux, claude-code)
 - Community plugins (telescope, LSP, treesitter, etc.)
 - Configuration options
 - Advanced usage
@@ -136,20 +125,20 @@ Everything else is discoverable through these three!
 
 ```
 greenforests.nvim/
-├── init.lua                      # Main configuration
+├── init.lua                      # Entry point
 ├── lua/
-│   └── custom/
-│       └── plugins/              # Plugin configurations
-│           ├── command-palette.lua
-│           ├── terminal-manager.lua
-│           ├── claude-code.lua
-│           └── ... (community plugins)
+│   ├── core/                     # Core settings
+│   │   ├── options.lua
+│   │   ├── keymaps.lua
+│   │   └── autocmds.lua
+│   ├── plugins/                  # Plugin configurations
+│   └── custom/                   # Custom modules (tmux, etc.)
 └── .claude/
     └── docs/                     # Documentation
         ├── README.md             # This file
-        ├── user-guide.md
-        ├── plugin-guide.md
-        └── quick-reference.md
+        ├── user-guide.md         # Learning guide
+        ├── plugin-guide.md       # Plugin deep-dives
+        └── quick-reference.md    # Keybinding cheat sheet
 ```
 
 ### Customizing
