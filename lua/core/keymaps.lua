@@ -13,6 +13,18 @@ vim.keymap.set('n', '<A-k>', '<cmd>m .-2<CR>==', { desc = 'Move line up' })
 vim.keymap.set('v', '<A-j>', ":m '>+1<CR>gv=gv", { desc = 'Move selection down' })
 vim.keymap.set('v', '<A-k>', ":m '<-2<CR>gv=gv", { desc = 'Move selection up' })
 
+-- Arrow alternatives for line moving
+vim.keymap.set('n', '<A-Down>', '<cmd>m .+1<CR>==', { desc = 'Move line down' })
+vim.keymap.set('n', '<A-Up>', '<cmd>m .-2<CR>==', { desc = 'Move line up' })
+vim.keymap.set('v', '<A-Down>', ":m '>+1<CR>gv=gv", { desc = 'Move selection down' })
+vim.keymap.set('v', '<A-Up>', ":m '<-2<CR>gv=gv", { desc = 'Move selection up' })
+
+-- Line navigation (Alt+h/l = Home/End)
+vim.keymap.set('n', '<A-h>', '^', { desc = 'Go to first non-blank' })
+vim.keymap.set('n', '<A-l>', '$', { desc = 'Go to end of line' })
+vim.keymap.set('n', '<A-Left>', '^', { desc = 'Go to first non-blank' })
+vim.keymap.set('n', '<A-Right>', '$', { desc = 'Go to end of line' })
+
 -- Stay in indent mode
 vim.keymap.set('v', '<', '<gv', { desc = 'Indent left and reselect' })
 vim.keymap.set('v', '>', '>gv', { desc = 'Indent right and reselect' })

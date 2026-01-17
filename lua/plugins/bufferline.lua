@@ -20,11 +20,6 @@ return {
       { '<A-7>', '<Cmd>BufferLineGoToBuffer 7<CR>', desc = 'Go to buffer 7' },
       { '<A-8>', '<Cmd>BufferLineGoToBuffer 8<CR>', desc = 'Go to buffer 8' },
       { '<A-9>', '<Cmd>BufferLineGoToBuffer 9<CR>', desc = 'Go to buffer 9' },
-      -- Buffer cycling (Alt+h/l)
-      { '<A-h>', '<Cmd>BufferLineCyclePrev<CR>', desc = 'Prev buffer' },
-      { '<A-l>', '<Cmd>BufferLineCycleNext<CR>', desc = 'Next buffer' },
-      { '<A-Left>', '<Cmd>BufferLineCyclePrev<CR>', desc = 'Prev buffer' },
-      { '<A-Right>', '<Cmd>BufferLineCycleNext<CR>', desc = 'Next buffer' },
       -- Buffer reordering
       { '<leader>b<', '<Cmd>BufferLineMovePrev<CR>', desc = 'Move buffer left' },
       { '<leader>b>', '<Cmd>BufferLineMoveNext<CR>', desc = 'Move buffer right' },
