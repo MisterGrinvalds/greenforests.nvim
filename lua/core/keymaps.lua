@@ -35,6 +35,12 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- Terminal mode exit
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
+-- Terminal mode navigation (word/line movement)
+vim.keymap.set('t', '<A-h>', '<Esc>b', { desc = 'Word left' })
+vim.keymap.set('t', '<A-l>', '<Esc>f', { desc = 'Word right' })
+vim.keymap.set('t', '<A-j>', '<C-a>', { desc = 'Go to line start (HOME)' })
+vim.keymap.set('t', '<A-k>', '<C-e>', { desc = 'Go to line end (END)' })
+
 -- Terminal management with toggle/open/close
 local term_buf = nil
 
