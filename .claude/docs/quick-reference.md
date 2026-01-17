@@ -40,16 +40,37 @@ A concise cheat sheet for all keybindings and commands in this Neovim setup.
 
 ---
 
+## Navigation (Keyboard Geography)
+
+Uses keyboard rows to map to screen position:
+
+```
+  u i o p    Shift+ = Bufferline (top of screen)
+  h j k l    Shift+ = Splits (current window)
+  m , . /    Shift+ = Tmux (external)
+```
+
+| Context | Keys | Actions |
+|---------|------|---------|
+| Within file | `Alt+hjkl` | h/l=Home/End, j/k=Move line |
+| Bufferline | `Shift+uiop` | u=prev, i=picker, o=next, p=pin |
+| Splits | `Shift+hjkl` | Navigate between splits |
+| Splits resize | `Shift+Alt+hjkl` | Resize splits |
+| Tmux | `Shift+m,./` | m=prev, ,=picker, .=next, /=new |
+
+---
+
 ## Buffer Management
 
 | Keymap | Action | Plugin |
 |--------|--------|--------|
-| `Ctrl+h` / `Ctrl+Left` | Previous buffer | bufferline |
-| `Ctrl+l` / `Ctrl+Right` | Next buffer | bufferline |
+| `Shift+u` | Previous buffer | bufferline |
+| `Shift+o` | Next buffer | bufferline |
+| `Shift+i` | Buffer picker | bufferline |
+| `Shift+p` | Pin buffer | bufferline |
 | `Ctrl+1-9` | Jump to buffer by position | bufferline |
-| `<leader>bj` | Buffer jump (picker) | bufferline |
+| `<leader>bj` | Buffer jump (visual) | bufferline |
 | `<leader>bd` | Delete buffer | bufferline |
-| `<leader>bp` | Pin buffer | bufferline |
 | `<leader><Space>` | Find buffers | telescope |
 
 ---
@@ -86,11 +107,11 @@ A concise cheat sheet for all keybindings and commands in this Neovim setup.
 
 | Keymap | Action |
 |--------|--------|
-| `<leader>tl` | Next window |
-| `<leader>th` | Previous window |
-| `Ctrl+Alt+h` | Previous tmux window |
-| `Ctrl+Alt+l` | Next tmux window |
-| `Shift+h/j/k/l` | Navigate panes (seamless!) |
+| `Shift+m` | Previous tmux window |
+| `Shift+.` | Next tmux window |
+| `Shift+,` | Tmux window picker |
+| `Shift+/` | New tmux window |
+| `Shift+hjkl` | Navigate panes (seamless!) |
 
 ### Pane Management
 
@@ -212,9 +233,10 @@ Ctrl-b I               " Install tmux plugins (TPM)
 | Keymap | Action |
 |--------|--------|
 | `<leader>w` | Save file |
-| `Alt+h` / `Alt+Left` | Go to first non-blank (Home) |
-| `Alt+l` / `Alt+Right` | Go to end of line (End) |
-| `Alt+j/k` | Move lines up/down |
+| `Alt+h` | Go to first non-blank (Home) |
+| `Alt+l` | Go to end of line (End) |
+| `Alt+j` | Move line down |
+| `Alt+k` | Move line up |
 | `</>` (visual) | Indent/dedent (keeps selection) |
 | `gcc` | Toggle line comment |
 | `gc` (visual) | Toggle comment |
