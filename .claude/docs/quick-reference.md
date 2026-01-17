@@ -44,8 +44,9 @@ A concise cheat sheet for all keybindings and commands in this Neovim setup.
 
 | Keymap | Action | Plugin |
 |--------|--------|--------|
-| `Shift+H` | Previous buffer | bufferline |
-| `Shift+L` | Next buffer | bufferline |
+| `Ctrl+h` / `Ctrl+Left` | Previous buffer | bufferline |
+| `Ctrl+l` / `Ctrl+Right` | Next buffer | bufferline |
+| `Ctrl+1-9` | Jump to buffer by position | bufferline |
 | `<leader>bj` | Buffer jump (picker) | bufferline |
 | `<leader>bd` | Delete buffer | bufferline |
 | `<leader>bp` | Pin buffer | bufferline |
@@ -57,8 +58,8 @@ A concise cheat sheet for all keybindings and commands in this Neovim setup.
 
 | Keymap | Action | Plugin |
 |--------|--------|--------|
-| `Ctrl+h/j/k/l` | Navigate splits | smart-splits |
-| `Alt+h/j/k/l` | Resize splits | smart-splits |
+| `Shift+h/j/k/l` | Navigate splits | smart-splits |
+| `Shift+Alt+h/j/k/l` | Resize splits | smart-splits |
 | `<leader>wh/j/k/l` | Swap buffers | smart-splits |
 | `<leader>sv` | Split vertical | built-in |
 | `<leader>sh` | Split horizontal | built-in |
@@ -87,9 +88,9 @@ A concise cheat sheet for all keybindings and commands in this Neovim setup.
 |--------|--------|
 | `<leader>tl` | Next window |
 | `<leader>th` | Previous window |
-| `Alt+H` | Previous window (in terminal) |
-| `Alt+L` | Next window (in terminal) |
-| `Ctrl+h/j/k/l` | Navigate panes (seamless!) |
+| `Ctrl+Alt+h` | Previous tmux window |
+| `Ctrl+Alt+l` | Next tmux window |
+| `Shift+h/j/k/l` | Navigate panes (seamless!) |
 
 ### Pane Management
 
@@ -211,6 +212,8 @@ Ctrl-b I               " Install tmux plugins (TPM)
 | Keymap | Action |
 |--------|--------|
 | `<leader>w` | Save file |
+| `Alt+h` / `Alt+Left` | Go to first non-blank (Home) |
+| `Alt+l` / `Alt+Right` | Go to end of line (End) |
 | `Alt+j/k` | Move lines up/down |
 | `</>` (visual) | Indent/dedent (keeps selection) |
 | `gcc` | Toggle line comment |

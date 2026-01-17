@@ -1,0 +1,373 @@
+---
+title: greenforests.nvim
+description: A comprehensive, modular Neovim configuration with AI integration, LSP support, and tmux integration
+sidebar_label: Overview
+---
+
+# greenforests.nvim
+
+> A production-ready Neovim configuration emphasizing modularity, productivity, and seamless AI + terminal integration.
+
+| | |
+|---|---|
+| **Repository** | [MisterGrinvalds/greenforests.nvim](https://github.com/MisterGrinvalds/greenforests.nvim) |
+| **Plugin Manager** | lazy.nvim |
+| **Theme** | Catppuccin Mocha |
+| **Font** | Nerd Font compatible |
+
+## Architecture
+
+```
+lua/
+├── core/           # Core settings and plugin manager
+├── plugins/        # 24 plugin specification files
+├── lib/            # Custom modules (forks, help system)
+├── custom/         # Standalone implementations (tmux, tab-picker)
+└── greenforests/   # Package health checks
+```
+
+## Core Modules
+
+### options.lua
+Vim options and settings:
+- Relative line numbers with absolute current line
+- Mouse enabled, system clipboard sync
+- Persistent undo across sessions
+- Smart case-insensitive search
+- Sign column always visible
+- 10-line scrolloff
+- Live substitution preview
+
+### keymaps.lua
+Non-plugin keymaps:
+| Keymap | Action |
+|--------|--------|
+| `<Esc>` | Clear search highlights |
+| `<leader>w` | Save file |
+| `<A-j/k>` | Move line down/up |
+| `</>/` (visual) | Indent and reselect |
+| `<leader>tt/to/tc` | Terminal toggle/open/close |
+| `<X1Mouse>/<X2Mouse>` | Jump back/forward (mouse) |
+
+### autocmds.lua
+- Highlight text on yank
+
+### lazy.lua
+- lazy.nvim bootstrap and plugin loading
+- Nerd Font icon fallbacks
+
+---
+
+## Plugin Categories
+
+### Navigation
+
+#### telescope.nvim
+Fuzzy finder for files, buffers, grep, and more.
+
+| Keymap | Action |
+|--------|--------|
+| `<leader>ff` | Find files |
+| `<leader>fg` | Find by grep |
+| `<leader>fw` | Find word under cursor |
+| `<leader>fb` | Find in buffer |
+| `<leader>fr` | Recent files |
+| `<leader>sb` | Search buffers |
+| `<leader>sd` | Search diagnostics |
+| `<leader>st` | Tab picker |
+
+#### harpoon
+Quick file marks for instant navigation.
+
+| Keymap | Action |
+|--------|--------|
+| `<leader>a` | Add file to harpoon |
+| `<leader>m` | Open harpoon menu |
+| `<leader>1-4` | Jump to marked file 1-4 |
+
+#### neo-tree
+File explorer sidebar.
+
+| Keymap | Action |
+|--------|--------|
+| `\` | Reveal in NeoTree |
+| `<leader>et` | Toggle explorer |
+| `<leader>eo/ec/ef` | Open/close/focus explorer |
+
+#### smart-splits
+Seamless split navigation (works with tmux/wezterm).
+
+| Keymap | Action |
+|--------|--------|
+| `<S-h/j/k/l>` | Move to split |
+| `<S-A-h/j/k/l>` | Resize split |
+| `<leader>wh/j/k/l` | Swap buffer |
+
+---
+
+### Buffer & Tab Management
+
+#### bufferline.nvim
+Visual buffer tabs with scope.nvim for tab-scoped buffers.
+
+| Keymap | Action |
+|--------|--------|
+| `<C-h>` / `<C-Left>` | Previous buffer |
+| `<C-l>` / `<C-Right>` | Next buffer |
+| `<C-1>` - `<C-9>` | Jump to buffer by position |
+| `<leader>b<` / `<leader>b>` | Move buffer left/right |
+| `<leader>bi` | Pin buffer toggle |
+| `<leader>bP` | Delete non-pinned buffers |
+| `<leader>bo` | Delete other buffers |
+| `<leader>bl/br` | Delete buffers left/right |
+| `<leader>bd` | Delete current buffer |
+| `<leader>bj` | Visual buffer picker |
+| `<leader>bp` | Telescope buffer picker |
+| `]t` / `[t` | Next/prev tab |
+| `<leader>xn` | New tab (with name) |
+| `<leader>xc` | Close tab |
+| `<leader>xo` | Close other tabs |
+
+---
+
+### Git Integration
+
+#### gitsigns
+Git status in the gutter.
+
+| Keymap | Action |
+|--------|--------|
+| `]c` / `[c` | Next/prev hunk |
+| `<leader>gs` | Stage hunk |
+| `<leader>gr` | Reset hunk |
+| `<leader>gS` | Stage buffer |
+| `<leader>gu` | Undo stage |
+| `<leader>gp` | Preview hunk |
+| `<leader>gb` | Blame line |
+| `<leader>gB` | Toggle blame |
+
+#### lazygit
+Terminal git UI.
+
+| Keymap | Action |
+|--------|--------|
+| `<leader>gg` | Open LazyGit |
+| `<leader>gf` | File history |
+
+#### diffview
+Advanced diff viewer.
+
+| Keymap | Action |
+|--------|--------|
+| `<leader>gd` | Open diff view |
+| `<leader>gx` | Close diff view |
+| `<leader>gh` | File history |
+| `<leader>gH` | Branch history |
+
+---
+
+### LSP & Completion
+
+#### lsp.lua (nvim-lspconfig + Mason)
+Language server configuration.
+
+**Servers:** Pyright, TypeScript, Go, Lua, Bash, YAML, JSON
+
+| Keymap | Action |
+|--------|--------|
+| `grn` | Rename symbol |
+| `gra` | Code action |
+| `grr` | Goto references |
+| `gri` | Goto implementation |
+| `grd` | Goto definition |
+| `grD` | Goto declaration |
+| `gO` | Document symbols |
+| `gW` | Workspace symbols |
+| `<leader>th` | Toggle inlay hints |
+
+#### blink.cmp
+Autocompletion with LuaSnip snippets.
+
+| Key | Action |
+|-----|--------|
+| `<C-Space>` | Trigger completion |
+| `<C-y>` | Accept completion |
+| `<C-e>` | Cancel |
+| `<C-b/f>` | Scroll docs |
+
+---
+
+### Diagnostics
+
+#### trouble.nvim
+Organized diagnostics display.
+
+| Keymap | Action |
+|--------|--------|
+| `<leader>xt` | Toggle trouble |
+| `<leader>xo` | Open trouble |
+| `<leader>xc` | Close trouble |
+| `<leader>xs` | Symbols |
+| `<leader>xL` | Location list |
+| `<leader>xQ` | Quickfix list |
+
+---
+
+### Editing
+
+#### mini.nvim
+Surround and text objects.
+
+| Keymap | Action |
+|--------|--------|
+| `sa` | Add surrounding |
+| `sd` | Delete surrounding |
+| `sr` | Replace surrounding |
+
+#### Comment.nvim
+Toggle comments.
+
+| Keymap | Action |
+|--------|--------|
+| `gcc` | Toggle line comment |
+| `gc` | Toggle comment (motion/visual) |
+
+#### todo-comments
+Highlight and search TODO/FIXME/etc.
+
+---
+
+### Terminal & Tmux
+
+#### Custom tmux integration
+
+| Keymap | Action |
+|--------|--------|
+| `<leader>tp` | Tmux window picker |
+| `<leader>tn` | New tmux window |
+| `<leader>tr` | Rename tmux window |
+| `<leader>tx` | Delete tmux window |
+| `<leader>tl/th` | Next/prev tmux window |
+| `<leader>tm` | Maximize tmux pane |
+| `<leader>t\|` | Split vertical |
+| `<leader>t-` | Split horizontal |
+| `<leader>tw` | Create window with command |
+| `<leader>ts` | Send selection to tmux (visual) |
+
+---
+
+### UI Components
+
+#### which-key
+Keybinding hints popup.
+
+| Prefix | Group |
+|--------|-------|
+| `<leader>b` | Buffer |
+| `<leader>c` | Claude Code |
+| `<leader>f` | Find |
+| `<leader>g` | Git |
+| `<leader>h` | Hunks |
+| `<leader>s` | Search |
+| `<leader>t` | Tmux |
+| `<leader>w` | Window |
+| `<leader>x` | Diagnostics |
+
+#### lualine
+Statusline with Claude Code indicator, git branch, diagnostics.
+
+#### Other UI
+- **scrollbar.nvim** - Scrollbar with git/diagnostic marks
+- **indent-blankline** - Indent guides
+- **image.nvim** - Image preview in markdown
+
+---
+
+### AI Integration
+
+#### claude-code.nvim
+Claude Code AI assistant integration.
+
+| Keymap | Action |
+|--------|--------|
+| `<leader>ct` | Toggle Claude |
+| `<leader>co/cc` | Open/close Claude |
+| `<leader>cp` | Session picker |
+| `<leader>cn` | New session |
+| `<leader>cx` | Delete session |
+| `<leader>cf` | Focus Claude window |
+| `<leader>cs` | Send file/selection |
+| `<leader>cd` | Send diagnostics |
+| `<leader>ca` | Ask Claude |
+| `<leader>cr` | Replace with code |
+| `<leader>cb` | Refresh buffers |
+
+---
+
+### Documentation (Docusaurus)
+
+#### docusaurus.lua
+Version-aware editing for Docusaurus sites.
+
+| Keymap | Action |
+|--------|--------|
+| `<leader>Dc` | Insert component |
+| `<leader>Dp` | Insert partial |
+| `<leader>Db` | Insert code block |
+| `<leader>Du` | Insert URL |
+| `<leader>Dn` | Document new plugin |
+| `<leader>Da` | Browse API |
+
+---
+
+## Custom Modules
+
+### lib/forks.lua
+Transforms plugin URLs to personal fork format (`MisterGrinvalds/owner.repo`).
+
+### lib/plugin-help.lua
+Interactive help system with:
+- Plugin registry with keymaps, commands, tips
+- Telescope-based plugin picker
+- Floating window help display
+
+**Commands:**
+- `:PluginHelp [name]` - Show plugin documentation
+- `:PluginKeymaps` - Browse all keymaps
+- `:PluginCategories` - Show plugins by category
+- `:KeymapGuide` - Quick reference
+
+### custom/tmux/
+Complete tmux integration:
+- Window/session management
+- Telescope picker for windows
+- Send commands/selections
+
+### custom/tab-picker.lua
+Telescope picker for Vim tabs with create/rename/delete.
+
+---
+
+## Quick Reference
+
+### Most Used Keymaps
+
+| Keymap | Action |
+|--------|--------|
+| `<leader>ff` | Find files |
+| `<leader>fg` | Grep search |
+| `<leader>1-4` | Harpoon files |
+| `<C-1-9>` | Buffer by position |
+| `\` | File explorer |
+| `<leader>gg` | LazyGit |
+| `gcc` | Toggle comment |
+| `<leader>ct` | Claude toggle |
+| `<leader>?` | Plugin help |
+
+### Leader Key Groups
+
+Press `<leader>` and wait for which-key popup to see all available options organized by group.
+
+---
+
+*Generated: 2025-01-10*

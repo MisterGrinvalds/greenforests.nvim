@@ -41,15 +41,15 @@ Understanding how to navigate efficiently in this setup.
 | To... | Use This | Why |
 |-------|----------|-----|
 | **Different part of code** | `hjkl`, `w`, `{`, `gg` | Vim motions |
-| **Different split** | `Ctrl+h/j/k/l` | Physical direction |
-| **Next/prev file** | `Shift+H/L` | Quick cycling |
+| **Different split** | `Shift+hjkl` | Physical direction |
+| **Next/prev buffer** | `Ctrl+h/l` or `Ctrl+Left/Right` | Quick cycling |
 | **Specific file (know name)** | `<leader><leader>` | Fuzzy search |
 | **Specific file (see all)** | `<leader>bj` | Visual picker |
 | **My core 4 files** | `<leader>1/2/3/4` | Harpoon bookmarks |
 | **Browse project** | `<leader>e` | File explorer |
 | **Find any file** | `<leader>ff` | Telescope |
 | **Different terminal** | `<leader>tw` | tmux window picker |
-| **Next/prev terminal** | `Alt+H/L` | tmux window cycling |
+| **Next/prev tmux window** | `Ctrl+Alt+h/l` | tmux window cycling |
 
 ---
 
@@ -58,26 +58,26 @@ Understanding how to navigate efficiently in this setup.
 ### Consistent Meaning Everywhere
 
 **Left/Right (H/L):**
-- `Shift+H` = Previous buffer (← in list)
-- `Shift+L` = Next buffer (→ in list)
-- `Alt+H` = Previous tmux window (← in tabs)
-- `Alt+L` = Next tmux window (→ in tabs)
-- **Meaning:** Navigate through a list/sequence
+- `Ctrl+h/l` = Previous/Next buffer (← → in list)
+- `Alt+h/l` = Home/End of line (← → on line)
+- `Ctrl+Alt+h/l` = Previous/Next tmux window (← → in tabs)
+- **Meaning:** Navigate through a list/sequence or line
 
-**Up/Down/Left/Right (h/j/k/l):**
-- `Ctrl+h` = Move to left split (← on screen)
-- `Ctrl+j` = Move to split below (↓ on screen)
-- `Ctrl+k` = Move to split above (↑ on screen)
-- `Ctrl+l` = Move to right split (→ on screen)
-- **Meaning:** Physical screen direction
+**Up/Down/Left/Right (hjkl):**
+- `Shift+hjkl` = Move to split in that direction (physical screen)
+- `Alt+j/k` = Move line up/down
+- `Shift+Alt+hjkl` = Resize split in that direction
+- **Meaning:** Physical screen direction or line operations
 
 ### Modifier Keys Pattern
 
 | Modifier | Domain | Example |
 |----------|--------|---------|
-| `Ctrl` | Splits | `Ctrl+h` move left |
-| `Shift` | Buffers | `Shift+H` prev buffer |
-| `Alt` | Resize / tmux | `Alt+h` resize, `Alt+H` tmux window |
+| `Ctrl` | Buffers | `Ctrl+h/l` prev/next buffer |
+| `Shift` | Split Navigation | `Shift+hjkl` move to split |
+| `Alt` | Line Operations | `Alt+h/l` Home/End, `Alt+j/k` move line |
+| `Shift+Alt` | Split Resize | `Shift+Alt+hjkl` resize split |
+| `Ctrl+Alt` | tmux | `Ctrl+Alt+h/l` prev/next tmux window |
 | `<leader>` | Actions | `<leader>e` explorer |
 
 ---
@@ -99,20 +99,20 @@ Understanding how to navigate efficiently in this setup.
 **Navigate:**
 ```
 ┌─────────┬─────────┐
-│ Split 1 │ Split 2 │  Ctrl+h ← → Ctrl+l
+│ Split 1 │ Split 2 │  Shift+h ← → Shift+l
 │         │    ◄────┼─── You are here
 └─────────┴─────────┘
 ```
 
 | Key | Action |
 |-----|--------|
-| `Ctrl+h` | Move to split on left |
-| `Ctrl+j` | Move to split below |
-| `Ctrl+k` | Move to split above |
-| `Ctrl+l` | Move to split on right |
+| `Shift+h` / `Shift+Left` | Move to split on left |
+| `Shift+j` / `Shift+Down` | Move to split below |
+| `Shift+k` / `Shift+Up` | Move to split above |
+| `Shift+l` / `Shift+Right` | Move to split on right |
 
 **Resize:**
-- `Alt+h/j/k/l` - Resize in that direction
+- `Shift+Alt+hjkl` - Resize split in that direction
 
 **Swap buffers:**
 - `<leader>wh/j/k/l` - Swap buffer in that direction
@@ -123,13 +123,13 @@ Understanding how to navigate efficiently in this setup.
 
 **Method 1: Cycling (Muscle Memory)**
 ```
-Shift+H ← [file1.js] [file2.js] [file3.js ✓] [file4.js] → Shift+L
+Ctrl+h ← [file1.js] [file2.js] [file3.js ✓] [file4.js] → Ctrl+l
 ```
 
 | Key | When to Use |
 |-----|-------------|
-| `Shift+H` | Go to previous file in list |
-| `Shift+L` | Go to next file in list |
+| `Ctrl+h` / `Ctrl+Left` | Go to previous buffer in list |
+| `Ctrl+l` / `Ctrl+Right` | Go to next buffer in list |
 
 **Best for:** Cycling through 2-5 recently used files
 
@@ -187,12 +187,12 @@ Shift+H ← [file1.js] [file2.js] [file3.js ✓] [file4.js] → Shift+L
 **Exactly like Neovim splits:**
 ```
 ┌──────────┬──────────┐
-│ Neovim   │ Terminal │  Ctrl+h ← → Ctrl+l (seamless!)
+│ Neovim   │ Terminal │  Shift+h ← → Shift+l (seamless!)
 │          │     ◄────┼─── Works across both!
 └──────────┴──────────┘
 ```
 
-**The magic:** Same `Ctrl+hjkl` keys work in Neovim AND tmux!
+**The magic:** Same `Shift+hjkl` keys work in Neovim AND tmux!
 
 ### Level 2: Between Windows (Terminal Tabs)
 
@@ -206,11 +206,11 @@ Shift+H ← [file1.js] [file2.js] [file3.js ✓] [file4.js] → Shift+L
 " <Enter> to switch
 ```
 
-**Method 2: Cycling (In Terminal)**
+**Method 2: Cycling (In Neovim)**
 ```bash
-Alt+H         # Previous window
-Alt+L         # Next window
-# No prefix needed!
+Ctrl+Alt+h         # Previous window
+Ctrl+Alt+l         # Next window
+# Or with arrows: Ctrl+Alt+Left/Right
 ```
 
 **Quick access:**
@@ -241,7 +241,7 @@ Ctrl-b s      # Session list
 <leader>ff → types.ts
 
 " Navigate between them
-Shift+H/L         " Cycle through
+Ctrl+h/l          " Cycle through
 
 " Or mark them:
 <leader>a         " In main.ts
@@ -264,9 +264,9 @@ Ctrl+w v          " Vertical split (or use command)
 " Open another file
 <leader>ff → test.ts
 
-" Navigate
-Ctrl+h            " To main.ts
-Ctrl+l            " To test.ts
+" Navigate between splits
+Shift+h           " To main.ts (left split)
+Shift+l           " To test.ts (right split)
 
 " Both files visible!
 ```
@@ -283,7 +283,7 @@ npm run dev
 <leader>tw → select "nvim"
 
 # Now switch between:
-Alt+H/L           " Cycle: nvim ← → server ← → git
+Ctrl+Alt+h/l      " Cycle: nvim ← → server ← → git
 
 # Or fuzzy find:
 <leader>tw → "server"
@@ -305,7 +305,7 @@ Alt+H/L           " Cycle: nvim ← → server ← → git
 # Pane 3: tail -f app.log
 
 # Navigate between them:
-Ctrl+h/j/k/l      " Jump to any pane
+Shift+h/j/k/l     " Jump to any pane
 
 # Maximize one:
 <leader>tm        " Full screen
@@ -319,11 +319,12 @@ Ctrl+h/j/k/l      " Jump to any pane
 ### Learn in This Order
 
 **Week 1: Splits**
-- `Ctrl+h/j/k/l` - Navigate splits
+- `Shift+hjkl` - Navigate splits
 - Practice until automatic
 
 **Week 2: Buffers**
-- `Shift+H/L` - Cycle files
+- `Ctrl+h/l` - Cycle buffers
+- `Ctrl+1-9` - Jump to buffer by position
 - `<leader><leader>` - Find file
 
 **Week 3: Harpoon**
@@ -334,7 +335,7 @@ Ctrl+h/j/k/l      " Jump to any pane
 **Week 4: tmux**
 - `<leader>tw` - Window picker
 - `<leader>tg/td/tt` - Quick windows
-- `Alt+H/L` - Cycle windows
+- `Ctrl+Alt+h/l` - Cycle windows
 
 ### Common Mistakes
 
@@ -357,8 +358,9 @@ Ctrl+h/j/k/l      " Jump to any pane
 
 | Keys | Action | Use For |
 |------|--------|---------|
-| `Ctrl+hjkl` | Navigate splits | Screen panes |
-| `Shift+H/L` | Cycle buffers | Files |
+| `Shift+hjkl` | Navigate splits | Screen panes |
+| `Ctrl+h/l` | Cycle buffers | Files |
+| `Ctrl+1-9` | Jump to buffer | By position |
 | `<leader><leader>` | Find buffer | Many files |
 | `<leader>bj` | Buffer jump | See list |
 | `<leader>1-4` | Harpoon jump | Core files |
@@ -375,8 +377,8 @@ Ctrl+h/j/k/l      " Jump to any pane
 | `<leader>tg/td/tt` | Quick windows | Git/Dev/Test |
 | `<leader>tn` | New window | Create terminal |
 | `<leader>tm` | Maximize | Full screen |
-| `Alt+H/L` | Cycle windows | Switch terminals |
-| `Ctrl+hjkl` | Navigate panes | Terminal splits |
+| `Ctrl+Alt+h/l` | Cycle windows | Switch terminals |
+| `Shift+hjkl` | Navigate panes | Terminal splits |
 
 ---
 
@@ -403,8 +405,8 @@ Ctrl+h/j/k/l      " Jump to any pane
 
 ## Next Steps
 
-1. Practice split navigation (`Ctrl+hjkl`) until automatic
-2. Use `Shift+H/L` as your primary buffer navigation
+1. Practice split navigation (`Shift+hjkl`) until automatic
+2. Use `Ctrl+h/l` as your primary buffer navigation
 3. Mark your core 4 files with Harpoon
 4. Create tmux windows for your workflow
 5. Let the system fade into the background
