@@ -53,6 +53,16 @@ return {
       { '<leader>ec', ':Neotree close<CR>', desc = '[E]xplorer [C]lose', silent = true },
       { '<leader>ef', ':Neotree focus<CR>', desc = '[E]xplorer [F]ocus', silent = true },
     },
+    config = function(_, opts)
+      -- Set up <Esc><Esc> to close NeoTree when focused
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = 'neo-tree',
+        callback = function()
+          vim.keymap.set('n', '<Esc><Esc>', ':Neotree close<CR>', { buffer = true, silent = true, desc = 'Close NeoTree' })
+        end,
+      })
+      require('neo-tree').setup(opts)
+    end,
     opts = {
       window = {
         mappings = {
@@ -65,6 +75,9 @@ return {
           ['l'] = 'focus_preview',
           ['<C-f>'] = { 'scroll_preview', config = { direction = -10 } },
           ['<C-b>'] = { 'scroll_preview', config = { direction = 10 } },
+          -- Arrow key navigation
+          ['<Left>'] = 'close_node',
+          ['<Right>'] = 'open',
         },
       },
       use_popups_for_input = false,
@@ -110,17 +123,13 @@ return {
       vim.keymap.set('n', '<S-Up>', require('smart-splits').move_cursor_up, { desc = 'Move to above split' })
       vim.keymap.set('n', '<S-Right>', require('smart-splits').move_cursor_right, { desc = 'Move to right split' })
 
-      -- Resizing (Alt+hjkl)
-      vim.keymap.set('n', '<A-h>', require('smart-splits').resize_left, { desc = 'Resize split left' })
+      -- Resizing (Alt+j/k for vertical only - Alt+h/l used for bufferline)
       vim.keymap.set('n', '<A-j>', require('smart-splits').resize_down, { desc = 'Resize split down' })
       vim.keymap.set('n', '<A-k>', require('smart-splits').resize_up, { desc = 'Resize split up' })
-      vim.keymap.set('n', '<A-l>', require('smart-splits').resize_right, { desc = 'Resize split right' })
 
-      -- Arrow alternatives for resizing
-      vim.keymap.set('n', '<A-Left>', require('smart-splits').resize_left, { desc = 'Resize split left' })
+      -- Arrow alternatives for vertical resizing
       vim.keymap.set('n', '<A-Down>', require('smart-splits').resize_down, { desc = 'Resize split down' })
       vim.keymap.set('n', '<A-Up>', require('smart-splits').resize_up, { desc = 'Resize split up' })
-      vim.keymap.set('n', '<A-Right>', require('smart-splits').resize_right, { desc = 'Resize split right' })
 
       -- Swapping buffers
       vim.keymap.set('n', '<leader>wh', require('smart-splits').swap_buf_left, { desc = 'Swap buffer left' })

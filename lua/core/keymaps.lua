@@ -65,7 +65,13 @@ vim.keymap.set('n', '<leader>tt', terminal_toggle, { desc = '[T]erminal [T]oggle
 vim.keymap.set('n', '<leader>to', terminal_open, { desc = '[T]erminal [O]pen' })
 vim.keymap.set('n', '<leader>tc', terminal_close, { desc = '[T]erminal [C]lose' })
 
--- NOTE: Split navigation handled by smart-splits plugin (Ctrl+hjkl)
+-- NOTE: Split navigation handled by smart-splits plugin (Shift+hjkl)
+
+-- Tmux window (tab) navigation
+vim.keymap.set('n', '<C-h>', '<Cmd>silent !tmux select-window -t :-1<CR>', { desc = 'Tmux prev window' })
+vim.keymap.set('n', '<C-l>', '<Cmd>silent !tmux select-window -t :+1<CR>', { desc = 'Tmux next window' })
+vim.keymap.set('n', '<C-Left>', '<Cmd>silent !tmux select-window -t :-1<CR>', { desc = 'Tmux prev window' })
+vim.keymap.set('n', '<C-Right>', '<Cmd>silent !tmux select-window -t :+1<CR>', { desc = 'Tmux next window' })
 
 -- Mouse back/forward buttons for jump list navigation
 -- Works with mice that have side buttons (typically buttons 4/5)
