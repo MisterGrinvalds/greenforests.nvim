@@ -85,9 +85,11 @@ vim.keymap.set('n', '<C-l>', '<Cmd>BufferLineCycleNext<CR>', { desc = 'Next buff
 vim.keymap.set('n', '<C-Left>', '<Cmd>BufferLineCyclePrev<CR>', { desc = 'Previous buffer' })
 vim.keymap.set('n', '<C-Right>', '<Cmd>BufferLineCycleNext<CR>', { desc = 'Next buffer' })
 
--- Tmux window (tab) navigation (Shift+Ctrl+h/l)
-vim.keymap.set('n', '<S-C-h>', '<Cmd>silent !tmux select-window -t :-1<CR>', { desc = 'Tmux prev window' })
-vim.keymap.set('n', '<S-C-l>', '<Cmd>silent !tmux select-window -t :+1<CR>', { desc = 'Tmux next window' })
+-- Tmux window (tab) navigation (Ctrl+Alt+h/l)
+vim.keymap.set('n', '<C-A-h>', '<Cmd>silent !tmux select-window -t :-1<CR>', { desc = 'Tmux prev window' })
+vim.keymap.set('n', '<C-A-l>', '<Cmd>silent !tmux select-window -t :+1<CR>', { desc = 'Tmux next window' })
+vim.keymap.set('n', '<C-A-Left>', '<Cmd>silent !tmux select-window -t :-1<CR>', { desc = 'Tmux prev window' })
+vim.keymap.set('n', '<C-A-Right>', '<Cmd>silent !tmux select-window -t :+1<CR>', { desc = 'Tmux next window' })
 
 -- Mouse back/forward buttons for jump list navigation
 -- Works with mice that have side buttons (typically buttons 4/5)
