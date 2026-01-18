@@ -78,33 +78,5 @@ return {
     end, { desc = '[C]laude: Refresh [B]uffers' })
 
     vim.keymap.set('n', '<leader>cl', '<cmd>Claude float<cr>', { desc = '[C]laude f[L]oat' })
-
-    -- Workspace cycling (Shift+Alt+[])
-    -- Order: code → claude → terminal → code...
-    local workspaces = { 'code', 'claude', 'terminal' }
-
-    local function cycle_workspace(direction)
-      local tab = require('claude-code').tab
-      local current = tab.get_current_tab_type() or 'code'
-      local current_idx = 1
-      for i, ws in ipairs(workspaces) do
-        if ws == current then
-          current_idx = i
-          break
-        end
-      end
-      local next_idx = current_idx + direction
-      if next_idx < 1 then next_idx = #workspaces end
-      if next_idx > #workspaces then next_idx = 1 end
-      tab.go_to_tab(workspaces[next_idx], true)
-    end
-
-    vim.keymap.set('n', '<S-A-[>', function()
-      cycle_workspace(-1)
-    end, { desc = 'Previous workspace' })
-
-    vim.keymap.set('n', '<S-A-]>', function()
-      cycle_workspace(1)
-    end, { desc = 'Next workspace' })
   end,
 }
