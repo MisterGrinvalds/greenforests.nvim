@@ -69,8 +69,8 @@ vim.o.confirm = true
 -- Auto-reload files changed externally
 vim.o.autoread = true
 
--- Treesitter-based folding
+-- Treesitter-based folding (native Neovim 0.10+)
 vim.o.foldmethod = 'expr'
-vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 vim.o.foldenable = false -- Don't fold by default
 vim.o.foldlevel = 99

@@ -6,6 +6,8 @@ return {
   {
     fork('nvim-treesitter/nvim-treesitter'),
     build = ':TSUpdate',
+    lazy = false,
+    priority = 1000,
     config = function()
       local parsers = {
         'bash', 'c', 'diff', 'html', 'css',
@@ -23,10 +25,16 @@ return {
 
       -- Enable treesitter-based highlighting
       vim.api.nvim_create_autocmd('FileType', {
-        callback = function()
-          pcall(vim.treesitter.start)
+        callback = function(args)
+          pcall(vim.treesitter.start, args.buf)
         end,
       })
+      -- Enable for all existing buffers
+      for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+        if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].filetype ~= '' then
+          pcall(vim.treesitter.start, buf)
+        end
+      end
 
       -- Enable treesitter-based indentation
       vim.api.nvim_create_autocmd('FileType', {
