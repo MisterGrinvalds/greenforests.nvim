@@ -79,4 +79,8 @@ add('plugins.claude-code')
 add('plugins.docusaurus')
 add('plugins.plugin-help')
 
+-- Session management
+add('plugins.persistence')
+add('plugins.acorn')
+
 return specs
