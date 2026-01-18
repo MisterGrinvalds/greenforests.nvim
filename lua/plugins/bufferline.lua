@@ -88,6 +88,9 @@ return {
       { '<leader>xo', '<Cmd>tabonly<CR>', desc = 'Tab [O]nly (close others)' },
       { ']t', '<Cmd>tabnext<CR>', desc = 'Next Tab' },
       { '[t', '<Cmd>tabprev<CR>', desc = 'Prev Tab' },
+      -- Tab navigation (Shift+Alt+[])
+      { '<S-A-[>', '<Cmd>tabprev<CR>', desc = 'Previous tab' },
+      { '<S-A-]>', '<Cmd>tabnext<CR>', desc = 'Next tab' },
     },
     opts = {
       options = {
