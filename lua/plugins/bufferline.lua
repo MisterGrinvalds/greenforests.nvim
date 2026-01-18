@@ -4,7 +4,7 @@ local fork = require('lib.forks').fork
 return {
   -- Bufferline
   {
-    fork('akinsho/bufferline.nvim'),
+    fork 'akinsho/bufferline.nvim',
     name = 'bufferline.nvim',
     version = '*',
     dependencies = 'nvim-tree/nvim-web-devicons',
@@ -12,20 +12,20 @@ return {
     keys = {
       -- Buffer navigation (Shift+Alt+yuio)
       -- Keyboard geography: yuio is row ABOVE hjkl = bufferline (top of screen)
-      { '<S-A-y>', '<Cmd>BufferLineCyclePrev<CR>', desc = 'Previous buffer' },
-      { '<S-A-u>', '<Cmd>BufferLineCycleNext<CR>', desc = 'Next buffer' },
-      { '<S-A-i>', '<Cmd>BufferLinePick<CR>', desc = 'Buffer picker' },
-      { '<S-A-o>', '<Cmd>BufferLineTogglePin<CR>', desc = 'Pin buffer' },
+      { '<A-y>', '<Cmd>BufferLineCyclePrev<CR>', desc = 'Previous buffer' },
+      { '<A-u>', '<Cmd>BufferLineCycleNext<CR>', desc = 'Next buffer' },
+      { '<A-i>', '<Cmd>BufferLinePick<CR>', desc = 'Buffer picker' },
+      { '<A-o>', '<Cmd>BufferLineTogglePin<CR>', desc = 'Pin buffer' },
       -- Direct buffer access with Shift+Alt+number
-      { '<S-A-1>', '<Cmd>BufferLineGoToBuffer 1<CR>', desc = 'Go to buffer 1' },
-      { '<S-A-2>', '<Cmd>BufferLineGoToBuffer 2<CR>', desc = 'Go to buffer 2' },
-      { '<S-A-3>', '<Cmd>BufferLineGoToBuffer 3<CR>', desc = 'Go to buffer 3' },
-      { '<S-A-4>', '<Cmd>BufferLineGoToBuffer 4<CR>', desc = 'Go to buffer 4' },
-      { '<S-A-5>', '<Cmd>BufferLineGoToBuffer 5<CR>', desc = 'Go to buffer 5' },
-      { '<S-A-6>', '<Cmd>BufferLineGoToBuffer 6<CR>', desc = 'Go to buffer 6' },
-      { '<S-A-7>', '<Cmd>BufferLineGoToBuffer 7<CR>', desc = 'Go to buffer 7' },
-      { '<S-A-8>', '<Cmd>BufferLineGoToBuffer 8<CR>', desc = 'Go to buffer 8' },
-      { '<S-A-9>', '<Cmd>BufferLineGoToBuffer 9<CR>', desc = 'Go to buffer 9' },
+      { '<A-1>', '<Cmd>BufferLineGoToBuffer 1<CR>', desc = 'Go to buffer 1' },
+      { '<A-2>', '<Cmd>BufferLineGoToBuffer 2<CR>', desc = 'Go to buffer 2' },
+      { '<A-3>', '<Cmd>BufferLineGoToBuffer 3<CR>', desc = 'Go to buffer 3' },
+      { '<A-4>', '<Cmd>BufferLineGoToBuffer 4<CR>', desc = 'Go to buffer 4' },
+      { '<A-5>', '<Cmd>BufferLineGoToBuffer 5<CR>', desc = 'Go to buffer 5' },
+      { '<A-6>', '<Cmd>BufferLineGoToBuffer 6<CR>', desc = 'Go to buffer 6' },
+      { '<A-7>', '<Cmd>BufferLineGoToBuffer 7<CR>', desc = 'Go to buffer 7' },
+      { '<A-8>', '<Cmd>BufferLineGoToBuffer 8<CR>', desc = 'Go to buffer 8' },
+      { '<A-9>', '<Cmd>BufferLineGoToBuffer 9<CR>', desc = 'Go to buffer 9' },
       -- Buffer reordering
       { '<leader>b<', '<Cmd>BufferLineMovePrev<CR>', desc = 'Move buffer left' },
       { '<leader>b>', '<Cmd>BufferLineMoveNext<CR>', desc = 'Move buffer right' },
@@ -78,7 +78,7 @@ return {
               vim.cmd('tabedit ' .. vim.fn.fnameescape(name))
               vim.cmd('BufferLineTabRename ' .. name)
             else
-              vim.cmd('tabnew')
+              vim.cmd 'tabnew'
             end
           end)
         end,
@@ -88,9 +88,8 @@ return {
       { '<leader>xo', '<Cmd>tabonly<CR>', desc = 'Tab [O]nly (close others)' },
       { ']t', '<Cmd>tabnext<CR>', desc = 'Next Tab' },
       { '[t', '<Cmd>tabprev<CR>', desc = 'Prev Tab' },
-      -- Tab navigation (Shift+Alt+[])
-      { '<S-A-[>', '<Cmd>tabprev<CR>', desc = 'Previous tab' },
-      { '<S-A-]>', '<Cmd>tabnext<CR>', desc = 'Next tab' },
+      { '<A-t>', '<Cmd>tabnext<CR>', desc = 'Next Tab' },
+      { '<A-p>', '<Cmd>tabprev<CR>', desc = 'Prev Tab' },
     },
     opts = {
       options = {
@@ -117,7 +116,7 @@ return {
 
   -- Scope - Tab-scoped buffers
   {
-    fork('tiagovla/scope.nvim'),
+    fork 'tiagovla/scope.nvim',
     name = 'scope.nvim',
     event = 'VeryLazy',
     config = function()

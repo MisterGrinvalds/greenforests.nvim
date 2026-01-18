@@ -12,18 +12,20 @@ vim.keymap.set('n', '<A-j>', '<cmd>m .+1<CR>==', { desc = 'Move line down' })
 vim.keymap.set('n', '<A-k>', '<cmd>m .-2<CR>==', { desc = 'Move line up' })
 vim.keymap.set('v', '<A-j>', ":m '>+1<CR>gv=gv", { desc = 'Move selection down' })
 vim.keymap.set('v', '<A-k>', ":m '<-2<CR>gv=gv", { desc = 'Move selection up' })
-
--- Arrow alternatives for line moving
 vim.keymap.set('n', '<A-Down>', '<cmd>m .+1<CR>==', { desc = 'Move line down' })
 vim.keymap.set('n', '<A-Up>', '<cmd>m .-2<CR>==', { desc = 'Move line up' })
 vim.keymap.set('v', '<A-Down>', ":m '>+1<CR>gv=gv", { desc = 'Move selection down' })
 vim.keymap.set('v', '<A-Up>', ":m '<-2<CR>gv=gv", { desc = 'Move selection up' })
 
--- Line navigation (Alt+h/l = Home/End)
-vim.keymap.set('n', '<A-h>', '^', { desc = 'Go to first non-blank' })
-vim.keymap.set('n', '<A-l>', '$', { desc = 'Go to end of line' })
-vim.keymap.set('n', '<A-Left>', '^', { desc = 'Go to first non-blank' })
-vim.keymap.set('n', '<A-Right>', '$', { desc = 'Go to end of line' })
+-- Insert mode navigation (word/line movement like terminal)
+vim.keymap.set('i', '<A-h>', '<C-o>b', { desc = 'Word left' })
+vim.keymap.set('i', '<A-l>', '<C-o>w', { desc = 'Word right' })
+vim.keymap.set('i', '<A-j>', '<C-o>^', { desc = 'Go to line start (HOME)' })
+vim.keymap.set('i', '<A-k>', '<C-o>$', { desc = 'Go to line end (END)' })
+vim.keymap.set('i', '<A-Left>', '<C-o>b', { desc = 'Word left' })
+vim.keymap.set('i', '<A-Right>', '<C-o>w', { desc = 'Word right' })
+vim.keymap.set('i', '<A-Down>', '<C-o>^', { desc = 'Go to line start (HOME)' })
+vim.keymap.set('i', '<A-Up>', '<C-o>$', { desc = 'Go to line end (END)' })
 
 -- Stay in indent mode
 vim.keymap.set('v', '<', '<gv', { desc = 'Indent left and reselect' })
@@ -40,6 +42,10 @@ vim.keymap.set('t', '<A-h>', '<Esc>b', { desc = 'Word left' })
 vim.keymap.set('t', '<A-l>', '<Esc>f', { desc = 'Word right' })
 vim.keymap.set('t', '<A-j>', '<C-a>', { desc = 'Go to line start (HOME)' })
 vim.keymap.set('t', '<A-k>', '<C-e>', { desc = 'Go to line end (END)' })
+vim.keymap.set('t', '<A-Left>', '<Esc>b', { desc = 'Go to previous word' })
+vim.keymap.set('t', '<A-Right>', '<Esc>f', { desc = 'Go to next word' })
+vim.keymap.set('t', '<A-Down>', '<C-a>', { desc = 'Go to line start (HOME)' })
+vim.keymap.set('t', '<A-Up>', '<C-e>', { desc = 'Go to line end (END)' })
 
 -- Terminal management with toggle/open/close
 local term_buf = nil
@@ -47,14 +53,14 @@ local term_buf = nil
 local function terminal_open()
   if term_buf and vim.api.nvim_buf_is_valid(term_buf) then
     -- Reuse existing terminal buffer
-    vim.cmd('botright split')
+    vim.cmd 'botright split'
     vim.api.nvim_win_set_buf(0, term_buf)
   else
     -- Create new terminal
-    vim.cmd('botright split | terminal')
+    vim.cmd 'botright split | terminal'
     term_buf = vim.api.nvim_get_current_buf()
   end
-  vim.cmd('startinsert')
+  vim.cmd 'startinsert'
 end
 
 local function terminal_close()
@@ -88,15 +94,15 @@ vim.keymap.set('n', '<leader>tc', terminal_close, { desc = '[T]erminal [C]lose' 
 
 -- Tmux window navigation (Shift+Alt+nm,.)
 -- Keyboard geography: nm,. is row BELOW hjkl = tmux (external)
-vim.keymap.set('n', '<S-A-n>', '<Cmd>silent !tmux select-window -t :-1<CR>', { desc = 'Tmux prev window' })
-vim.keymap.set('n', '<S-A-m>', '<Cmd>silent !tmux select-window -t :+1<CR>', { desc = 'Tmux next window' })
-vim.keymap.set('n', '<S-A-,>', '<Cmd>silent !tmux choose-window<CR>', { desc = 'Tmux window picker' })
-vim.keymap.set('n', '<S-A-.>', function()
+vim.keymap.set('n', '<A-n>', '<Cmd>silent !tmux select-window -t :-1<CR>', { desc = 'Tmux prev window' })
+vim.keymap.set('n', '<A-m>', '<Cmd>silent !tmux select-window -t :+1<CR>', { desc = 'Tmux next window' })
+vim.keymap.set('n', '<A-,>', '<Cmd>silent !tmux choose-window<CR>', { desc = 'Tmux window picker' })
+vim.keymap.set('n', '<A-.>', function()
   vim.ui.input({ prompt = 'New tmux window name: ' }, function(name)
     if name and name ~= '' then
       vim.cmd('silent !tmux new-window -n ' .. vim.fn.shellescape(name))
     else
-      vim.cmd('silent !tmux new-window')
+      vim.cmd 'silent !tmux new-window'
     end
   end)
 end, { desc = 'Tmux new window' })
