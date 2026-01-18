@@ -140,6 +140,17 @@ return {
       vim.keymap.set('n', '<leader>wj', require('smart-splits').swap_buf_down, { desc = 'Swap buffer down' })
       vim.keymap.set('n', '<leader>wk', require('smart-splits').swap_buf_up, { desc = 'Swap buffer up' })
       vim.keymap.set('n', '<leader>wl', require('smart-splits').swap_buf_right, { desc = 'Swap buffer right' })
+
+      -- Tmux window navigation (Shift+Alt+n/.)
+      local tmux = require('custom.tmux')
+      vim.keymap.set({ 'n', 'i', 't' }, '<S-A-n>', function()
+        vim.cmd('stopinsert')
+        tmux.window.previous()
+      end, { desc = 'Previous tmux window' })
+      vim.keymap.set({ 'n', 'i', 't' }, '<S-A-.>', function()
+        vim.cmd('stopinsert')
+        tmux.window.next()
+      end, { desc = 'Next tmux window' })
     end,
   },
 }
