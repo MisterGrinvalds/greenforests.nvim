@@ -86,5 +86,10 @@ return {
     vim.keymap.set('n', '<leader>sn', function()
       builtin.find_files { cwd = vim.fn.stdpath 'config' }
     end, { desc = '[S]earch [N]eovim files' })
+
+    -- Tmux repo picker
+    vim.keymap.set('n', '<leader>tp', function()
+      require('custom.tmux.picker').trepo()
+    end, { desc = '[T]mux [P]roject (open repo in new window)' })
   end,
 }

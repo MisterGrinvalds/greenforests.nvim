@@ -156,4 +156,99 @@ function M.show()
     :find()
 end
 
+--- Show repository picker and open in new tmux window
+--- Mimics the shell `trepo` function
+---@param opts table|nil Options (repos_dir, max_depth)
+function M.trepo(opts)
+  opts = opts or {}
+  local repos_dir = opts.repos_dir or vim.env.TMUX_REPOS_DIR or vim.env.HOME .. '/Repos'
+  local max_depth = opts.max_depth or 4
+
+  local tmux = require('custom.tmux')
+
+  if not tmux.is_tmux() then
+    vim.notify('Not running inside tmux', vim.log.levels.ERROR)
+    return
+  end
+
+  -- Check if repos directory exists
+  if vim.fn.isdirectory(repos_dir) ~= 1 then
+    vim.notify('Repos directory not found: ' .. repos_dir, vim.log.levels.ERROR)
+    return
+  end
+
+  -- Find all git repositories
+  local cmd = string.format(
+    'find %s -maxdepth %d -type d -name ".git" 2>/dev/null | sed "s|/\\.git$||" | sort',
+    vim.fn.shellescape(repos_dir),
+    max_depth
+  )
+  local handle = io.popen(cmd)
+  if not handle then
+    vim.notify('Failed to find repositories', vim.log.levels.ERROR)
+    return
+  end
+
+  local result = handle:read('*a')
+  handle:close()
+
+  local repos = {}
+  for line in result:gmatch('[^\n]+') do
+    local display_name = line:gsub('^' .. vim.pesc(repos_dir) .. '/', '')
+    table.insert(repos, {
+      path = line,
+      display = display_name,
+      name = vim.fn.fnamemodify(line, ':t'),
+    })
+  end
+
+  if #repos == 0 then
+    vim.notify('No git repositories found in ' .. repos_dir, vim.log.levels.WARN)
+    return
+  end
+
+  local pickers = require('telescope.pickers')
+  local finders = require('telescope.finders')
+  local conf = require('telescope.config').values
+  local actions = require('telescope.actions')
+  local action_state = require('telescope.actions.state')
+
+  pickers
+    .new({
+      prompt_title = ' Open Repo in tmux',
+      results_title = 'Repositories',
+      finder = finders.new_table({
+        results = repos,
+        entry_maker = function(entry)
+          return {
+            value = entry,
+            display = entry.display,
+            ordinal = entry.display,
+          }
+        end,
+      }),
+      sorter = conf.generic_sorter({}),
+      previewer = false,
+      layout_config = {
+        width = 0.6,
+        height = 0.6,
+      },
+      attach_mappings = function(prompt_bufnr, map)
+        actions.select_default:replace(function()
+          local selection = action_state.get_selected_entry()
+          actions.close(prompt_bufnr)
+
+          if selection then
+            local repo = selection.value
+            tmux.window.create(repo.name, { cwd = repo.path })
+            vim.notify('Opened window "' .. repo.name .. '" in ' .. repo.path, vim.log.levels.INFO)
+          end
+        end)
+
+        return true
+      end,
+    })
+    :find()
+end
+
 return M

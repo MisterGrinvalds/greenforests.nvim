@@ -4,6 +4,7 @@ local M = {}
 M.window = require('custom.tmux.window')
 M.session = require('custom.tmux.session')
 M.utils = require('custom.tmux.utils')
+M.picker = require('custom.tmux.picker')
 
 --- Check if running inside tmux
 ---@return boolean
