@@ -1,97 +1,165 @@
 # Greenforests Brand Expert
 
-Expert in enforcing and applying the Greenforests LLC brand style guide across web projects, documentation sites, and design assets.
+Expert in enforcing and applying the Greenforests design system — a Japanese stationery-inspired aesthetic crafted with care and precision.
 
-## Brand Overview
+## Brand Identity
 
-Greenforests is a nature-inspired brand with an organic, sophisticated aesthetic combining forest greens, autumn oranges, natural creams, and wood tones with elegant serif typography.
-
-## Color Palette
-
-### Forest Greens (Primary)
-| Name | HEX | RGB | CSS Variable |
-|------|-----|-----|--------------|
-| Forest Deep | #1A3A2F | 26, 58, 47 | --forest-deep |
-| Forest Primary | #2D5A45 | 45, 90, 69 | --forest-primary |
-| Forest Light | #4A7C5F | 74, 124, 95 | --forest-light |
-| Moss | #6B8F71 | 107, 143, 113 | --moss |
-| Sage | #A8C4A2 | 168, 196, 162 | --sage |
-
-### Autumn Oranges (Accent)
-| Name | HEX | RGB | CSS Variable |
-|------|-----|-----|--------------|
-| Burnt Orange | #C45A2C | 196, 90, 44 | --burnt-orange |
-| Terracotta | #D4714A | 212, 113, 74 | --terracotta |
-| Amber | #E8A857 | 232, 168, 87 | --amber |
-| Golden | #F5C56D | 245, 197, 109 | --golden |
-
-### Natural Creams (Background)
-| Name | HEX | RGB | CSS Variable |
-|------|-----|-----|--------------|
-| Cream Dark | #E8DCC4 | 232, 220, 196 | --cream-dark |
-| Cream | #F4EDE0 | 244, 237, 224 | --cream |
-| Cream Light | #FAF8F3 | 250, 248, 243 | --cream-light |
-| Paper White | #FEFDFB | 254, 253, 251 | --paper-white |
-
-### Wood Tones (Text/Accents)
-| Name | HEX | RGB | CSS Variable |
-|------|-----|-----|--------------|
-| Bark | #3D2E1F | 61, 46, 31 | --bark |
-| Walnut | #5C4033 | 92, 64, 51 | --walnut |
-| Cedar | #8B6B4A | 139, 107, 74 | --cedar |
+- **Wordmark**: `greenforests` (lowercase, letter-spacing: 0.15em)
+- **Tagline**: "Crafting thoughtful design"
+- **Aesthetic**: Japanese stationery — warm, tactile, refined
 
 ## Typography
 
-### Primary Display Font: Zen Old Mincho
-- Use for: Headlines, logo, titles, section headers
-- Weights: 400 (Regular), 500 (Medium), 600 (SemiBold), 700 (Bold)
-- Style: Japanese-inspired serif with elegant, refined character
-- Letter-spacing: 0.12em - 0.25em for uppercase
+### Font Stack
 
-### Secondary Font: Cormorant Garamond
-- Use for: Subheads, quotes, body text, navigation, labels
-- Weights: 300 (Light), 400 (Regular), 500 (Medium), 600 (SemiBold)
-- Supports italic variants
-- Line-height: 1.6 - 1.9 for body text
+| Role | Font | Weight | Usage |
+|------|------|--------|-------|
+| **Headings** | EB Garamond | 400–600 | All h1–h6, display text |
+| **Body** | Karla | 300–600 | Paragraphs, UI text, labels |
 
 ### Google Fonts Import
 ```css
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Zen+Old+Mincho:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Karla:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
 ```
 
-## Brand Textures
+### Type Scale
+
+| Element | Size | Notes |
+|---------|------|-------|
+| h1 | 2.25rem (36px) | Page titles |
+| h2 | 1.875rem (30px) | Section headers |
+| h3 | 1.5rem (24px) | Subsection headers |
+| h4 | 1.25rem (20px) | Card titles |
+| h5 | 1.125rem (18px) | Labels |
+| h6 | 1rem (16px) | Small headers |
+| body | 1rem (16px) | Base text |
+| sm | 0.875rem (14px) | Secondary text |
+| xs | 0.75rem (12px) | Captions |
+
+### Typography Guidelines
+
+- Headings use `letter-spacing: 0.02em`
+- Wordmark uses `letter-spacing: 0.15em`
+- Body text is antialiased for smoothness
+
+## Color Palette
+
+### Light Mode
+
+| Token | HSL | Hex | Usage |
+|-------|-----|-----|-------|
+| Background | 45 30% 96% | #F7F5F0 | Page background |
+| Foreground | 30 10% 20% | #3A3632 | Primary text |
+| Card | 42 35% 94% | #F3EFE6 | Card surfaces |
+| Primary | 24 85% 55% | #E8742B | CTAs, links |
+| Secondary | 140 35% 35% | #3A7A4D | Accents, success |
+| Muted | 40 20% 88% | #E5DFD5 | Subtle backgrounds |
+| Muted Foreground | 30 10% 45% | #7A7269 | Secondary text |
+| Accent | 20 50% 75% | #D9B9A3 | Soft highlights |
+| Border | 35 25% 85% | #DED6CB | Dividers, outlines |
+| Destructive | 0 65% 50% | #D43D3D | Errors, warnings |
+
+### Dark Mode
+
+| Token | HSL | Hex | Usage |
+|-------|-----|-----|-------|
+| Background | 30 15% 12% | #231F1C | Page background |
+| Foreground | 40 25% 90% | #EBE5DC | Primary text |
+| Card | 30 15% 15% | #2B2623 | Card surfaces |
+| Primary | 24 80% 60% | #E8873D | CTAs, links |
+| Secondary | 140 30% 45% | #4A9660 | Accents, success |
+| Muted | 30 15% 20% | #3A3330 | Subtle backgrounds |
+| Muted Foreground | 40 15% 60% | #A89E94 | Secondary text |
+
+### Named Colors
+
+| Name | Light | Dark | Usage |
+|------|-------|------|-------|
+| Cream | #F7F5F0 | #231F1C | Base tone |
+| Paper | #F3EFE6 | #2B2623 | Surface |
+| Persimmon | #E8742B | #E8873D | Primary action |
+| Forest | #3A7A4D | #4A9660 | Secondary accent |
+| Charcoal | #3A3632 | #EBE5DC | Text |
+| Warm Gray | #7A7269 | #A89E94 | Muted text |
+| Terracotta | #D9B9A3 | hsl(20 40% 35%) | Soft accent |
+| Wood | hsl(30 40% 30%) | hsl(30 30% 50%) | Dividers |
+
+## Spacing
+
+Based on a 4px grid system:
+
+| Token | Value |
+|-------|-------|
+| 0.5 | 2px |
+| 1 | 4px |
+| 2 | 8px |
+| 3 | 12px |
+| 4 | 16px |
+| 6 | 24px |
+| 8 | 32px |
+| 10 | 40px |
+| 12 | 48px |
+| 16 | 64px |
+
+### Component Spacing
+
+- Card padding: 24px
+- Section gaps: 32px
+- Button padding: 16px × 8px
+- Container max-width: 1400px with 2rem padding
+
+## Border Radius
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| sm | 2px | Small elements |
+| md | 4px | Buttons, inputs |
+| lg | 6px | Cards, containers |
+| full | 9999px | Badges, avatars |
+
+## Shadows
+
+```css
+shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+```
+
+## Special Effects
 
 ### Paper Texture
-Subtle noise overlay for organic feel on light backgrounds.
+Subtle fractal noise overlay at 3% opacity for tactile feel.
 
-### Canvas Texture
-Crosshatch pattern for tactile, woven appearance.
+### Wood Divider
+Gradient line fading at edges, using Wood color at 30% opacity.
 
-### Corduroy Texture
-Vertical lines for depth on dark backgrounds.
+### Link Underline Animation
+Scale transform from right to left on hover.
 
-### Wood Grain Texture
-Diagonal grain patterns for natural warmth.
+## Animation Durations
 
-## Design Principles
-
-1. **Organic & Natural**: Favor soft, rounded corners (4-6px), natural color transitions
-2. **Elegant Typography**: Use generous letter-spacing for headings, proper hierarchy
-3. **Textured Depth**: Apply subtle textures to add tactile quality
-4. **Contrast Balance**: Dark forest greens against cream backgrounds
-5. **Accent Sparingly**: Use burnt orange as highlight, not primary
+- Fast: 0.2s (accordions, toggles)
+- Normal: 0.3s (hovers, transitions)
+- Slow: 0.6s (fade-in, page elements)
+- Cinematic: 0.8s (hero animations)
 
 ## Docusaurus Application
 
 ### Theme Variables to Override
-- `--ifm-color-primary`: Use Forest Primary (#2D5A45)
-- `--ifm-color-primary-dark`: Use Forest Deep (#1A3A2F)
-- `--ifm-color-primary-light`: Use Forest Light (#4A7C5F)
-- `--ifm-background-color`: Use Cream (#F4EDE0) or Cream Light (#FAF8F3)
-- `--ifm-font-family-base`: Cormorant Garamond
-- `--ifm-heading-font-family`: Zen Old Mincho
+
+```css
+--ifm-color-primary: #E8742B (Persimmon)
+--ifm-color-primary-dark: #D4691F
+--ifm-color-primary-light: #E8873D
+--ifm-background-color: #F7F5F0 (Cream)
+--ifm-font-family-base: Karla
+--ifm-heading-font-family: EB Garamond
+```
 
 ### Dark Mode
-- Background: Forest Deep (#1A3A2F)
-- Text: Cream (#F4EDE0)
-- Accents: Sage (#A8C4A2), Burnt Orange (#C45A2C)
+
+```css
+--ifm-background-color: #231F1C
+--ifm-font-color-base: #EBE5DC
+--ifm-color-primary: #E8873D
+```
