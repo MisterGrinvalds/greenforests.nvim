@@ -76,6 +76,7 @@ add('plugins.terminal')
 
 -- Tools
 add('plugins.claude-code')
+add('plugins.opencode')
 add('plugins.docusaurus')
 add('plugins.plugin-help')
 
