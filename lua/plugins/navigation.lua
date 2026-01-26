@@ -80,53 +80,54 @@ return {
           ['<Right>'] = 'open',
         },
       },
-      -- Auto-preview on cursor movement
       event_handlers = {
         {
           event = 'neo_tree_buffer_enter',
           handler = function()
             vim.opt_local.cursorline = true
+
+            -- Open preview automatically on buffer enter
+            vim.defer_fn(function()
+              local state = require('neo-tree.sources.manager').get_state('filesystem')
+              if state and state.tree then
+                local node = state.tree:get_node()
+                if node and node.type == 'file' and not state.current_preview then
+                  local commands = require('neo-tree.sources.filesystem.commands')
+                  commands.toggle_preview(state, { use_float = true, toggle_focus = false })
+                end
+              end
+            end, 50)
+
+            -- Track last node to avoid redundant updates
             local last_node_id = nil
             local timer = vim.uv.new_timer()
+
             vim.api.nvim_create_autocmd({ 'CursorMoved' }, {
               buffer = 0,
               callback = function()
                 timer:stop()
                 timer:start(
-                  100, -- 100ms debounce
+                  100,
                   0,
                   vim.schedule_wrap(function()
-                    local state = require('neo-tree.sources.manager').get_state('filesystem')
-                    if state and state.tree then
-                      local node = state.tree:get_node()
-                      if node and node.type == 'file' and node.id ~= last_node_id then
-                        last_node_id = node.id
-                        local preview = require('neo-tree.sources.common.preview')
-                        -- Force show preview (not toggle)
-                        if not state.current_preview then
-                          local commands = require('neo-tree.sources.filesystem.commands')
-                          commands.toggle_preview(state, { use_float = true, toggle_focus = false })
-                        else
-                          -- Just update the preview content
-                          preview.show(state, node.path, nil, { use_float = true })
+                    pcall(function()
+                      local state = require('neo-tree.sources.manager').get_state('filesystem')
+                      if state and state.tree then
+                        local node = state.tree:get_node()
+                        -- Only update if preview is open and node changed
+                        if node and node.type == 'file' and node.id ~= last_node_id then
+                          last_node_id = node.id
+                          if state.current_preview and state.current_preview.winid and vim.api.nvim_win_is_valid(state.current_preview.winid) then
+                            local preview = require('neo-tree.sources.common.preview')
+                            preview.show(state, node.path, nil, { use_float = true })
+                          end
                         end
                       end
-                    end
+                    end)
                   end)
                 )
               end,
             })
-          end,
-        },
-        {
-          event = 'neo_tree_window_after_close',
-          handler = function()
-            -- Clean up preview when neo-tree closes
-            local state = require('neo-tree.sources.manager').get_state('filesystem')
-            if state and state.current_preview then
-              local preview = require('neo-tree.sources.common.preview')
-              preview.hide(state)
-            end
           end,
         },
       },
