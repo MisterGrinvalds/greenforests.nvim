@@ -38,12 +38,25 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- Terminal mode navigation (word/line movement)
-vim.keymap.set('t', '<A-h>', '<Esc>b', { desc = 'Word left' })
-vim.keymap.set('t', '<A-l>', '<Esc>f', { desc = 'Word right' })
+-- Send raw escape sequences directly to the terminal job
+vim.keymap.set('t', '<A-h>', function()
+  local job_id = vim.b.terminal_job_id
+  if job_id then vim.fn.chansend(job_id, '\x1bb') end  -- ESC+b = Alt+b (word left)
+end, { desc = 'Word left' })
+vim.keymap.set('t', '<A-l>', function()
+  local job_id = vim.b.terminal_job_id
+  if job_id then vim.fn.chansend(job_id, '\x1bf') end  -- ESC+f = Alt+f (word right)
+end, { desc = 'Word right' })
 vim.keymap.set('t', '<A-j>', '<C-a>', { desc = 'Go to line start (HOME)' })
 vim.keymap.set('t', '<A-k>', '<C-e>', { desc = 'Go to line end (END)' })
-vim.keymap.set('t', '<A-Left>', '<Esc>b', { desc = 'Go to previous word' })
-vim.keymap.set('t', '<A-Right>', '<Esc>f', { desc = 'Go to next word' })
+vim.keymap.set('t', '<A-Left>', function()
+  local job_id = vim.b.terminal_job_id
+  if job_id then vim.fn.chansend(job_id, '\x1bb') end
+end, { desc = 'Go to previous word' })
+vim.keymap.set('t', '<A-Right>', function()
+  local job_id = vim.b.terminal_job_id
+  if job_id then vim.fn.chansend(job_id, '\x1bf') end
+end, { desc = 'Go to next word' })
 vim.keymap.set('t', '<A-Down>', '<C-a>', { desc = 'Go to line start (HOME)' })
 vim.keymap.set('t', '<A-Up>', '<C-e>', { desc = 'Go to line end (END)' })
 
